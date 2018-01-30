@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-  
-  
+    
+  C++ - 
   
   </title>
  <meta name="description" content="">
@@ -98,15 +98,51 @@
 
 	
 		<div class="markdown-body">
-		<h1>lldb</h1>
+		<h1>C++ 输入输出流</h1>
 
-		<p>lldb是调试llvm和clang的调试工具。</p>
+		<p>C++包含输入和输出流，他们之间的继承关系如图<br/>
+<img src="http://naipc.uchicago.edu/2015/ref/cppreference/common/images/0/06/std-io-complete-inheritance.svg" alt=""/></p>
+
+<h2 id="toc_0">接口</h2>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: center">接口</th>
+<th style="text-align: left">接口功能</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: center">io_base</td>
+<td style="text-align: left">manages formatting flags and input/output exceptions </td>
+</tr>
+<tr>
+<td style="text-align: center">basic_ios</td>
+<td style="text-align: left">manages an arbitrary stream buffer </td>
+</tr>
+<tr>
+<td style="text-align: center">basic_streambuf</td>
+<td style="text-align: left">abstracts a raw device </td>
+</tr>
+<tr>
+<td style="text-align: center">basic_istream</td>
+<td style="text-align: left">wraps a given abstract device and provides high-level input interface </td>
+</tr>
+<tr>
+<td style="text-align: center">basic_ostream</td>
+<td style="text-align: left">wraps a given abstract device and provides high-level output interface</td>
+</tr>
+<tr>
+<td style="text-align: center">basic_iostream</td>
+<td style="text-align: left">wraps a given abstract device and provides hith-level input/output interface</td>
+</tr>
+</tbody>
+</table>
 
 
 		</div>
-	
-
- 
 	
 
   
