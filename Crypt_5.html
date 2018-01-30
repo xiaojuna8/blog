@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  C++ - 
+  Crypt - 
   
   </title>
   
@@ -109,191 +109,108 @@
 		<div class="markdown-body home-categories">
 		
 			<div class="article">
-                <a class="clearlink" href="15173053129472.html">
+                <a class="clearlink" href="15173049144029.html">
                 
-                  <h1>字符编码</h1>
+                  <h1>密码学安全随机数</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<h3 id="toc_0">Ascii</h3>
+                        	<blockquote>
+<p>A <strong>cryptographically secure pseudo-random number generator</strong> (<strong>CSPRNG</strong>) or <strong>cryptographic pseudo-random number generator</strong>(<strong>CPRNG</strong>)<a href="http://www.wikiwand.com/en/Cryptographically_secure_pseudorandom_number_generator#citenote1">[1]</a> is a <a href="http://www.wikiwand.com/en/Pseudo-random_number_generator">pseudo-random number generator</a> (PRNG) with properties that make it suitable for use in <a href="http://www.wikiwand.com/en/Cryptography">cryptography</a>.</p>
 
-<p>是美国信息互换标准，用0x00到0x20表示控制字符，剩下空格，标点，数字，大小写字母编码到127.</p>
-
-<h3 id="toc_1">GB2312</h3>
-
-<p>对小于127的字节与Ascii相同，当两个字节都大于127时，前面字节称为高字节从0xA1到0xF7，后边称为低字节从0xA1到0xFE，这样组合出大约7000个简体字。</p>
-
-<h3 id="toc_2">GBK</h3>
-
-<p>为了编码生僻字和繁体字，规定只要第一个字节大于127就表示一个汉字的开始，GBK包含了GB2312所有内容，同时又增加了近两万个汉字和符号。</p>
-
-<h3 id="toc_3">GB18030</h3>
-
-<p>在GBK基础上又增加了几千个少数民族字，形成了GB18030</p>
-
-<h3 id="toc_4">Unicode</h3>
-
-<p>ISO废除所有地区性编码方案，指定标准时计算机存储容量极大发展了。为每个字符进行了编码例如希伯来文的<code>N</code>编码为U+2135，英文字母<code>A</code>编码为U+0061。Unicode并不涉及字符怎样在计算机中表示，更没有规定占几个字节。所以他支持的字符数量没有限制。</p>
-
-<h2 id="toc_5">传输编码</h2>
-
-<p>unicode在很长一段时间内无法推广，直到互联网的出现，为解决unicode如何在网络上传输的问题，于是面向传输的众多 <strong>UTF</strong>（UCS Transfer Format）标准出现了，顾名思义，<strong>UTF-8</strong>就是每次8个位传输数据，而<strong>UTF-16</strong>就是每次16个位。</p>
-
-<h3 id="toc_6">UTF-8</h3>
-
-<p>UTF8是互联网上最广泛的传输方式。UTF8中0-127用一个字符表示，与US-Ascii相同，128以上字符用两个，三个和四个字节表示，UTF8可认为是变长编码。</p>
-
-<p>其中英文一般是1字节，希腊，希伯来，俄语占2字节，常见中文日文韩文占3字节，生僻中文韩文日文占4字节。</p>
-
-<p><img src="https://gitee.com/uploads/images/2017/1226/154002_d9a7a4bf_1453931.png" alt="char-boundaries" title="char-boundaries.png"/></p>
-
-<h4 id="toc_7">BOM</h4>
-
-<p>Byte Order Mark字节顺序标记，出现在文件头部。用于标识文件是用那种各式编码，UTF16中<code>FEFF</code>用来判断是大端还是小端模式。</p>
-
-<p>UTF8不需要BOM表示字节顺序，但可以用BOM表明编码方式<code>EF BB BF</code>三个字节表示UTF-8编码方式，例如windows记事本保存一个以UTF-8编码文件时，会在头上加入三个不可见字节。</p>
-
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                  
-                    <span class="date">2018/1/30</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
-          				   
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
-
-                       
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-			<div class="article">
-                <a class="clearlink" href="15173052079033.html">
-                
-                  <h1>跨平台C／C++系统／编译器检测</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<p>通过预定义宏可以判断当前使用平台和所用编译器。</p>
-
-<h2 id="toc_0">平台宏</h2>
-
-<p>在不同的系统下编译器预定义宏不同，可以作为检测操作系统的方法。</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>windows x86</th>
-<th>windows x64</th>
-<th>linux</th>
-<th>mac</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>_WIN32</code></td>
-<td>**</td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>_WIN64</code></td>
-<td></td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__unix__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__linux__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__APPLE__</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h1 id="toc_1">编译器预定义宏</h1>
-
-<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Clang</th>
-<th>GCC</th>
-<th>ICC</th>
-<th>MSVC</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>__clang__</code></td>
-<td>**</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__GUNC__</code></td>
-<td>**</td>
-<td>**</td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__ICC</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__MSC_VER</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="toc_2">size_t大小</h2>
+<p>Many aspects of cryptography require <a href="http://www.wikiwand.com/en/Random">random</a> numbers, for example:</p>
 
 <ul>
-<li><p>在64位系统中定义<code>size_t = uint64_t</code></p></li>
-<li><p>在32位系统中定义<code>size_t = uint32_t</code></p></li>
+<li><a href="http://www.wikiwand.com/en/Key_generation">key generation</a></li>
+<li><a href="http://www.wikiwand.com/en/Cryptographic_nonce">nonces</a></li>
+<li><a href="http://www.wikiwand.com/en/One-time_pad">one-time pads</a></li>
+<li><a href="http://www.wikiwand.com/en/Salt_(cryptography)">salts</a> in certain signature schemes, including <a href="http://www.wikiwand.com/en/ECDSA">ECDSA</a>, RSASSA-PSS</li>
 </ul>
+</blockquote>
+
+<p>密码学随机数必须不可预测下一位（在多项式时间内不能获得好于50%正确率的结果）。</p>
+
+<h2 id="toc_0">生成器设计</h2>
+
+<ol>
+<li>基于加密函数或者hash函数</li>
+<li>基于数学上的难题</li>
+<li>特殊目的的设计</li>
+</ol>
+
+<h3 id="toc_1">基于密码学设计</h3>
+
+<ul>
+<li>分组加密器在<em>counter mode</em>时可转换为CSPRNG。随机选择一个key加密0.然后加密1.然后加密2，ect。counter也可以随便的选取一个数字作为开始。</li>
+<li>hash函数对<em>counter</em>也可以作为一个好的CSPRNG</li>
+<li>在流加密器中生成的伪随机序列再异或原文，加密器在<em>counter</em>模式运行可以得到一个新的伪随机序列，可能周期很长。只有原序列就是一个很好的CSPRNG，结果才能是个好的CSPRNG</li>
+</ul>
+
+<h3 id="toc_2">基于数论的设计</h3>
+
+<ul>
+<li><strong>Blum Blum Shub(B.B.S)</strong>伪随机数生成器在1986年被提出，\(x_{n+1}=x_{n}^2\bmod{M},where  M = pq\), p,q是两个足够大的素数。这个算法是非常低效的。</li>
+<li><strong>Blum-Micali algorithm</strong>也是非常低效的</li>
+</ul>
+
+<h3 id="toc_3">特殊设计</h3>
+
+<ul>
+<li>Yarrow algorithm估算系统输入熵的量。在FreeBSD和Mac OS X中使用</li>
+<li>ChaCha20 algorithm算法在OpenBSD和NetBSD和Linux中使用</li>
+<li>Fortuna algorithm是Yarrow算法的后继者，它不试图衡量输入的熵</li>
+<li>CryptGenRandom是Microsoft的随机数生成接口(推荐使用rand_s函数，是CryptGenRandom的封装)</li>
+</ul>
+
+<h2 id="toc_4">Yarrow</h2>
+
+<ul>
+<li>Hash function</li>
+<li>Block cipher</li>
+</ul>
+
+<h3 id="toc_5">Generation</h3>
+
+<p><img src="https://gitee.com/uploads/images/2017/1213/103305_679d78f1_1453931.png" alt="Yarrow" title="Functions_for_Generation_Mechanism.png"/></p>
+
+<p>C是内部维护的<strong>Counter Mode</strong>的nbit值，K是加密key。</p>
+
+<h3 id="toc_6">Reseed</h3>
+
+<p>Yarrow 高效的，</p>
+
+<h2 id="toc_7">Visual Studio random_device</h2>
+
+<p>The class describes a source of random numbers, and is allowed but not required to be <strong>non-deterministic or cryptographically secure</strong> by the ISO C++ Standard.  In the Visual Studio implementation the values produced are non-deterministic and cryptographically secure.</p>
+
+<blockquote>
+<p>The RNG generates as specified in FIPS 186-2 appendix 3.1 with SHA-1 as the G function. With entropy from:</p>
+
+<p>The current process ID (GetCurrentProcessID).</p>
+
+<p>The current thread ID (GetCurrentThreadID).</p>
+
+<p>The ticks since boot (GetTickCount).</p>
+
+<p>The current time (GetLocalTime).</p>
+
+<p>Various high-precision performance counters (QueryPerformanceCounter).</p>
+
+<p>An MD4 hash of the user’s environment block, which includes username, computer name, and search path. MD4 is a hashing algorithm that creates a 128-bit message digest from input data to verify data integrity.</p>
+
+<p>High-precision internal CPU counters, such as RDTSC, RDMSR, RDPMC </p>
+
+<p>Low-level system information: Idle Process Time, Io Read Transfer Count, I/O Write Transfer Count, I/O Other Transfer Count, I/O Read Operation Count, I/O Write Operation Count, I/O Other Operation Count, Available Pages, Committed Pages, Commit Limit, Peak Commitment, Page Fault Count, Copy On Write Count, Transition Count, Cache Transition Count, Demand Zero Count, Page Read Count, Page Read I/O Count, Cache Read Count, Cache I/O Count, Dirty Pages Write Count, Dirty Write I/O Count, Mapped Pages Write Count, Mapped Write I/O Count, Paged Pool Pages, Non Paged Pool Pages, Paged Pool Allocated space, Paged Pool Free space, Non Paged Pool Allocated space, Non Paged Pool Free space, Free System page table entry, Resident System Code Page, Total System Driver Pages, Total System Code Pages, Non Paged Pool Lookaside Hits, Paged Pool Lookaside Hits, Available Paged Pool Pages, Resident System Cache Page, Resident Paged Pool Page, Resident System Driver Page, Cache manager Fast Read with No Wait, Cache manager Fast Read with Wait, Cache manager Fast Read Resource Missed, Cache manager Fast Read Not Possible, Cache manager Fast Memory Descriptor List Read with No Wait, Cache manager Fast Memory Descriptor List Read with Wait, Cache manager Fast Memory Descriptor List Read Resource Missed, Cache manager Fast Memory Descriptor List Read Not Possible, Cache manager Map Data with No Wait, Cache manager Map Data with Wait, Cache manager Map Data with No Wait Miss, Cache manager Map Data Wait Miss, Cache manager Pin-Mapped Data Count, Cache manager Pin-Read with No Wait, Cache manager Pin Read with Wait, Cache manager Pin-Read with No Wait Miss, Cache manager Pin-Read Wait Miss, Cache manager Copy-Read with No Wait, Cache manager Copy-Read with Wait, Cache manager Copy-Read with No Wait Miss, Cache manager Copy-Read with Wait Miss, Cache manager Memory Descriptor List Read with No Wait, Cache manager Memory Descriptor List Read with Wait, Cache manager Memory Descriptor List Read with No Wait Miss, Cache manager Memory Descriptor List Read with Wait Miss, Cache manager Read Ahead IOs, Cache manager Lazy-Write IOs, Cache manager Lazy-Write Pages, Cache manager Data Flushes, Cache manager Data Pages, Context Switches, First Level Translation buffer Fills, Second Level Translation buffer Fills, and System Calls.</p>
+
+<p>System exception information consisting of Alignment Fix up Count, Exception Dispatch Count, Floating Emulation Count, and Byte Word Emulation Count.</p>
+
+<p>System lookaside information consisting of Current Depth, Maximum Depth, Total Allocates, Allocate Misses, Total Frees, Free Misses, Type, Tag, and Size.</p>
+
+<p>System interrupt information consisting of context switches, deferred procedure call count, deferred procedure call rate, time increment, deferred procedure call bypass count, and asynchronous procedure call bypass count.</p>
+
+<p>System process information consisting of Next Entry Offset, Number Of Threads, Create Time, User Time, Kernel Time, Image Name, Base Priority, Unique Process ID, Inherited from Unique Process ID, Handle Count, Session ID, Page Directory Base, Peak Virtual Size, Virtual Size, Page Fault Count, Peak Working Set Size, Working Set Size, Quota Peak Paged Pool Usage, Quota Paged Pool Usage, Quota Peak Non Paged Pool Usage, Quota Non Paged Pool Usage, Page file Usage, Peak Page file Usage, Private Page Count, Read Operation Count, Write Operation Count, Other Operation Count, Read Transfer Count, Write Transfer Count, and Other Transfer Count.</p>
+</blockquote>
 
                         
                       </div>
@@ -305,7 +222,7 @@
                     <span class="date">2018/1/30</span>
                     <span>posted in&nbsp;</span> 
           				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
+          					    <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
           				   
                   </div>
                   <div class="more-right right">
@@ -319,34 +236,60 @@
               </div><!-- article -->
         
 			<div class="article">
-                <a class="clearlink" href="15173051110022.html">
+                <a class="clearlink" href="15173049144073.html">
                 
-                  <h1>curl库编译</h1>
+                  <h1>数据加密方式比较</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<p>curl是一个命令行模式工具，用URLs方式传输数据。<a href="https://curl.haxx.se">网址</a></p>
+                        	<p>数据加密分为对称加密和非对称加密。</p>
 
 <blockquote>
-<p><strong>Supports...</strong></p>
-
-<p>DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, Telnet and TFTP. curl supports SSL certificates, HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, HTTP/2, cookies, user+password authentication (Basic, Plain, Digest, CRAM-MD5, NTLM, Negotiate and Kerberos), file transfer resume, proxy tunneling and more.</p>
+<p>Symmetric ciphers have good performance, so use them on large data sets.</p>
 </blockquote>
 
-<h2 id="toc_0">how to bulid</h2>
+<p><a href="https://cromwell-intl.com/cybersecurity/cipher-selection.html">密钥长度和等效的安全性能</a>，文章中特别提到最后一列确实是<code>521</code></p>
 
-<p><a href="https://curl.haxx.se/docs/install.html">参考网址</a></p>
+<table>
+<thead>
+<tr>
+<th>加密方式</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
 
-<h3 id="toc_1">Unix</h3>
-
-<pre><code>1 ./configure
-2 make
-3 make test (optional)
-4 make install(root)
-</code></pre>
-
-<p>在Mac OSX中可能会遇到识别openssl的<a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl">问题</a>，</p>
+<tbody>
+<tr>
+<td>Symmetric Encryption</td>
+<td>80</td>
+<td>112</td>
+<td>128</td>
+<td>192</td>
+<td>256</td>
+</tr>
+<tr>
+<td>Elliptic Curve encryption</td>
+<td>160</td>
+<td>224</td>
+<td>256</td>
+<td>384</td>
+<td>521</td>
+</tr>
+<tr>
+<td>RSA (asymmetric encryption)</td>
+<td>1024</td>
+<td>2048</td>
+<td>3072</td>
+<td>7680</td>
+<td>15380</td>
+</tr>
+</tbody>
+</table>
 
                         
                       </div>
@@ -358,7 +301,73 @@
                     <span class="date">2018/1/30</span>
                     <span>posted in&nbsp;</span> 
           				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
+          					    <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="15173049144311.html">
+                
+                  <h1>文件加密解密流程</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>对于磁盘上的文件进行加密和解密操作，考虑到磁盘IO速度和加密速度差异，多线程处理能达到较合理的速度。若一次完整读取整个文件到内存，再加密存储，这对于大文件来讲，比较浪费内存。</p>
+
+<h2 id="toc_0">单线程</h2>
+
+<ol>
+<li>文件分块读取到内存</li>
+<li>内存中数据加密</li>
+<li>分块加密数据写入磁盘</li>
+</ol>
+
+<p>此时加密时间为，读取时间+加密时间+写入时间</p>
+
+<h2 id="toc_1">多线程</h2>
+
+<p>分为三类线程，申请n块内存。</p>
+
+<ol>
+<li>主线程：磁盘数据读取到内存</li>
+<li>加密线程：内存数据加密</li>
+<li>写文件线程：内存加密数据写入磁盘</li>
+</ol>
+
+<p>定义内存块状态 <code>atomic_int flag</code> </p>
+
+<pre><code class="language-c">0:free
+1:reading file
+2:reading complete
+3:encrypt data
+4:encrypt complete
+5:writing data
+6:writing complete
+</code></pre>
+
+<p>定义内存块编号<code>atomic_int seqID</code>，表示该内存块是原磁盘文件的第几块。</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/1/30</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
           				   
                   </div>
                   <div class="more-right right">
@@ -377,12 +386,12 @@
 			<div class="row">
 			  <div class="large-6 columns">
 			  <p class="text-left" style="padding-top:25px;">
-			   
+			   <a href="Crypt_4.html">&laquo; Prev Page</a>  
 			  </p>
 			  </div>
 			  <div class="large-6 columns">
 			<p class="text-right" style="padding-top:25px;">
-			 <a href="C++_1.html">&raquo; Next Page</a> 
+			 <a href="Crypt_6.html">&raquo; Next Page</a> 
 			</p>
 			  </div>
 			</div>

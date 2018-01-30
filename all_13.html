@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-    
-  C++ - 
+  
+  
   
   </title>
   
@@ -109,190 +109,28 @@
 		<div class="markdown-body home-categories">
 		
 			<div class="article">
-                <a class="clearlink" href="15173053129472.html">
+                <a class="clearlink" href="15173044214676.html">
                 
-                  <h1>字符编码</h1>
+                  <h1>命令行参数</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<h3 id="toc_0">Ascii</h3>
+                        	<h2 id="toc_0">Linux命令行参数解析函数getopt</h2>
 
-<p>是美国信息互换标准，用0x00到0x20表示控制字符，剩下空格，标点，数字，大小写字母编码到127.</p>
+<pre><code class="language-c">＃i nclude &lt;unistd.h&gt;
 
-<h3 id="toc_1">GB2312</h3>
+int getopt(int argc, char * const argv[], const char *optstring);
 
-<p>对小于127的字节与Ascii相同，当两个字节都大于127时，前面字节称为高字节从0xA1到0xF7，后边称为低字节从0xA1到0xFE，这样组合出大约7000个简体字。</p>
-
-<h3 id="toc_2">GBK</h3>
-
-<p>为了编码生僻字和繁体字，规定只要第一个字节大于127就表示一个汉字的开始，GBK包含了GB2312所有内容，同时又增加了近两万个汉字和符号。</p>
-
-<h3 id="toc_3">GB18030</h3>
-
-<p>在GBK基础上又增加了几千个少数民族字，形成了GB18030</p>
-
-<h3 id="toc_4">Unicode</h3>
-
-<p>ISO废除所有地区性编码方案，指定标准时计算机存储容量极大发展了。为每个字符进行了编码例如希伯来文的<code>N</code>编码为U+2135，英文字母<code>A</code>编码为U+0061。Unicode并不涉及字符怎样在计算机中表示，更没有规定占几个字节。所以他支持的字符数量没有限制。</p>
-
-<h2 id="toc_5">传输编码</h2>
-
-<p>unicode在很长一段时间内无法推广，直到互联网的出现，为解决unicode如何在网络上传输的问题，于是面向传输的众多 <strong>UTF</strong>（UCS Transfer Format）标准出现了，顾名思义，<strong>UTF-8</strong>就是每次8个位传输数据，而<strong>UTF-16</strong>就是每次16个位。</p>
-
-<h3 id="toc_6">UTF-8</h3>
-
-<p>UTF8是互联网上最广泛的传输方式。UTF8中0-127用一个字符表示，与US-Ascii相同，128以上字符用两个，三个和四个字节表示，UTF8可认为是变长编码。</p>
-
-<p>其中英文一般是1字节，希腊，希伯来，俄语占2字节，常见中文日文韩文占3字节，生僻中文韩文日文占4字节。</p>
-
-<p><img src="https://gitee.com/uploads/images/2017/1226/154002_d9a7a4bf_1453931.png" alt="char-boundaries" title="char-boundaries.png"/></p>
-
-<h4 id="toc_7">BOM</h4>
-
-<p>Byte Order Mark字节顺序标记，出现在文件头部。用于标识文件是用那种各式编码，UTF16中<code>FEFF</code>用来判断是大端还是小端模式。</p>
-
-<p>UTF8不需要BOM表示字节顺序，但可以用BOM表明编码方式<code>EF BB BF</code>三个字节表示UTF-8编码方式，例如windows记事本保存一个以UTF-8编码文件时，会在头上加入三个不可见字节。</p>
-
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                  
-                    <span class="date">2018/1/30</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
-          				   
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
-
-                       
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-			<div class="article">
-                <a class="clearlink" href="15173052079033.html">
-                
-                  <h1>跨平台C／C++系统／编译器检测</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<p>通过预定义宏可以判断当前使用平台和所用编译器。</p>
-
-<h2 id="toc_0">平台宏</h2>
-
-<p>在不同的系统下编译器预定义宏不同，可以作为检测操作系统的方法。</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>windows x86</th>
-<th>windows x64</th>
-<th>linux</th>
-<th>mac</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>_WIN32</code></td>
-<td>**</td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>_WIN64</code></td>
-<td></td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__unix__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__linux__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__APPLE__</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h1 id="toc_1">编译器预定义宏</h1>
-
-<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Clang</th>
-<th>GCC</th>
-<th>ICC</th>
-<th>MSVC</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>__clang__</code></td>
-<td>**</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__GUNC__</code></td>
-<td>**</td>
-<td>**</td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__ICC</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__MSC_VER</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="toc_2">size_t大小</h2>
+extern char *optarg;
+extern int optind, opterr, optopt;
+</code></pre>
 
 <ul>
-<li><p>在64位系统中定义<code>size_t = uint64_t</code></p></li>
-<li><p>在32位系统中定义<code>size_t = uint32_t</code></p></li>
+<li><code>char *optarg</code> 当前选项参数字符串(如果有)</li>
+<li><code>int optind</code> argv的当前索引值。当getopt()在while循环中使用时，循环结束后，剩下的字串视为操作数，在argv[optind]至argv[argc-1]中可以找到</li>
+<li><code>int opterr</code> 这个变量非零时，getopt()函数为“无效选项”和“缺少参数选项，并输出其错误信息</li>
+<li><code>int optopt</code> 当发现无效选项字符之时，getopt()函数或返回&#39;?&#39;字符，或返回&#39;:&#39;字符，并且optopt包含了所发现的无效选项字符</li>
 </ul>
 
                         
@@ -319,34 +157,22 @@
               </div><!-- article -->
         
 			<div class="article">
-                <a class="clearlink" href="15173051110022.html">
+                <a class="clearlink" href="15173028055344.html">
                 
-                  <h1>curl库编译</h1>
+                  <h1>C++多线程</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<p>curl是一个命令行模式工具，用URLs方式传输数据。<a href="https://curl.haxx.se">网址</a></p>
+                        	<h2 id="toc_0">atomic</h2>
 
-<blockquote>
-<p><strong>Supports...</strong></p>
+<p><code>atomic_bool</code> <code>atomic_int</code>都是无锁的。</p>
 
-<p>DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, Telnet and TFTP. curl supports SSL certificates, HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, HTTP/2, cookies, user+password authentication (Basic, Plain, Digest, CRAM-MD5, NTLM, Negotiate and Kerberos), file transfer resume, proxy tunneling and more.</p>
-</blockquote>
+<h2 id="toc_1">thread</h2>
 
-<h2 id="toc_0">how to bulid</h2>
+<p>线程句柄一定要进行处理<code>detach</code>或<code>join</code>，但是不能两者同时<code>detach join</code></p>
 
-<p><a href="https://curl.haxx.se/docs/install.html">参考网址</a></p>
-
-<h3 id="toc_1">Unix</h3>
-
-<pre><code>1 ./configure
-2 make
-3 make test (optional)
-4 make install(root)
-</code></pre>
-
-<p>在Mac OSX中可能会遇到识别openssl的<a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl">问题</a>，</p>
+<p>线程运行结束后，依然可以进行<code>detach join</code></p>
 
                         
                       </div>
@@ -371,18 +197,158 @@
                 </div>
               </div><!-- article -->
         
+			<div class="article">
+                <a class="clearlink" href="15173027753385.html">
+                
+                  <h1>XCode</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<ul>
+<li>
+<a href="#toc_0">ILdb</a>
+<ul>
+<li>
+<a href="#toc_1">breakpoint</a>
+</li>
+<li>
+<a href="#toc_2">watchpoint</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_3">注释</a>
+</li>
+<li>
+<a href="#toc_4">设置</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">ILdb</h2>
+
+<ul>
+<li>po (print object)</li>
+<li>po:(print object)输出对象摘要</li>
+<li>p:(print)输出原生数据，例如int，char，double</li>
+<li>p/x or print/x 以16进制输出字符</li>
+<li>expression:执行表达式</li>
+<li>c continue 继续</li>
+<li>n next 下一步</li>
+<li>s step </li>
+<li>frame variable （varname）: 查看变量数据（包括vector和原生数据类型）</li>
+<li>vector.__begin 表示vector的首元素位置</li>
+</ul>
+
+<h3 id="toc_1">breakpoint</h3>
+
+<p>在程序中插入断点</p>
+
+<pre><code class="language-c">int main ()
+{
+    int i = 0;
+    while (i &lt; 30)
+    {
+        i++; // break here
+    }
+}
+</code></pre>
+
+<pre><code class="language-c">//在原文件中含有&#39;break&#39;字符的地方插入断点
+(lldb) breakpoint set -p break
+//当断点1满足一定条件时暂停
+(lldb) br mod -c &#39;i % 5 == 0&#39; 1
+//在第一个端点触发后执行指令
+breakpoint command add 1
+Enter your debugger command(s).  Type &#39;DONE&#39; to end.
+&gt; p i //打印i数值
+&gt; c //继续运行
+&gt; DONE
+</code></pre>
+
+<h3 id="toc_2">watchpoint</h3>
+
+<p>目的：监视某个变量被读取／写入的动作。</p>
+
+<pre><code class="language-c">//监视数组的p[1430]数值变化
+(lldb) watchpoint set variable p[1430]
+//监视读取
+(lldb) watchpoint set v -w read _abc4
+//监视读写
+(lldb) watchpoint set v -w read_write _abc3
+</code></pre>
+
+<p>当触发watchpoint时，程序暂停</p>
+
+<h2 id="toc_3">注释</h2>
+
+<ul>
+<li>函数快速注释 “CMD + Option + ／”</li>
+<li>显示函数注释 “Option + 鼠标单击”</li>
+</ul>
+
+<h2 id="toc_4">设置</h2>
+
+<table>
+<thead>
+<tr>
+<th>可执行文件生成目录</th>
+<th>File-ProjectSetting</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/1/30</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
               
 
 
 			<div class="row">
 			  <div class="large-6 columns">
 			  <p class="text-left" style="padding-top:25px;">
-			   
+			   <a href="all_12.html">&laquo; Prev Page</a>  
 			  </p>
 			  </div>
 			  <div class="large-6 columns">
 			<p class="text-right" style="padding-top:25px;">
-			 <a href="C++_1.html">&raquo; Next Page</a> 
+			 <a href="all_14.html">&raquo; Next Page</a> 
 			</p>
 			  </div>
 			</div>

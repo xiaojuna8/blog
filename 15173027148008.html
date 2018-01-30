@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  Shell 脚本 - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>Shell 脚本</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='Linux.html'>Linux</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,63 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <h3 id="toc_0">测试文件</h3>
+
+<p><code>test</code></p>
+
+<pre><code class="language-shell">test -e ./filename
+</code></pre>
+
+<p>测试文件是否存在</p>
+
+<h4 id="toc_1">echo</h4>
+
+<ol>
+<li>输出字符串</li>
+<li>执行指令</li>
+</ol>
+
+<pre><code class="language-shell">echo &quot;hello world&quot; //显示字符串
+echo &quot;hello world ${usrname}&quot;
+</code></pre>
+
+<pre><code class="language-shell">echo `date` //执行指令
+echo `ls -l | grep ${usrname}`
+</code></pre>
+
+<h3 id="toc_2">控制流</h3>
+
+<h4 id="toc_3">if</h4>
+
+<pre><code class="language-shell">if test -e ./hashfile
+then
+    rm hashfile
+fi
+</code></pre>
+
+<h4 id="toc_4">for</h4>
+
+<pre><code class="language-shell">for skill in Ada Coffe Action Java; do
+    echo `date`
+    echo &quot;file name is ${skill}&quot; &gt;&gt; hashfile
+    echo `./CXXTest fileis${skill}` &gt;&gt; hashfile
+done
+</code></pre>
+
+<pre><code class="language-shell">for ((i = 0; i &lt; 10; i++)); do
+    md5 u.sh &gt;&gt; hashfile
+    ./CXXTest &gt;&gt; hashfile
+done
+</code></pre>
+
+<h3 id="toc_5">重定向</h3>
+
+<p><code>&gt;</code>以重写方式将字符串写入文件</p>
+
+<p><code>&gt;&gt;</code> 以追加方式将字符串写入文件</p>
+
+<pre><code class="language-shell">md5 u.sh &gt;&gt; hashfile
+</code></pre>
 
 
     
@@ -140,16 +196,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173027520921.html" 
+          title="Previous Post: Git">&laquo; Git</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173026872373.html" 
+          title="Next Post: Linux基本指令">Linux基本指令 &raquo;</a>
       
       </p>
         </div>

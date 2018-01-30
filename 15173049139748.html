@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  基于标识的加密 - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>基于标识的加密</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,75 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <ul>
+<li>
+<a href="#toc_0">优势</a>
+</li>
+<li>
+<a href="#toc_1">缺点</a>
+</li>
+</ul>
+
+
+<blockquote>
+<p>Identity-based systems allow any party to generate a public key from a known identity value such as an ASCII string.A trusted third party, called the Private Key Generator (PKG), generates the corresponding private keys.</p>
+</blockquote>
+
+<p>任意组织都可以通过标识生成公钥，可靠的第三方PKG生成相关的私钥。</p>
+
+<blockquote>
+<p>To operate, the PKG first publishes a master public key, and retains the corresponding <strong>master private key</strong> (referred to as <em>master key</em>). </p>
+</blockquote>
+
+<p>PKG公布公钥（<strong>a master public key</strong>一个主公钥，只有一个），保留主私钥。</p>
+
+<blockquote>
+<p>Given the master public key, any party can compute a public key corresponding to the identity by combining the master public key with the identity value.</p>
+</blockquote>
+
+<p>根据主公钥，任何人都可以计算出与ID有关的公钥。</p>
+
+<blockquote>
+<p>To obtain a corresponding private key, the party authorized to use the identity <em>ID</em> contacts the PKG, which uses the master private key to generate the private key for identity <em>ID</em>.</p>
+</blockquote>
+
+<p>为了获取相关私钥，经授权使用该ID的人联系PKG获取私钥。</p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1208/101016_a22e5b59_1453931.png" alt="Identity_Based_Encryption_Steps" title="Identity_Based_Encryption_Steps.png"/></p>
+
+<h2 id="toc_0">优势</h2>
+
+<blockquote>
+<p>once issued, keys are always valid</p>
+</blockquote>
+
+<p>密钥一次分发，永久有效。</p>
+
+<h2 id="toc_1">缺点</h2>
+
+<blockquote>
+<p>If a Private Key Generator (PKG) is compromised, all messages protected over the entire lifetime of the public-private key pair used by that server are also compromised. </p>
+</blockquote>
+
+<p>一旦PKG的主私钥危险，所有发送过的公钥-私钥对都危险。</p>
+
+<blockquote>
+<p>To limit the exposure due to a compromised server, the master private-public key pair could be updated with a new independent key pair. </p>
+</blockquote>
+
+<p>为了预防这种情况，主私钥可以升级。</p>
+
+<blockquote>
+<p>However, this introduces a key-management problem where all users must have the most recent public key for the server.</p>
+</blockquote>
+
+<p>但是这又会导致其它密钥管理方面的问题。</p>
+
+<blockquote>
+<p>Because the Private Key Generator (PKG) generates private keys for users, it may decrypt and/or sign any message without authorization. </p>
+</blockquote>
+
+<p>PKG有能力伪造用户进行加密／签名。</p>
 
 
     
@@ -140,16 +208,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173049139393.html" 
+          title="Previous Post: ECC性能">&laquo; ECC性能</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173044802818.html" 
+          title="Next Post: 编译器预定义宏">编译器预定义宏 &raquo;</a>
       
       </p>
         </div>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  SHA - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>SHA</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,39 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <p>MD5碰撞已经很容易实现(2017年)，SHA-1已经被宣布<a href="https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html">不安全</a></p>
+
+<p><img src="./pic/SHA-Comp.png" alt=""/></p>
+
+<h2 id="toc_0">OSX计算哈希指令</h2>
+
+<pre><code>//计算MD5
+md5 xxx
+</code></pre>
+
+<pre><code>//计算SHA-1
+shasum xxx
+</code></pre>
+
+<pre><code>//计算SHA-256
+shasum -a 256 xxx
+</code></pre>
+
+<p>计算字符串哈希</p>
+
+<pre><code>echo -n hello world | md5
+</code></pre>
+
+<h2 id="toc_1">Linux计算哈希函数</h2>
+
+<p>md5计算<code>md5sum</code></p>
+
+<p>sha-1计算<code>sha1sum</code></p>
+
+<p>sha-256计算<code>sha256sum</code></p>
+
+<pre><code>echo -n hello world | md5sum
+</code></pre>
 
 
     
@@ -140,16 +172,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173049142023.html" 
+          title="Previous Post: Slat">&laquo; Slat</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173049142669.html" 
+          title="Next Post: SM9加密">SM9加密 &raquo;</a>
       
       </p>
         </div>

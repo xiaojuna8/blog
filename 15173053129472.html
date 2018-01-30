@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  C++ - 
+  字符编码 - 
   
   </title>
   
@@ -100,23 +100,36 @@
        
 
  <script type="text/javascript">
-	$(function(){
-		$('#menu_item_index').addClass('is_active');
-	});
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
 </script>
 <div class="row">
-	<div class="large-8 medium-8 columns">
-		<div class="markdown-body home-categories">
-		
-			<div class="article">
-                <a class="clearlink" href="15173053129472.html">
-                
-                  <h1>字符编码</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<h3 id="toc_0">Ascii</h3>
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>字符编码</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2018/1/30</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='C++.html'>C++</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <h3 id="toc_0">Ascii</h3>
 
 <p>是美国信息互换标准，用0x00到0x20表示控制字符，剩下空格，标点，数字，大小写字母编码到127.</p>
 
@@ -154,240 +167,43 @@
 
 <p>UTF8不需要BOM表示字节顺序，但可以用BOM表明编码方式<code>EF BB BF</code>三个字节表示UTF-8编码方式，例如windows记事本保存一个以UTF-8编码文件时，会在头上加入三个不可见字节。</p>
 
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                  
-                    <span class="date">2018/1/30</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
-          				   
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
 
-                       
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-			<div class="article">
-                <a class="clearlink" href="15173052079033.html">
-                
-                  <h1>跨平台C／C++系统／编译器检测</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<p>通过预定义宏可以判断当前使用平台和所用编译器。</p>
+    
 
-<h2 id="toc_0">平台宏</h2>
+      </div>
 
-<p>在不同的系统下编译器预定义宏不同，可以作为检测操作系统的方法。</p>
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="15173054025402.html" 
+          title="Previous Post: DNA基本关系">&laquo; DNA基本关系</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="15173052079033.html" 
+          title="Next Post: 跨平台C／C++系统／编译器检测">跨平台C／C++系统／编译器检测 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          
 
-<table>
-<thead>
-<tr>
-<th></th>
-<th>windows x86</th>
-<th>windows x64</th>
-<th>linux</th>
-<th>mac</th>
-</tr>
-</thead>
+          
 
-<tbody>
-<tr>
-<td><code>_WIN32</code></td>
-<td>**</td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>_WIN64</code></td>
-<td></td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__unix__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__linux__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__APPLE__</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h1 id="toc_1">编译器预定义宏</h1>
-
-<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Clang</th>
-<th>GCC</th>
-<th>ICC</th>
-<th>MSVC</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>__clang__</code></td>
-<td>**</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__GUNC__</code></td>
-<td>**</td>
-<td>**</td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__ICC</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__MSC_VER</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="toc_2">size_t大小</h2>
-
-<ul>
-<li><p>在64位系统中定义<code>size_t = uint64_t</code></p></li>
-<li><p>在32位系统中定义<code>size_t = uint32_t</code></p></li>
-</ul>
-
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                  
-                    <span class="date">2018/1/30</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
-          				   
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
-
-                       
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-			<div class="article">
-                <a class="clearlink" href="15173051110022.html">
-                
-                  <h1>curl库编译</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<p>curl是一个命令行模式工具，用URLs方式传输数据。<a href="https://curl.haxx.se">网址</a></p>
-
-<blockquote>
-<p><strong>Supports...</strong></p>
-
-<p>DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, Telnet and TFTP. curl supports SSL certificates, HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, HTTP/2, cookies, user+password authentication (Basic, Plain, Digest, CRAM-MD5, NTLM, Negotiate and Kerberos), file transfer resume, proxy tunneling and more.</p>
-</blockquote>
-
-<h2 id="toc_0">how to bulid</h2>
-
-<p><a href="https://curl.haxx.se/docs/install.html">参考网址</a></p>
-
-<h3 id="toc_1">Unix</h3>
-
-<pre><code>1 ./configure
-2 make
-3 make test (optional)
-4 make install(root)
-</code></pre>
-
-<p>在Mac OSX中可能会遇到识别openssl的<a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl">问题</a>，</p>
-
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                  
-                    <span class="date">2018/1/30</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
-          				   
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
-
-                       
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-              
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
 
 
-			<div class="row">
-			  <div class="large-6 columns">
-			  <p class="text-left" style="padding-top:25px;">
-			   
-			  </p>
-			  </div>
-			  <div class="large-6 columns">
-			<p class="text-right" style="padding-top:25px;">
-			 <a href="C++_1.html">&raquo; Next Page</a> 
-			</p>
-			  </div>
-			</div>
-		</div>
-	</div><!-- large 8 -->
+
 
  <div class="large-4 medium-4 columns">
   <div class="hide-for-small">

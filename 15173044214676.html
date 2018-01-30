@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  命令行参数 - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>命令行参数</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='C++.html'>C++</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,22 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <h2 id="toc_0">Linux命令行参数解析函数getopt</h2>
+
+<pre><code class="language-c">＃i nclude &lt;unistd.h&gt;
+
+int getopt(int argc, char * const argv[], const char *optstring);
+
+extern char *optarg;
+extern int optind, opterr, optopt;
+</code></pre>
+
+<ul>
+<li><code>char *optarg</code> 当前选项参数字符串(如果有)</li>
+<li><code>int optind</code> argv的当前索引值。当getopt()在while循环中使用时，循环结束后，剩下的字串视为操作数，在argv[optind]至argv[argc-1]中可以找到</li>
+<li><code>int opterr</code> 这个变量非零时，getopt()函数为“无效选项”和“缺少参数选项，并输出其错误信息</li>
+<li><code>int optopt</code> 当发现无效选项字符之时，getopt()函数或返回&#39;?&#39;字符，或返回&#39;:&#39;字符，并且optopt包含了所发现的无效选项字符</li>
+</ul>
 
 
     
@@ -140,16 +155,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173044568587.html" 
+          title="Previous Post: Makefile">&laquo; Makefile</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173028055344.html" 
+          title="Next Post: C++多线程">C++多线程 &raquo;</a>
       
       </p>
         </div>

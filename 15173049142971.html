@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  SM9数字签名 - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>SM9数字签名</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,79 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <p>SM9是基于双线性对的标识密码算法，是我国商用密码行业公钥密码算法的一种标准算法。其内容主要包括数字签名算法，密钥交换协议，密钥封装机制和公钥加密算法。本文仅介绍SM9数字签名算法。</p>
+
+<ul>
+<li>
+<a href="#toc_0">目的</a>
+</li>
+<li>
+<a href="#toc_1">流程</a>
+<ul>
+<li>
+<a href="#toc_2">密钥生成</a>
+<ul>
+<li>
+<a href="#toc_3">主密钥生成</a>
+</li>
+<li>
+<a href="#toc_4">用户私钥生成</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_5">数字签名生成</a>
+</li>
+<li>
+<a href="#toc_6">数字签名验证</a>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="toc_0">目的</h2>
+
+<p>数字签名用来验证文件来源。</p>
+
+<p>Alice发送带数字签名的文件给Bob，Bob可以通过验证签名来验证文件是否是Alice发送，文件是否完整，是否被篡改。</p>
+
+<h2 id="toc_1">流程</h2>
+
+<p>SM9数字签名分成三个步骤。</p>
+
+<pre><code>1. 密钥生成
+2. 数字签名生成
+3. 数字签名验证
+</code></pre>
+
+<p>这三个步骤由三方分别完成。其中密钥生成由密钥生成中心(KGC)完成，数字签名生成由签名者(例如Alice)完成，数字签名验证由验证者(例如Bob)完成。</p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1201/144346_ca558594_1453931.png" alt="IBS架构" title="IBS架构.png"/></p>
+
+<h3 id="toc_2">密钥生成</h3>
+
+<p>密钥生成包括两个部分</p>
+
+<pre><code>1. KGC 主密钥生成，包括主公钥和主私钥
+2. 用户私钥生成
+</code></pre>
+
+<h4 id="toc_3">主密钥生成</h4>
+
+<p>密钥生成中心随机选择s作为主私钥，计算得到主公钥Ppub.密钥生成中心保密s，公开Ppub。</p>
+
+<h4 id="toc_4">用户私钥生成</h4>
+
+<p>依照一定法则，生成用户Alice的私钥dA，并将该私钥给该用户Alice</p>
+
+<h3 id="toc_5">数字签名生成</h3>
+
+<p>设待签名消息串为M，用户Alice根据自己持有的私钥dA对消息进行签名处理，得到签名S。Alice将消息M和签名S一起发送给Bob</p>
+
+<h3 id="toc_6">数字签名验证</h3>
+
+<p>Bob接收到消息M&#39;和签名S&#39;，Bob可以通过KGC公布的主公钥Ppub和通过签名验证算法，验证消息是否来自Alice以及是否完整，是否被篡改。</p>
 
 
     
@@ -140,16 +212,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173049142669.html" 
+          title="Previous Post: SM9加密">&laquo; SM9加密</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173049143327.html" 
+          title="Next Post: SM9特点">SM9特点 &raquo;</a>
       
       </p>
         </div>

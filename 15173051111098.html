@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  GCC编译静态库 - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>GCC编译静态库</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='C++.html'>C++</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,57 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <h2 id="toc_0">代码编写</h2>
+
+<p>需要导出的库用<code>pragma GCC visibility push(default)</code>包围</p>
+
+<pre><code class="language-c++">/* The classes below are exported */
+#pragma GCC visibility push(default)
+
+class StaticLibTest
+{
+    public:
+    void HelloWorld(const char *);
+};
+
+#pragma GCC visibility pop
+</code></pre>
+
+<h2 id="toc_1">编译</h2>
+
+<p>首先编译为object文件，然后用<code>ar</code>工具编译为静态库<code>.a</code>文件</p>
+
+<pre><code class="language-bash">g++ -c -o out.o StaticLibTest.cpp
+ar rcs libout.a out.o
+</code></pre>
+
+<h2 id="toc_2">链接</h2>
+
+<p>若静态库与原文件相同目录，则直接引用</p>
+
+<pre><code class="language-bash">g++ -o main main.cpp libout.a
+</code></pre>
+
+<h2 id="toc_3">混合链接</h2>
+
+<p>成功的，控制混合类型的链接(静态库和动态库)</p>
+
+<pre><code class="language-bash">g++ -o main main.cpp -L. -lout -ldy
+</code></pre>
+
+<ol>
+<li>指定库目录<code>-L</code>，其中<code>-L.</code>表示当前目录</li>
+<li>指定库<code>-l</code>,其中<code>-lout</code>表示链接库<code>libout</code>首先尝试动态库然后在尝试静态库</li>
+</ol>
+
+<p>在stackoverflow上找到的方法，但是没有成功</p>
+
+<pre><code class="language-bash">g++ -Wl,-Bstatic -lz -lfoo -Wl,-Bdynamic -lbar -Wl,--as-needed
+</code></pre>
+
+<blockquote>
+<p>Will link <code>zlib</code> and <code>libfoo</code> as static, and <code>libbar</code> as dynamic . <code>--as-needed</code> will drop any unused dynamic library.</p>
+</blockquote>
 
 
     
@@ -140,16 +190,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173051110801.html" 
+          title="Previous Post: GCC编译动态库">&laquo; GCC编译动态库</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173051111412.html" 
+          title="Next Post: openssl编译">openssl编译 &raquo;</a>
       
       </p>
         </div>

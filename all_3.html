@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-    
-  C++ - 
+  
+  
   
   </title>
   
@@ -109,244 +109,46 @@
 		<div class="markdown-body home-categories">
 		
 			<div class="article">
-                <a class="clearlink" href="15173053129472.html">
+                <a class="clearlink" href="15173051111702.html">
                 
-                  <h1>字符编码</h1>
+                  <h1>全局变量</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<h3 id="toc_0">Ascii</h3>
+                        	<p>C/C++多文件使用全局变量</p>
 
-<p>是美国信息互换标准，用0x00到0x20表示控制字符，剩下空格，标点，数字，大小写字母编码到127.</p>
+<ol>
+<li>头文件声明<code>extern</code></li>
+<li>实现文件初始化</li>
+<li>其它调用位置包含声明头文件</li>
+</ol>
 
-<h3 id="toc_1">GB2312</h3>
+<p>若仅在 头文件声明初始化，编译器报<strong>链接错误</strong></p>
 
-<p>对小于127的字节与Ascii相同，当两个字节都大于127时，前面字节称为高字节从0xA1到0xF7，后边称为低字节从0xA1到0xFE，这样组合出大约7000个简体字。</p>
+<p>若声明不是extern也会有<strong>链接错误</strong></p>
 
-<h3 id="toc_2">GBK</h3>
+<h2 id="toc_0">example</h2>
 
-<p>为了编码生僻字和繁体字，规定只要第一个字节大于127就表示一个汉字的开始，GBK包含了GB2312所有内容，同时又增加了近两万个汉字和符号。</p>
-
-<h3 id="toc_3">GB18030</h3>
-
-<p>在GBK基础上又增加了几千个少数民族字，形成了GB18030</p>
-
-<h3 id="toc_4">Unicode</h3>
-
-<p>ISO废除所有地区性编码方案，指定标准时计算机存储容量极大发展了。为每个字符进行了编码例如希伯来文的<code>N</code>编码为U+2135，英文字母<code>A</code>编码为U+0061。Unicode并不涉及字符怎样在计算机中表示，更没有规定占几个字节。所以他支持的字符数量没有限制。</p>
-
-<h2 id="toc_5">传输编码</h2>
-
-<p>unicode在很长一段时间内无法推广，直到互联网的出现，为解决unicode如何在网络上传输的问题，于是面向传输的众多 <strong>UTF</strong>（UCS Transfer Format）标准出现了，顾名思义，<strong>UTF-8</strong>就是每次8个位传输数据，而<strong>UTF-16</strong>就是每次16个位。</p>
-
-<h3 id="toc_6">UTF-8</h3>
-
-<p>UTF8是互联网上最广泛的传输方式。UTF8中0-127用一个字符表示，与US-Ascii相同，128以上字符用两个，三个和四个字节表示，UTF8可认为是变长编码。</p>
-
-<p>其中英文一般是1字节，希腊，希伯来，俄语占2字节，常见中文日文韩文占3字节，生僻中文韩文日文占4字节。</p>
-
-<p><img src="https://gitee.com/uploads/images/2017/1226/154002_d9a7a4bf_1453931.png" alt="char-boundaries" title="char-boundaries.png"/></p>
-
-<h4 id="toc_7">BOM</h4>
-
-<p>Byte Order Mark字节顺序标记，出现在文件头部。用于标识文件是用那种各式编码，UTF16中<code>FEFF</code>用来判断是大端还是小端模式。</p>
-
-<p>UTF8不需要BOM表示字节顺序，但可以用BOM表明编码方式<code>EF BB BF</code>三个字节表示UTF-8编码方式，例如windows记事本保存一个以UTF-8编码文件时，会在头上加入三个不可见字节。</p>
-
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                  
-                    <span class="date">2018/1/30</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
-          				   
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
-
-                       
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-			<div class="article">
-                <a class="clearlink" href="15173052079033.html">
-                
-                  <h1>跨平台C／C++系统／编译器检测</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<p>通过预定义宏可以判断当前使用平台和所用编译器。</p>
-
-<h2 id="toc_0">平台宏</h2>
-
-<p>在不同的系统下编译器预定义宏不同，可以作为检测操作系统的方法。</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>windows x86</th>
-<th>windows x64</th>
-<th>linux</th>
-<th>mac</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>_WIN32</code></td>
-<td>**</td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>_WIN64</code></td>
-<td></td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__unix__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__linux__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__APPLE__</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h1 id="toc_1">编译器预定义宏</h1>
-
-<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Clang</th>
-<th>GCC</th>
-<th>ICC</th>
-<th>MSVC</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>__clang__</code></td>
-<td>**</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__GUNC__</code></td>
-<td>**</td>
-<td>**</td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__ICC</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__MSC_VER</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="toc_2">size_t大小</h2>
-
-<ul>
-<li><p>在64位系统中定义<code>size_t = uint64_t</code></p></li>
-<li><p>在32位系统中定义<code>size_t = uint32_t</code></p></li>
-</ul>
-
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                  
-                    <span class="date">2018/1/30</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
-          				   
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
-
-                       
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-			<div class="article">
-                <a class="clearlink" href="15173051110022.html">
-                
-                  <h1>curl库编译</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<p>curl是一个命令行模式工具，用URLs方式传输数据。<a href="https://curl.haxx.se">网址</a></p>
-
-<blockquote>
-<p><strong>Supports...</strong></p>
-
-<p>DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, Telnet and TFTP. curl supports SSL certificates, HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, HTTP/2, cookies, user+password authentication (Basic, Plain, Digest, CRAM-MD5, NTLM, Negotiate and Kerberos), file transfer resume, proxy tunneling and more.</p>
-</blockquote>
-
-<h2 id="toc_0">how to bulid</h2>
-
-<p><a href="https://curl.haxx.se/docs/install.html">参考网址</a></p>
-
-<h3 id="toc_1">Unix</h3>
-
-<pre><code>1 ./configure
-2 make
-3 make test (optional)
-4 make install(root)
+<pre><code class="language-c">//fun.h
+extern int globalInt;
+extern int globalArray[3];
 </code></pre>
 
-<p>在Mac OSX中可能会遇到识别openssl的<a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl">问题</a>，</p>
+<pre><code class="language-c">//fun.cpp
+int globalInt = 123;
+int globalArray[3] = {1,2,3};
+</code></pre>
+
+<pre><code class="language-c">//main.cpp
+#include &quot;fun.h&quot;
+int main()
+{
+  //access globalInt
+  //access globalArray;
+  return 0;
+}
+</code></pre>
 
                         
                       </div>
@@ -359,6 +161,216 @@
                     <span>posted in&nbsp;</span> 
           				  
           					    <span class="posted-in"><a href='C++.html'>C++</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="15173050634716.html">
+                
+                  <h1>磁盘传输</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p><em>2017.11.28</em></p>
+
+<ul>
+<li>
+<a href="#toc_0">SATA</a>
+</li>
+<li>
+<a href="#toc_1">NVMe</a>
+</li>
+<li>
+<a href="#toc_2">磁盘</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">SATA</h2>
+
+<p>SATA是Serial ATA的意思，是连结物理存储设备的接口。在早些时用PATA接口。</p>
+
+<blockquote>
+<p>Generally, the actual SATA signalling is half-duplex, meaning that it can only read or write data at any one time.</p>
+</blockquote>
+
+<p>SATA是半双工模式，意味着同一时刻，只能读或者写。</p>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Raw Rate Gbit/s</th>
+<th>Max Data Rate</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>SATA1.0</td>
+<td>1.5</td>
+<td>150MB/s</td>
+</tr>
+<tr>
+<td>SATA2.0</td>
+<td>3.0</td>
+<td>300MB/s</td>
+</tr>
+<tr>
+<td>SATA3.0</td>
+<td>6.0</td>
+<td>600MB/s</td>
+</tr>
+<tr>
+<td>SATA3.2</td>
+<td>16.0</td>
+<td>1.97GB/s</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_1">NVMe</h2>
+
+<p>依托于PCIe总线，NVMe设备可适用于各种支持PCIe总线的物理插槽上，接口速度可达3GB以上。</p>
+
+<p>例如三星的SSD数据，读可到3GB／s，写可到2GB／s</p>
+
+<p><img src="http://www.fudzilla.com/images/stories/2017/Reviews/samsung-sm961-and-960-evo/samsung-third-generation-m.2-nvme-ssd-chart.jpg" alt=""/></p>
+
+<p>其中MLC成本高于TLC，性能也高。</p>
+
+<h2 id="toc_2">磁盘</h2>
+
+<p>普通机械硬盘，读写速度一般200MB／s内。</p>
+
+<p>使用SATA3.0的SSD最大读写500MB／s左右。</p>
+
+<p>NVMe SSD读3GB／s写2GB／s</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/1/30</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Computer.html'>Computer</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="15173049140113.html">
+                
+                  <h1>Intel random number generator</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>Intel recently announced the addition of the RDSEED instruction to the Intel® 64 and IA-32 Architectures. An addition to Intel® Secure Key, this new instruction will appear in future generations of Intel processors.</p>
+
+<p>Like RDRAND the RDSEED instruction returns random numbers, and with two instructions that appear to do the same thing it is only natural for the software developer to ask, &quot;Which one should I use?&quot;</p>
+
+<h2 id="toc_0">The Difference Between RDRAND and RDSEED</h2>
+
+<h3 id="toc_1">short answer</h3>
+
+<ul>
+<li>if you want to seed another pseudorandom number generator,use RESEED</li>
+<li>for other purposes, use RDRAND</li>
+</ul>
+
+<h3 id="toc_2">long answer</h3>
+
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Source</th>
+<th>NIST Compliance</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>RDRAND</td>
+<td>Crypto secure pseudorandom number generator</td>
+<td>SP 800-90A</td>
+</tr>
+<tr>
+<td>RDSEED</td>
+<td>Non-deterministic random number generator</td>
+<td>SP 800-90B&amp;C</td>
+</tr>
+</tbody>
+</table>
+
+<p>使用RDSEED可生成两个独立随机数。</p>
+
+<p>使用RDRAND只能生成两个高质量随机数，他们并不独立。</p>
+
+<p>因此说，RDSEED生成的随机数质量高于RDRAND</p>
+
+<h2 id="toc_3">NIST RBG standard</h2>
+
+<p>NIST SP 800-90A : DRGB</p>
+
+<p>NIST SP 800-90B : Entropy  source</p>
+
+<p>NIST SP 800-90C : RBG = Entropy source + DRBG</p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/103203_f349fa97_1453931.png" alt="SP800-90A" title="SP800-90A.png"/></p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/103554_c4e7af27_1453931.png" alt="SP800-90B" title="SP800-90B.png"/></p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/103714_d6d08b86_1453931.png" alt="SP800-90C" title="SP800-90C.png"/></p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/104006_0433b60c_1453931.png" alt="EntropySource" title="EntropySource.png"/></p>
+
+<h2 id="toc_4">AMD rand</h2>
+
+<p>AMD RYZEN and EPYC 处理器中也包含随机数生成器。</p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/105541_e486e4c9_1453931.png" alt="AMD_rand" title="AMD_rand.png"/></p>
+
+<h2 id="toc_5">mbed TSL</h2>
+
+<p>Entropy source，On Linux, <strong>/dev/urandom</strong> is used by default. On Windows, the <strong>CryptGenRandom()</strong> function is used</p>
+
+<p><img src="https://tls.mbed.org/img/plantuml/bLInJiCm4Dtz5QTEhKI7Hc911BNGKbWOKaQaoaqEQYcnBVkCuEzn8YV4RLhA5CltxlczTtROt18tvAgICPwJCh3GkXGv9w4aqxuaSg6v91Wzl6RRPNQ_7W6taBsie-fAab7wE-vOuZjt9S56EPDZqsURvIp6hRx8y6DKmbYQmhCK97WfB4AQifuwcDwrnzxqKTuGOMr6VFf5fonyewuCBL9e6AhtMHj9y2Onu7Bb9A6nB3TOdzCww_64hJuFOmKUIOifaaEJOJkYEPN3eYX2a33knpffibnpsgE1riAPF6FasJGxbnydUWwJkPrEVvi2-WgagxOxGROVq42cdKAxvzUpPEjquP7ZG3Cv5fRy9ImP49PS92pvZx2XkVkHr5SGYteK_ab5F8z8-VwY2PoQMgcK1dzBHGcLaA9o5MXV3bUvlGMDjmlOK1Q3i4AvNOcmULfuso5hxmZFw3JDkpjwIKq4zH0wO4io5DxS2wh_Mpy0" alt=""/></p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/1/30</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
           				   
                   </div>
                   <div class="more-right right">
@@ -377,12 +389,12 @@
 			<div class="row">
 			  <div class="large-6 columns">
 			  <p class="text-left" style="padding-top:25px;">
-			   
+			   <a href="all_2.html">&laquo; Prev Page</a>  
 			  </p>
 			  </div>
 			  <div class="large-6 columns">
 			<p class="text-right" style="padding-top:25px;">
-			 <a href="C++_1.html">&raquo; Next Page</a> 
+			 <a href="all_4.html">&raquo; Next Page</a> 
 			</p>
 			  </div>
 			</div>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  密码学安全随机数 - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>密码学安全随机数</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,101 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <blockquote>
+<p>A <strong>cryptographically secure pseudo-random number generator</strong> (<strong>CSPRNG</strong>) or <strong>cryptographic pseudo-random number generator</strong>(<strong>CPRNG</strong>)<a href="http://www.wikiwand.com/en/Cryptographically_secure_pseudorandom_number_generator#citenote1">[1]</a> is a <a href="http://www.wikiwand.com/en/Pseudo-random_number_generator">pseudo-random number generator</a> (PRNG) with properties that make it suitable for use in <a href="http://www.wikiwand.com/en/Cryptography">cryptography</a>.</p>
+
+<p>Many aspects of cryptography require <a href="http://www.wikiwand.com/en/Random">random</a> numbers, for example:</p>
+
+<ul>
+<li><a href="http://www.wikiwand.com/en/Key_generation">key generation</a></li>
+<li><a href="http://www.wikiwand.com/en/Cryptographic_nonce">nonces</a></li>
+<li><a href="http://www.wikiwand.com/en/One-time_pad">one-time pads</a></li>
+<li><a href="http://www.wikiwand.com/en/Salt_(cryptography)">salts</a> in certain signature schemes, including <a href="http://www.wikiwand.com/en/ECDSA">ECDSA</a>, RSASSA-PSS</li>
+</ul>
+</blockquote>
+
+<p>密码学随机数必须不可预测下一位（在多项式时间内不能获得好于50%正确率的结果）。</p>
+
+<h2 id="toc_0">生成器设计</h2>
+
+<ol>
+<li>基于加密函数或者hash函数</li>
+<li>基于数学上的难题</li>
+<li>特殊目的的设计</li>
+</ol>
+
+<h3 id="toc_1">基于密码学设计</h3>
+
+<ul>
+<li>分组加密器在<em>counter mode</em>时可转换为CSPRNG。随机选择一个key加密0.然后加密1.然后加密2，ect。counter也可以随便的选取一个数字作为开始。</li>
+<li>hash函数对<em>counter</em>也可以作为一个好的CSPRNG</li>
+<li>在流加密器中生成的伪随机序列再异或原文，加密器在<em>counter</em>模式运行可以得到一个新的伪随机序列，可能周期很长。只有原序列就是一个很好的CSPRNG，结果才能是个好的CSPRNG</li>
+</ul>
+
+<h3 id="toc_2">基于数论的设计</h3>
+
+<ul>
+<li><strong>Blum Blum Shub(B.B.S)</strong>伪随机数生成器在1986年被提出，\(x_{n+1}=x_{n}^2\bmod{M},where  M = pq\), p,q是两个足够大的素数。这个算法是非常低效的。</li>
+<li><strong>Blum-Micali algorithm</strong>也是非常低效的</li>
+</ul>
+
+<h3 id="toc_3">特殊设计</h3>
+
+<ul>
+<li>Yarrow algorithm估算系统输入熵的量。在FreeBSD和Mac OS X中使用</li>
+<li>ChaCha20 algorithm算法在OpenBSD和NetBSD和Linux中使用</li>
+<li>Fortuna algorithm是Yarrow算法的后继者，它不试图衡量输入的熵</li>
+<li>CryptGenRandom是Microsoft的随机数生成接口(推荐使用rand_s函数，是CryptGenRandom的封装)</li>
+</ul>
+
+<h2 id="toc_4">Yarrow</h2>
+
+<ul>
+<li>Hash function</li>
+<li>Block cipher</li>
+</ul>
+
+<h3 id="toc_5">Generation</h3>
+
+<p><img src="https://gitee.com/uploads/images/2017/1213/103305_679d78f1_1453931.png" alt="Yarrow" title="Functions_for_Generation_Mechanism.png"/></p>
+
+<p>C是内部维护的<strong>Counter Mode</strong>的nbit值，K是加密key。</p>
+
+<h3 id="toc_6">Reseed</h3>
+
+<p>Yarrow 高效的，</p>
+
+<h2 id="toc_7">Visual Studio random_device</h2>
+
+<p>The class describes a source of random numbers, and is allowed but not required to be <strong>non-deterministic or cryptographically secure</strong> by the ISO C++ Standard.  In the Visual Studio implementation the values produced are non-deterministic and cryptographically secure.</p>
+
+<blockquote>
+<p>The RNG generates as specified in FIPS 186-2 appendix 3.1 with SHA-1 as the G function. With entropy from:</p>
+
+<p>The current process ID (GetCurrentProcessID).</p>
+
+<p>The current thread ID (GetCurrentThreadID).</p>
+
+<p>The ticks since boot (GetTickCount).</p>
+
+<p>The current time (GetLocalTime).</p>
+
+<p>Various high-precision performance counters (QueryPerformanceCounter).</p>
+
+<p>An MD4 hash of the user’s environment block, which includes username, computer name, and search path. MD4 is a hashing algorithm that creates a 128-bit message digest from input data to verify data integrity.</p>
+
+<p>High-precision internal CPU counters, such as RDTSC, RDMSR, RDPMC </p>
+
+<p>Low-level system information: Idle Process Time, Io Read Transfer Count, I/O Write Transfer Count, I/O Other Transfer Count, I/O Read Operation Count, I/O Write Operation Count, I/O Other Operation Count, Available Pages, Committed Pages, Commit Limit, Peak Commitment, Page Fault Count, Copy On Write Count, Transition Count, Cache Transition Count, Demand Zero Count, Page Read Count, Page Read I/O Count, Cache Read Count, Cache I/O Count, Dirty Pages Write Count, Dirty Write I/O Count, Mapped Pages Write Count, Mapped Write I/O Count, Paged Pool Pages, Non Paged Pool Pages, Paged Pool Allocated space, Paged Pool Free space, Non Paged Pool Allocated space, Non Paged Pool Free space, Free System page table entry, Resident System Code Page, Total System Driver Pages, Total System Code Pages, Non Paged Pool Lookaside Hits, Paged Pool Lookaside Hits, Available Paged Pool Pages, Resident System Cache Page, Resident Paged Pool Page, Resident System Driver Page, Cache manager Fast Read with No Wait, Cache manager Fast Read with Wait, Cache manager Fast Read Resource Missed, Cache manager Fast Read Not Possible, Cache manager Fast Memory Descriptor List Read with No Wait, Cache manager Fast Memory Descriptor List Read with Wait, Cache manager Fast Memory Descriptor List Read Resource Missed, Cache manager Fast Memory Descriptor List Read Not Possible, Cache manager Map Data with No Wait, Cache manager Map Data with Wait, Cache manager Map Data with No Wait Miss, Cache manager Map Data Wait Miss, Cache manager Pin-Mapped Data Count, Cache manager Pin-Read with No Wait, Cache manager Pin Read with Wait, Cache manager Pin-Read with No Wait Miss, Cache manager Pin-Read Wait Miss, Cache manager Copy-Read with No Wait, Cache manager Copy-Read with Wait, Cache manager Copy-Read with No Wait Miss, Cache manager Copy-Read with Wait Miss, Cache manager Memory Descriptor List Read with No Wait, Cache manager Memory Descriptor List Read with Wait, Cache manager Memory Descriptor List Read with No Wait Miss, Cache manager Memory Descriptor List Read with Wait Miss, Cache manager Read Ahead IOs, Cache manager Lazy-Write IOs, Cache manager Lazy-Write Pages, Cache manager Data Flushes, Cache manager Data Pages, Context Switches, First Level Translation buffer Fills, Second Level Translation buffer Fills, and System Calls.</p>
+
+<p>System exception information consisting of Alignment Fix up Count, Exception Dispatch Count, Floating Emulation Count, and Byte Word Emulation Count.</p>
+
+<p>System lookaside information consisting of Current Depth, Maximum Depth, Total Allocates, Allocate Misses, Total Frees, Free Misses, Type, Tag, and Size.</p>
+
+<p>System interrupt information consisting of context switches, deferred procedure call count, deferred procedure call rate, time increment, deferred procedure call bypass count, and asynchronous procedure call bypass count.</p>
+
+<p>System process information consisting of Next Entry Offset, Number Of Threads, Create Time, User Time, Kernel Time, Image Name, Base Priority, Unique Process ID, Inherited from Unique Process ID, Handle Count, Session ID, Page Directory Base, Peak Virtual Size, Virtual Size, Page Fault Count, Peak Working Set Size, Working Set Size, Quota Peak Paged Pool Usage, Quota Paged Pool Usage, Quota Peak Non Paged Pool Usage, Quota Non Paged Pool Usage, Page file Usage, Peak Page file Usage, Private Page Count, Read Operation Count, Write Operation Count, Other Operation Count, Read Transfer Count, Write Transfer Count, and Other Transfer Count.</p>
+</blockquote>
 
 
     
@@ -140,16 +234,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173049143979.html" 
+          title="Previous Post: 加密key生成">&laquo; 加密key生成</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173049144073.html" 
+          title="Next Post: 数据加密方式比较">数据加密方式比较 &raquo;</a>
       
       </p>
         </div>

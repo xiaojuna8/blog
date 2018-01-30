@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  C++ - 
+  Crypt - 
   
   </title>
   
@@ -109,50 +109,32 @@
 		<div class="markdown-body home-categories">
 		
 			<div class="article">
-                <a class="clearlink" href="15173053129472.html">
+                <a class="clearlink" href="15173049139393.html">
                 
-                  <h1>字符编码</h1>
+                  <h1>ECC性能</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<h3 id="toc_0">Ascii</h3>
+                        	<p><a href="http://www.evssl.cn/ev-ssl-knowledge/157.html">原文</a></p>
 
-<p>是美国信息互换标准，用0x00到0x20表示控制字符，剩下空格，标点，数字，大小写字母编码到127.</p>
+<h2 id="toc_0">更适合移动互联网</h2>
 
-<h3 id="toc_1">GB2312</h3>
+<p>ECC加密算法的密钥长度很短(256位)，意味着占用更少的存储空间，更低的CPU开销和占用更少的带宽。随着越来越多的用户使用移动设备来完成各种网上活动，ECC加密算法为移动互联网安全提供更好的客户体验。</p>
 
-<p>对小于127的字节与Ascii相同，当两个字节都大于127时，前面字节称为高字节从0xA1到0xF7，后边称为低字节从0xA1到0xFE，这样组合出大约7000个简体字。</p>
+<h2 id="toc_1">更好的安全性</h2>
 
-<h3 id="toc_2">GBK</h3>
+<p>ECC加密算法的密钥长度很短(256位)，意味着占用更少的存储空间，更低的CPU开销和占用更少的带宽。随着越来越多的用户使用移动设备来完成各种网上活动，ECC加密算法为移动互联网安全提供更好的客户体验。</p>
 
-<p>为了编码生僻字和繁体字，规定只要第一个字节大于127就表示一个汉字的开始，GBK包含了GB2312所有内容，同时又增加了近两万个汉字和符号。</p>
+<h2 id="toc_2">更好的性能</h2>
 
-<h3 id="toc_3">GB18030</h3>
+<p>ECC加密算法需要较短的密钥长度来提供更好的安全，例如，256位的ECC密钥加密强度等同于3072位RSA密钥的水平(目前普通使用的RSA密钥长度是2048位)。其结果是你以更低的计算能力代价得到了更高的安全性。经国外有关权威机构测试，在Apache和<a href="http://www.evssl.cn/ev-ssl-support/37.html">IIS服务器</a>采用ECC算法，Web服务器响应时间比RSA快十几倍。</p>
 
-<p>在GBK基础上又增加了几千个少数民族字，形成了GB18030</p>
+<p><img src="http://www.evssl.cn/uploads/allimg/141209/2-1412091A546117.png" alt=""/></p>
 
-<h3 id="toc_4">Unicode</h3>
+<h2 id="toc_3">ECC特点</h2>
 
-<p>ISO废除所有地区性编码方案，指定标准时计算机存储容量极大发展了。为每个字符进行了编码例如希伯来文的<code>N</code>编码为U+2135，英文字母<code>A</code>编码为U+0061。Unicode并不涉及字符怎样在计算机中表示，更没有规定占几个字节。所以他支持的字符数量没有限制。</p>
-
-<h2 id="toc_5">传输编码</h2>
-
-<p>unicode在很长一段时间内无法推广，直到互联网的出现，为解决unicode如何在网络上传输的问题，于是面向传输的众多 <strong>UTF</strong>（UCS Transfer Format）标准出现了，顾名思义，<strong>UTF-8</strong>就是每次8个位传输数据，而<strong>UTF-16</strong>就是每次16个位。</p>
-
-<h3 id="toc_6">UTF-8</h3>
-
-<p>UTF8是互联网上最广泛的传输方式。UTF8中0-127用一个字符表示，与US-Ascii相同，128以上字符用两个，三个和四个字节表示，UTF8可认为是变长编码。</p>
-
-<p>其中英文一般是1字节，希腊，希伯来，俄语占2字节，常见中文日文韩文占3字节，生僻中文韩文日文占4字节。</p>
-
-<p><img src="https://gitee.com/uploads/images/2017/1226/154002_d9a7a4bf_1453931.png" alt="char-boundaries" title="char-boundaries.png"/></p>
-
-<h4 id="toc_7">BOM</h4>
-
-<p>Byte Order Mark字节顺序标记，出现在文件头部。用于标识文件是用那种各式编码，UTF16中<code>FEFF</code>用来判断是大端还是小端模式。</p>
-
-<p>UTF8不需要BOM表示字节顺序，但可以用BOM表明编码方式<code>EF BB BF</code>三个字节表示UTF-8编码方式，例如windows记事本保存一个以UTF-8编码文件时，会在头上加入三个不可见字节。</p>
+<p>ECC加密算法自1985年提出，因其工程应用中难度较高，到2005年才在各种操作系统中获得广泛支持，在全球安全市场需求的刺激下，ECC算法将逐步取代RSA算法，成为主流加密算法。目前，全球各大CA都已经陆续开始为用户签发采用ECC加密算法的各种证书。</p>
 
                         
                       </div>
@@ -164,7 +146,7 @@
                     <span class="date">2018/1/30</span>
                     <span>posted in&nbsp;</span> 
           				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
+          					    <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
           				   
                   </div>
                   <div class="more-right right">
@@ -178,175 +160,82 @@
               </div><!-- article -->
         
 			<div class="article">
-                <a class="clearlink" href="15173052079033.html">
+                <a class="clearlink" href="15173049139748.html">
                 
-                  <h1>跨平台C／C++系统／编译器检测</h1>
+                  <h1>基于标识的加密</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<p>通过预定义宏可以判断当前使用平台和所用编译器。</p>
-
-<h2 id="toc_0">平台宏</h2>
-
-<p>在不同的系统下编译器预定义宏不同，可以作为检测操作系统的方法。</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>windows x86</th>
-<th>windows x64</th>
-<th>linux</th>
-<th>mac</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>_WIN32</code></td>
-<td>**</td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>_WIN64</code></td>
-<td></td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__unix__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__linux__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__APPLE__</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h1 id="toc_1">编译器预定义宏</h1>
-
-<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Clang</th>
-<th>GCC</th>
-<th>ICC</th>
-<th>MSVC</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>__clang__</code></td>
-<td>**</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__GUNC__</code></td>
-<td>**</td>
-<td>**</td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__ICC</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__MSC_VER</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="toc_2">size_t大小</h2>
-
-<ul>
-<li><p>在64位系统中定义<code>size_t = uint64_t</code></p></li>
-<li><p>在32位系统中定义<code>size_t = uint32_t</code></p></li>
+                        	<ul>
+<li>
+<a href="#toc_0">优势</a>
+</li>
+<li>
+<a href="#toc_1">缺点</a>
+</li>
 </ul>
 
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                  
-                    <span class="date">2018/1/30</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
-          				   
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
-
-                       
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-			<div class="article">
-                <a class="clearlink" href="15173051110022.html">
-                
-                  <h1>curl库编译</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<p>curl是一个命令行模式工具，用URLs方式传输数据。<a href="https://curl.haxx.se">网址</a></p>
 
 <blockquote>
-<p><strong>Supports...</strong></p>
-
-<p>DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, Telnet and TFTP. curl supports SSL certificates, HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, HTTP/2, cookies, user+password authentication (Basic, Plain, Digest, CRAM-MD5, NTLM, Negotiate and Kerberos), file transfer resume, proxy tunneling and more.</p>
+<p>Identity-based systems allow any party to generate a public key from a known identity value such as an ASCII string.A trusted third party, called the Private Key Generator (PKG), generates the corresponding private keys.</p>
 </blockquote>
 
-<h2 id="toc_0">how to bulid</h2>
+<p>任意组织都可以通过标识生成公钥，可靠的第三方PKG生成相关的私钥。</p>
 
-<p><a href="https://curl.haxx.se/docs/install.html">参考网址</a></p>
+<blockquote>
+<p>To operate, the PKG first publishes a master public key, and retains the corresponding <strong>master private key</strong> (referred to as <em>master key</em>). </p>
+</blockquote>
 
-<h3 id="toc_1">Unix</h3>
+<p>PKG公布公钥（<strong>a master public key</strong>一个主公钥，只有一个），保留主私钥。</p>
 
-<pre><code>1 ./configure
-2 make
-3 make test (optional)
-4 make install(root)
-</code></pre>
+<blockquote>
+<p>Given the master public key, any party can compute a public key corresponding to the identity by combining the master public key with the identity value.</p>
+</blockquote>
 
-<p>在Mac OSX中可能会遇到识别openssl的<a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl">问题</a>，</p>
+<p>根据主公钥，任何人都可以计算出与ID有关的公钥。</p>
+
+<blockquote>
+<p>To obtain a corresponding private key, the party authorized to use the identity <em>ID</em> contacts the PKG, which uses the master private key to generate the private key for identity <em>ID</em>.</p>
+</blockquote>
+
+<p>为了获取相关私钥，经授权使用该ID的人联系PKG获取私钥。</p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1208/101016_a22e5b59_1453931.png" alt="Identity_Based_Encryption_Steps" title="Identity_Based_Encryption_Steps.png"/></p>
+
+<h2 id="toc_0">优势</h2>
+
+<blockquote>
+<p>once issued, keys are always valid</p>
+</blockquote>
+
+<p>密钥一次分发，永久有效。</p>
+
+<h2 id="toc_1">缺点</h2>
+
+<blockquote>
+<p>If a Private Key Generator (PKG) is compromised, all messages protected over the entire lifetime of the public-private key pair used by that server are also compromised. </p>
+</blockquote>
+
+<p>一旦PKG的主私钥危险，所有发送过的公钥-私钥对都危险。</p>
+
+<blockquote>
+<p>To limit the exposure due to a compromised server, the master private-public key pair could be updated with a new independent key pair. </p>
+</blockquote>
+
+<p>为了预防这种情况，主私钥可以升级。</p>
+
+<blockquote>
+<p>However, this introduces a key-management problem where all users must have the most recent public key for the server.</p>
+</blockquote>
+
+<p>但是这又会导致其它密钥管理方面的问题。</p>
+
+<blockquote>
+<p>Because the Private Key Generator (PKG) generates private keys for users, it may decrypt and/or sign any message without authorization. </p>
+</blockquote>
+
+<p>PKG有能力伪造用户进行加密／签名。</p>
 
                         
                       </div>
@@ -358,7 +247,7 @@
                     <span class="date">2018/1/30</span>
                     <span>posted in&nbsp;</span> 
           				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
+          					    <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
           				   
                   </div>
                   <div class="more-right right">
@@ -377,12 +266,12 @@
 			<div class="row">
 			  <div class="large-6 columns">
 			  <p class="text-left" style="padding-top:25px;">
-			   
+			   <a href="Crypt_7.html">&laquo; Prev Page</a>  
 			  </p>
 			  </div>
 			  <div class="large-6 columns">
 			<p class="text-right" style="padding-top:25px;">
-			 <a href="C++_1.html">&raquo; Next Page</a> 
+			
 			</p>
 			  </div>
 			</div>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  文件加密解密流程 - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>文件加密解密流程</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,40 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <p>对于磁盘上的文件进行加密和解密操作，考虑到磁盘IO速度和加密速度差异，多线程处理能达到较合理的速度。若一次完整读取整个文件到内存，再加密存储，这对于大文件来讲，比较浪费内存。</p>
+
+<h2 id="toc_0">单线程</h2>
+
+<ol>
+<li>文件分块读取到内存</li>
+<li>内存中数据加密</li>
+<li>分块加密数据写入磁盘</li>
+</ol>
+
+<p>此时加密时间为，读取时间+加密时间+写入时间</p>
+
+<h2 id="toc_1">多线程</h2>
+
+<p>分为三类线程，申请n块内存。</p>
+
+<ol>
+<li>主线程：磁盘数据读取到内存</li>
+<li>加密线程：内存数据加密</li>
+<li>写文件线程：内存加密数据写入磁盘</li>
+</ol>
+
+<p>定义内存块状态 <code>atomic_int flag</code> </p>
+
+<pre><code class="language-c">0:free
+1:reading file
+2:reading complete
+3:encrypt data
+4:encrypt complete
+5:writing data
+6:writing complete
+</code></pre>
+
+<p>定义内存块编号<code>atomic_int seqID</code>，表示该内存块是原磁盘文件的第几块。</p>
 
 
     
@@ -140,16 +173,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173049144073.html" 
+          title="Previous Post: 数据加密方式比较">&laquo; 数据加密方式比较</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173049144364.html" 
+          title="Next Post: 椭圆曲线密码学">椭圆曲线密码学 &raquo;</a>
       
       </p>
         </div>

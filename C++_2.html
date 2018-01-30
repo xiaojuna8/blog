@@ -109,50 +109,46 @@
 		<div class="markdown-body home-categories">
 		
 			<div class="article">
-                <a class="clearlink" href="15173053129472.html">
+                <a class="clearlink" href="15173051111702.html">
                 
-                  <h1>字符编码</h1>
+                  <h1>全局变量</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<h3 id="toc_0">Ascii</h3>
+                        	<p>C/C++多文件使用全局变量</p>
 
-<p>是美国信息互换标准，用0x00到0x20表示控制字符，剩下空格，标点，数字，大小写字母编码到127.</p>
+<ol>
+<li>头文件声明<code>extern</code></li>
+<li>实现文件初始化</li>
+<li>其它调用位置包含声明头文件</li>
+</ol>
 
-<h3 id="toc_1">GB2312</h3>
+<p>若仅在 头文件声明初始化，编译器报<strong>链接错误</strong></p>
 
-<p>对小于127的字节与Ascii相同，当两个字节都大于127时，前面字节称为高字节从0xA1到0xF7，后边称为低字节从0xA1到0xFE，这样组合出大约7000个简体字。</p>
+<p>若声明不是extern也会有<strong>链接错误</strong></p>
 
-<h3 id="toc_2">GBK</h3>
+<h2 id="toc_0">example</h2>
 
-<p>为了编码生僻字和繁体字，规定只要第一个字节大于127就表示一个汉字的开始，GBK包含了GB2312所有内容，同时又增加了近两万个汉字和符号。</p>
+<pre><code class="language-c">//fun.h
+extern int globalInt;
+extern int globalArray[3];
+</code></pre>
 
-<h3 id="toc_3">GB18030</h3>
+<pre><code class="language-c">//fun.cpp
+int globalInt = 123;
+int globalArray[3] = {1,2,3};
+</code></pre>
 
-<p>在GBK基础上又增加了几千个少数民族字，形成了GB18030</p>
-
-<h3 id="toc_4">Unicode</h3>
-
-<p>ISO废除所有地区性编码方案，指定标准时计算机存储容量极大发展了。为每个字符进行了编码例如希伯来文的<code>N</code>编码为U+2135，英文字母<code>A</code>编码为U+0061。Unicode并不涉及字符怎样在计算机中表示，更没有规定占几个字节。所以他支持的字符数量没有限制。</p>
-
-<h2 id="toc_5">传输编码</h2>
-
-<p>unicode在很长一段时间内无法推广，直到互联网的出现，为解决unicode如何在网络上传输的问题，于是面向传输的众多 <strong>UTF</strong>（UCS Transfer Format）标准出现了，顾名思义，<strong>UTF-8</strong>就是每次8个位传输数据，而<strong>UTF-16</strong>就是每次16个位。</p>
-
-<h3 id="toc_6">UTF-8</h3>
-
-<p>UTF8是互联网上最广泛的传输方式。UTF8中0-127用一个字符表示，与US-Ascii相同，128以上字符用两个，三个和四个字节表示，UTF8可认为是变长编码。</p>
-
-<p>其中英文一般是1字节，希腊，希伯来，俄语占2字节，常见中文日文韩文占3字节，生僻中文韩文日文占4字节。</p>
-
-<p><img src="https://gitee.com/uploads/images/2017/1226/154002_d9a7a4bf_1453931.png" alt="char-boundaries" title="char-boundaries.png"/></p>
-
-<h4 id="toc_7">BOM</h4>
-
-<p>Byte Order Mark字节顺序标记，出现在文件头部。用于标识文件是用那种各式编码，UTF16中<code>FEFF</code>用来判断是大端还是小端模式。</p>
-
-<p>UTF8不需要BOM表示字节顺序，但可以用BOM表明编码方式<code>EF BB BF</code>三个字节表示UTF-8编码方式，例如windows记事本保存一个以UTF-8编码文件时，会在头上加入三个不可见字节。</p>
+<pre><code class="language-c">//main.cpp
+#include &quot;fun.h&quot;
+int main()
+{
+  //access globalInt
+  //access globalArray;
+  return 0;
+}
+</code></pre>
 
                         
                       </div>
@@ -178,72 +174,14 @@
               </div><!-- article -->
         
 			<div class="article">
-                <a class="clearlink" href="15173052079033.html">
+                <a class="clearlink" href="15173044802818.html">
                 
-                  <h1>跨平台C／C++系统／编译器检测</h1>
+                  <h1>编译器预定义宏</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<p>通过预定义宏可以判断当前使用平台和所用编译器。</p>
-
-<h2 id="toc_0">平台宏</h2>
-
-<p>在不同的系统下编译器预定义宏不同，可以作为检测操作系统的方法。</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>windows x86</th>
-<th>windows x64</th>
-<th>linux</th>
-<th>mac</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>_WIN32</code></td>
-<td>**</td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>_WIN64</code></td>
-<td></td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__unix__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__linux__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__APPLE__</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h1 id="toc_1">编译器预定义宏</h1>
-
-<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
+                        	<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
 
 <table>
 <thead>
@@ -288,12 +226,62 @@
 </tbody>
 </table>
 
-<h2 id="toc_2">size_t大小</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Clang</th>
+<th>GCC</th>
+<th>ICC</th>
+<th>MSVC</th>
+</tr>
+</thead>
 
-<ul>
-<li><p>在64位系统中定义<code>size_t = uint64_t</code></p></li>
-<li><p>在32位系统中定义<code>size_t = uint32_t</code></p></li>
-</ul>
+<tbody>
+<tr>
+<td><code>__clang_major__</code></td>
+<td>**</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>__clang_minor__</code></td>
+<td>**</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>__clang_version__</code></td>
+<td>**</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>__GUNC__</code></td>
+<td>**</td>
+<td>**</td>
+<td>**</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__GNUC_MINOR__</code></td>
+<td>**</td>
+<td>**</td>
+<td>**</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__MSC_BUILD</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td>**</td>
+</tr>
+</tbody>
+</table>
 
                         
                       </div>
@@ -319,34 +307,63 @@
               </div><!-- article -->
         
 			<div class="article">
-                <a class="clearlink" href="15173051110022.html">
+                <a class="clearlink" href="15173044568587.html">
                 
-                  <h1>curl库编译</h1>
+                  <h1>Makefile</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<p>curl是一个命令行模式工具，用URLs方式传输数据。<a href="https://curl.haxx.se">网址</a></p>
+                        	<p>自动化编译工具</p>
 
-<blockquote>
-<p><strong>Supports...</strong></p>
+<h2 id="toc_0">功能</h2>
 
-<p>DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, Telnet and TFTP. curl supports SSL certificates, HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, HTTP/2, cookies, user+password authentication (Basic, Plain, Digest, CRAM-MD5, NTLM, Negotiate and Kerberos), file transfer resume, proxy tunneling and more.</p>
-</blockquote>
+<ol>
+<li>将编译指令记录到一个文件中，方便调用和修改</li>
+<li>可以添加编译选项，在不改动代码情况下控制编译</li>
+</ol>
 
-<h2 id="toc_0">how to bulid</h2>
+<h2 id="toc_1">用法</h2>
 
-<p><a href="https://curl.haxx.se/docs/install.html">参考网址</a></p>
+<p>编写好makefile文件后，在Terminal中敲make指令，就按照makefile中的指令进行编译。</p>
 
-<h3 id="toc_1">Unix</h3>
+<h2 id="toc_2">语法</h2>
 
-<pre><code>1 ./configure
-2 make
-3 make test (optional)
-4 make install(root)
+<p>每条语句分为三个部分</p>
+
+<ol>
+<li>目标名称</li>
+<li>依赖项，依赖项可以是文件也可以是其他目标</li>
+<li>指令</li>
+</ol>
+
+<pre><code class="language-makefile">first: main.cpp fun.cpp
+    gcc -o test main.cpp fun.cpp
 </code></pre>
 
-<p>在Mac OSX中可能会遇到识别openssl的<a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl">问题</a>，</p>
+<p>makefile只完成第一个目标。可以在第一个目标的依赖项中加入其它目标，实现先后编译。</p>
+
+<p>gcc是C编译器，g++是C++编译器。</p>
+
+<h2 id="toc_3">GCC选项</h2>
+
+<p><code>g++</code>是C++编译器</p>
+
+<p><code>-D</code>是定义编译选项，例如<code>-DDEBUG</code>为定义DEBUG宏</p>
+
+<p><code>-std</code>是指定C++版本，例如<code>-std=c++11</code></p>
+
+<p><code>-O</code>是编译优化选项，例如<code>-O3</code></p>
+
+<h2 id="toc_4">杂项</h2>
+
+<p>注释，在makefile中以“#”开始的行为注释内容。</p>
+
+<p>makefile每一句指令默认都会在Terminal中显示，若不想在Terminal中显示可以在指令开头加上“@”.</p>
+
+<p>若想在Terminal中显示一句话可以用<code>echo</code>指令，例如<code>@echo 开始编译xx模块</code></p>
+
+<p>要删除中间生成的.o文件可以用指令<code>rm *.o</code></p>
 
                         
                       </div>
@@ -377,12 +394,12 @@
 			<div class="row">
 			  <div class="large-6 columns">
 			  <p class="text-left" style="padding-top:25px;">
-			   
+			   <a href="C++_1.html">&laquo; Prev Page</a>  
 			  </p>
 			  </div>
 			  <div class="large-6 columns">
 			<p class="text-right" style="padding-top:25px;">
-			 <a href="C++_1.html">&raquo; Next Page</a> 
+			 <a href="C++_3.html">&raquo; Next Page</a> 
 			</p>
 			  </div>
 			</div>

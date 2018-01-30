@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  Linux /dev/random - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>Linux /dev/random</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,63 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <p><a href="https://pthree.org/2014/07/21/the-linux-random-number-generator/"><em>Both /dev/random and /dev/urandom are fed data from the same CSPRNG</em>.</a></p>
+
+<h2 id="toc_0">Structure</h2>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/113606_fe18dcbf_1453931.png" alt="LinuxRandom" title="LinuxRandom.png"/></p>
+
+<ul>
+<li>size of input pool : 128 32-bit words</li>
+<li>size of blocking/unblocking pool : 32 32-bit words</li>
+</ul>
+
+<h3 id="toc_1">Entropy source</h3>
+
+<ul>
+<li>user input like keyboard and mouse movements</li>
+<li>disk timing</li>
+<li>interrupt timing</li>
+</ul>
+
+<p>eachevent contains 3 values</p>
+
+<ul>
+<li>a number specific to the event</li>
+<li>cycle count</li>
+<li>jiffies count (count of time ticks of system timer interrupt)</li>
+</ul>
+
+<h3 id="toc_2">noise sources</h3>
+
+<ul>
+<li><p>Disk I/O</p>
+
+<ul>
+<li>block device +0x100||Jiffies||High-Resolution Timer</li>
+<li>Noise derived from access times to spinning pltters</li>
+</ul></li>
+<li><p>Human Interface Devices(HID)</p></li>
+<li><p>Interrupts</p>
+
+<ul>
+<li><p>fast pool: 4 32-bit words filled with</p></li>
+<li><p>Jiffies</p></li>
+<li><p>high resolution timer</p></li>
+<li><p>IRQ number</p></li>
+<li><p>64 bit Instruction pointer of the CPU</p></li>
+</ul></li>
+</ul>
+
+<p>The output function is a SHA1 hash run over the output and put in the output pool.</p>
+
+<h2 id="toc_3">MAC Unix noise</h2>
+
+<p>The XUN noise source is implemented solely in software and monitors the interrupt activity of the entire operating system.</p>
+
+<p>The unpredictable phenomenon is the timing of interrupts. </p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/155651_da921c32_1453931.png" alt="UnixNoise" title="UnixNoise.png"/></p>
 
 
     
@@ -140,16 +196,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173049140113.html" 
+          title="Previous Post: Intel random number generator">&laquo; Intel random number generator</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173049140754.html" 
+          title="Next Post: Linux同步IO">Linux同步IO &raquo;</a>
       
       </p>
         </div>

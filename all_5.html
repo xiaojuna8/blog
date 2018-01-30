@@ -1,0 +1,733 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+  
+  
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site: ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="http://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; </span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="C++.html">C++</a></li>
+        
+            <li><a href="Xcode.html">Xcode</a></li>
+        
+            <li><a href="Linux.html">Linux</a></li>
+        
+            <li><a href="Crypt.html">Crypt</a></li>
+        
+            <li><a href="Computer.html">Computer</a></li>
+        
+            <li><a href="genome.html">genome</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+	$(function(){
+		$('#menu_item_index').addClass('is_active');
+	});
+</script>
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="markdown-body home-categories">
+		
+			<div class="article">
+                <a class="clearlink" href="15173049141355.html">
+                
+                  <h1>OpenSSH</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<ul>
+<li>
+<a href="#toc_0">OpenSSL</a>
+<ul>
+<li>
+<a href="#toc_1">对称加密</a>
+<ul>
+<li>
+<a href="#toc_2">AES加密</a>
+<ul>
+<li>
+<a href="#toc_3">aes-128-cbc</a>
+</li>
+<li>
+<a href="#toc_4">aes-128-ecb</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>OpenSSH 是SSH协议的实现。</p>
+
+<p>OpenSSL提供两个库libssl 和 libcrypto, OpenSSH 使用libcrypto中的加密算法。</p>
+
+<h2 id="toc_0">OpenSSL</h2>
+
+<p>密码学库</p>
+
+<h3 id="toc_1">对称加密</h3>
+
+<p>openssl参数</p>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>-S</td>
+<td>密码学盐</td>
+<td>从-S和-k导出key和iv</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>key导出参数(hex mode)</td>
+<td>从-S和-k导出key和iv</td>
+</tr>
+<tr>
+<td>-K,-iv</td>
+<td>制定key和iv(hex mode)</td>
+<td>若指定-K，则一定要有iv</td>
+</tr>
+<tr>
+<td>-iv</td>
+<td>指定iv(hex mode)</td>
+<td>可单独指定iv</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>显示加密所用参数</td>
+<td>此时只显示参数，不进行加密操作</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>显示加密所用参数</td>
+<td>执行加密操作</td>
+</tr>
+</tbody>
+</table>
+
+<p>若不指定密码学盐，则随机生成8Byte盐，并记录在加密文件中Magic word之后。</p>
+
+<pre><code class="language-c">//例如盐为123
+//Magic word is &#39;Salted__&#39; = &#39;5361 6c74 6564 5f5f&#39;
+//所以第一行16byte是
+5361 6c74 6564 5f5f 1230 0000 0000 0000
+4e00 3bcc 658a 9d03 2fbd 47c8 3d66 58e1
+325f 368a 8fe8 4542 0fdf 978c 0471 ff88
+4e0c 6dae b9f4 5825 bc10 e0c8 b059 e785
+c0f1 ac26 a669 a281 948d adc3 caab f686
+effc 918b 1ddb ed1e b261 4b1a ea9e 5a4c
+76af 8e28 6029 fc5e 7fd5 21ad b39d 5526
+7fc2 79a2 423b 9d91 47d2 023f 8b3b 63af
+f84f 8088 44e4 b873 c22c bb01 81b6 6ba7
+ffab 4273 be6d cc6b 6448 948e a248 4710
+d7cb 145c 1671 9d3e 2666 4e37 04b9 bbc7
+160e f879 528f c406 0d60 3766 3867 e0ec
+8eca 19a6 d488 28c0 062f e4bb 5eca 1a81
+9c74 37d8 ca3d f698 a7fa 2581 8b9c dec5
+d852 d2e5 18a3 9853 5051 ca8b 316b 7007
+b72f a1f1 0aa9 2e7f 54ef 61e9 0785 57ca
+</code></pre>
+
+<h4 id="toc_2">AES加密</h4>
+
+<p>实现了aes-128-cbc,aes-128-ecb,aes-192-cbc,aes-192-ecb,aes-256-cbc,aes-256-ecb</p>
+
+<h5 id="toc_3">aes-128-cbc</h5>
+
+<pre><code class="language-c">openssl aes-128-cbc -in ecdsa -out ecdsa.aes
+</code></pre>
+
+<p>对文件进行加密，需要输入密码，加密后文件变大(227B-256B),打开文件查看，开头是<em>Salted__</em>字符串。</p>
+
+<pre><code class="language-c">openssl aes-128-cbc -d -in ecdsa.aes -out ecdsa.aes.org
+</code></pre>
+
+<p>解密时输入密码，则还原出原文件。若密码输入错误会报警。</p>
+
+<p>若篡改加密文件的开头<em>Salted__</em>,则会出错<strong>bad magic number</strong></p>
+
+<p>若篡改密文，则会出<strong>bad decrypt</strong>,但是不能立即显示解密失败，需要先处理一段时间。</p>
+
+<table>
+<thead>
+<tr>
+<th>aes-128-cbc</th>
+<th>原文长度</th>
+<th>加密后长度</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td></td>
+<td>227</td>
+<td>256</td>
+</tr>
+<tr>
+<td></td>
+<td>239</td>
+<td>256</td>
+</tr>
+<tr>
+<td></td>
+<td>240</td>
+<td>272</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>同一文件，使用相同密码加密，两次得到的加密文件不同</strong>。</p>
+
+<pre><code class="language-c">openssl aes-128-cbc -in ecdsa -out ecdsa.aes
+openssl aes-128-cbc -in ecdsa -out ecdsa.aes2
+</code></pre>
+
+<p>例如ecdsa.aes 与 ecdsa.aes2不同</p>
+
+<h5 id="toc_4">aes-128-ecb</h5>
+
+<p>同样有魔法数字 <em>Salted__</em></p>
+
+<p>同一文件，同一密码，两次加密文件不同</p>
+
+<table>
+<thead>
+<tr>
+<th>aes-128-ecb</th>
+<th>原文长度</th>
+<th>加密后长度</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td></td>
+<td>239</td>
+<td>256</td>
+</tr>
+<tr>
+<td></td>
+<td>240</td>
+<td>272</td>
+</tr>
+</tbody>
+</table>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/1/30</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="15173049141721.html">
+                
+                  <h1>流程</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<ol>
+<li>选择两个素数\(p\)和\(q\)</li>
+<li>计算\(n=pq\)</li>
+<li>计算\(\lambda(n)=lcm(\lambda(p),\lambda(q))=lcm(p-1,q-1)\)</li>
+<li>选择随机整数\(e \in (1,\lambda(n))\)并且\(gcd(e,\lambda(n))=1\)</li>
+<li>计算\(d\equiv e^{-1} \bmod{\lambda(n)}\)</li>
+</ol>
+
+<p>公钥是\((n,e)\),私钥是\((n,d)\)</p>
+
+<h2 id="toc_0">example</h2>
+
+<ol>
+<li>Choose two distinct prime numbers
+
+<ul>
+<li>\(p=6 ,\  q = 53\)</li>
+</ul></li>
+<li>Compute \(n=pq\)
+
+<ul>
+<li>\(n=61 \times 53 = 3233\)</li>
+</ul></li>
+<li>Compute \(\lambda(n) = lcm(p-1,q-1)\)
+
+<ul>
+<li>\(\lambda(3233)=lcm(60,52)=780\)</li>
+</ul></li>
+<li>Choose a number \(1&lt;e&lt;780\) and is coprime for 780
+
+<ul>
+<li>let \(e=17\)</li>
+</ul></li>
+<li>Copute \(d\)
+
+<ul>
+<li>\(d= e^{-d}\bmod{\lambda(n)} = 17^{-1}\bmod{780}\)</li>
+<li>\(413\times17-780\times9 = 1\)</li>
+<li>\(d=17^{-1}\bmod{780} =413\)</li>
+</ul></li>
+</ol>
+
+<p>public key is (n=3233,e=17), the encryption function is \(c(m)=m^{17}\bmod{3233}\)<br/>
+private key is (n=3233,d=413),the decryption function is \(m(c)=c^{413}\bmod{3233}\)</p>
+
+<h3 id="toc_1">for instance</h3>
+
+<p>message is \(m=65\)<br/>
+\(m=65^{17}\bmod{3233} = 2790\)</p>
+
+<p>decrypt c = 2790</p>
+
+<p>\(m=2790^413\bmod{3233}=65\)</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/1/30</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="15173049142023.html">
+                
+                  <h1>Slat</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p><a href="https://crackstation.net/hashing-security.htm">参考原文</a></p>
+
+<p>密码存储验证。一般并不存储密码明文，而是存储密码的Hash。但是若仅存储密码的Hash，很容易被破解。比如对密码进行SHA256运算，保留Hash值，用户输入密码，然后计算SHA并且与数据库中对比验证，即可知道密码输入是否正确。</p>
+
+<h2 id="toc_0">Add Slat</h2>
+
+<pre><code class="language-c">hash(&quot;hello&quot;)                    = 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+hash(&quot;hello&quot; + &quot;QxLUF1bgIAdeQX&quot;) = 9e209040c863f84a31e719795b2577523954739fe5ed3b58a75cff2127075ed1
+hash(&quot;hello&quot; + &quot;bv5PehSMfV11Cd&quot;) = d1d3ec2e6f20fd420d50e2642992841d8338a314b8ea157c9e18477aaef226ab
+hash(&quot;hello&quot; + &quot;YYLmfY6IehjZMQ&quot;) = a49670c3c18b9e079b9cfaf51634f563dc8ae3070db2c4a8544305df1b60f007
+</code></pre>
+
+<p>If two users have the same password, they&#39;ll have the same password hashes. We can randomize the hashes by appending or prepending a random string, called a <strong>salt</strong>, to the password before hashing.  To check if a password is correct, we need the salt, so it is usually stored in the user account database along with the hash, or as part of the hash string itself. The salt does not need to be secret. Just by randomizing the hashes. </p>
+
+<p>即使攻击者知道Slat，也无法使用查找表方式攻击。比如Slat是“slat”并且添加到密码后边。即使这样，攻击者需要一张结尾为“slat”的暴力破解字典，这仍需要很多的时间制作(需要在普通的字典后边加上“slat”，然后对所有项主歌计算hash，比较是否与数据库中存储一致)。</p>
+
+<h2 id="toc_1">WRONG Way: Short Salt &amp; Salt Reuse</h2>
+
+<p>最常见的错误使用方式是：Salt长度很短，重复使用相同的Salt。</p>
+
+<h3 id="toc_2">重复使用</h3>
+
+<p>若两个用户有相同的密码，恰好也使用了相同的Salt，那么Hash也相同。攻击者也可以使用字典攻击。</p>
+
+<p>当用户账户创建或者修改密码时，必须随机生成新的Salt。</p>
+
+<h3 id="toc_3">短Salt</h3>
+
+<p>比如如果Salt仅有三个ASCII字符，一共有95x95x95=857375种可能。假如查找表包含1MB常用密码，相乘后也只要837GB数据需要存储。在当前1TB磁盘价格是很容易承受的。基于这个原因，用户名不能作为salt。攻击者往往也使用常见的用户名做了攻击字典。为了防止攻击者使用查找表方式攻击，salt一定要长。一个较合理的方式是salt长度与hash长度一样长。比如，SHA256 is 256bit，so salt should be at least 32 random byte。</p>
+
+<h2 id="toc_4">WRONG Way: Double Hashing &amp; Wacky Hash Funcitons</h2>
+
+<p>人们通常希望通过复合两种Hash function来实现更安全的结果，实际上这对结果仅有一点点帮助。也不要使用特别奇怪的甚至自己写的Hash function</p>
+
+<p>无效的Hash function</p>
+
+<ul>
+<li>md5(sha1(password))</li>
+<li>md5(md5(salt) + md5(password))</li>
+<li>sha1(sha1(password))</li>
+<li>sha1(str_rot13(password + salt))</li>
+<li>md5(sha1(md5(md5(password) + sha1(password)) + md5(password)))</li>
+</ul>
+
+<p>不要使用以上的方式。</p>
+
+<p>一个攻击者不能攻击hash当他不知道hash方式的时候，但是往往攻击者通常是知道源码的人，尤其是使用了开源代码。</p>
+
+<p>最好是使用经过特殊设计的迭代算法。</p>
+
+<h2 id="toc_5">RIGHT Way</h2>
+
+<h3 id="toc_6">Salt</h3>
+
+<p>Salt should be generated using a <strong>Cryptographically Secure Pseudo-Random Number Generator</strong> (CSPRNG). </p>
+
+<table>
+<thead>
+<tr>
+<th>Paltform</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Java</td>
+<td><a href="http://docs.oracle.com/javase/6/docs/api/java/security/SecureRandom.html">java.security.SecureRandom</a></td>
+</tr>
+<tr>
+<td>C#</td>
+<td><a href="http://msdn.microsoft.com/en-us/library/system.security.cryptography.rngcryptoserviceprovider.aspx">System.Security.Cryptography.RNGCryptoServiceProvider</a></td>
+</tr>
+<tr>
+<td>Python</td>
+<td><a href="http://docs.python.org/library/os.html">os.urandom</a></td>
+</tr>
+<tr>
+<td>C／C++（Windows）</td>
+<td><a href="http://www.wikiwand.com/en/CryptGenRandom">CryptGenRandom</a></td>
+</tr>
+<tr>
+<td>Linux／Unix</td>
+<td>Read from <a href="http://www.wikiwand.com/en//dev/random">/dev/random</a> or /dev/urandom</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="toc_7">To Store a Password</h3>
+
+<ol>
+<li>Generate a long random salt using a CSPRNG</li>
+<li>Prepend the salt to the password and hash it with a <strong>standard</strong> password hashing function like Argon1,bcrypt scrypt or PBKDF2</li>
+<li>Save both the salt and the hash in the user&#39;s database record.</li>
+</ol>
+
+<h3 id="toc_8">To Validate a Password</h3>
+
+<ol>
+<li>Retrieve the user&#39;s salt and hash from the database</li>
+<li>Prepend the salt to the given password an hash it using the same hash function</li>
+<li>Compare the hash of the given password with the hash from the database. If they match, the password is corrent. Otherwise, the password is incorrect.</li>
+</ol>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/1/30</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+              
+
+
+			<div class="row">
+			  <div class="large-6 columns">
+			  <p class="text-left" style="padding-top:25px;">
+			   <a href="all_4.html">&laquo; Prev Page</a>  
+			  </p>
+			  </div>
+			  <div class="large-6 columns">
+			<p class="text-right" style="padding-top:25px;">
+			 <a href="all_6.html">&raquo; Next Page</a> 
+			</p>
+			  </div>
+			</div>
+		</div>
+	</div><!-- large 8 -->
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1></h1>
+                <div class="site-des"></div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="C++.html"><strong>C++</strong></a>
+        
+            <a href="Xcode.html"><strong>Xcode</strong></a>
+        
+            <a href="Linux.html"><strong>Linux</strong></a>
+        
+            <a href="Crypt.html"><strong>Crypt</strong></a>
+        
+            <a href="Computer.html"><strong>Computer</strong></a>
+        
+            <a href="genome.html"><strong>genome</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15173054141309.html">Illumina Sequencing</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15173054141798.html">Illumina二代测序原理</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15173054025402.html">DNA基本关系</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15173053129472.html">字符编码</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15173052079033.html">跨平台C／C++系统／编译器检测</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    <script src="asset/chart/all-min.js"></script><script type="text/javascript">$(function(){    var mwebii=0;    var mwebChartEleId = 'mweb-chart-ele-';    $('pre>code').each(function(){        mwebii++;        var eleiid = mwebChartEleId+mwebii;        if($(this).hasClass('language-sequence')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = Diagram.parse($(this).text());            diagram.drawSVG(eleiid,{theme: 'simple'});        }else if($(this).hasClass('language-flow')){            var ele = $(this).addClass('nohighlight').parent();            $('<div id="'+eleiid+'"></div>').insertAfter(ele);            ele.hide();            var diagram = flowchart.parse($(this).text());            diagram.drawSVG(eleiid);        }    });});</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({TeX: { equationNumbers: { autoNumber: "AMS" } }});</script>
+
+
+  </body>
+</html>

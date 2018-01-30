@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-    
-  C++ - 
+  
+  
   
   </title>
   
@@ -109,190 +109,30 @@
 		<div class="markdown-body home-categories">
 		
 			<div class="article">
-                <a class="clearlink" href="15173053129472.html">
+                <a class="clearlink" href="15173027520921.html">
                 
-                  <h1>字符编码</h1>
+                  <h1>Git</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<h3 id="toc_0">Ascii</h3>
+                        	<ul>
+<li>
+<a href="#toc_0">git tag</a>
+</li>
+</ul>
 
-<p>是美国信息互换标准，用0x00到0x20表示控制字符，剩下空格，标点，数字，大小写字母编码到127.</p>
 
-<h3 id="toc_1">GB2312</h3>
+<h2 id="toc_0">git tag</h2>
 
-<p>对小于127的字节与Ascii相同，当两个字节都大于127时，前面字节称为高字节从0xA1到0xF7，后边称为低字节从0xA1到0xFE，这样组合出大约7000个简体字。</p>
-
-<h3 id="toc_2">GBK</h3>
-
-<p>为了编码生僻字和繁体字，规定只要第一个字节大于127就表示一个汉字的开始，GBK包含了GB2312所有内容，同时又增加了近两万个汉字和符号。</p>
-
-<h3 id="toc_3">GB18030</h3>
-
-<p>在GBK基础上又增加了几千个少数民族字，形成了GB18030</p>
-
-<h3 id="toc_4">Unicode</h3>
-
-<p>ISO废除所有地区性编码方案，指定标准时计算机存储容量极大发展了。为每个字符进行了编码例如希伯来文的<code>N</code>编码为U+2135，英文字母<code>A</code>编码为U+0061。Unicode并不涉及字符怎样在计算机中表示，更没有规定占几个字节。所以他支持的字符数量没有限制。</p>
-
-<h2 id="toc_5">传输编码</h2>
-
-<p>unicode在很长一段时间内无法推广，直到互联网的出现，为解决unicode如何在网络上传输的问题，于是面向传输的众多 <strong>UTF</strong>（UCS Transfer Format）标准出现了，顾名思义，<strong>UTF-8</strong>就是每次8个位传输数据，而<strong>UTF-16</strong>就是每次16个位。</p>
-
-<h3 id="toc_6">UTF-8</h3>
-
-<p>UTF8是互联网上最广泛的传输方式。UTF8中0-127用一个字符表示，与US-Ascii相同，128以上字符用两个，三个和四个字节表示，UTF8可认为是变长编码。</p>
-
-<p>其中英文一般是1字节，希腊，希伯来，俄语占2字节，常见中文日文韩文占3字节，生僻中文韩文日文占4字节。</p>
-
-<p><img src="https://gitee.com/uploads/images/2017/1226/154002_d9a7a4bf_1453931.png" alt="char-boundaries" title="char-boundaries.png"/></p>
-
-<h4 id="toc_7">BOM</h4>
-
-<p>Byte Order Mark字节顺序标记，出现在文件头部。用于标识文件是用那种各式编码，UTF16中<code>FEFF</code>用来判断是大端还是小端模式。</p>
-
-<p>UTF8不需要BOM表示字节顺序，但可以用BOM表明编码方式<code>EF BB BF</code>三个字节表示UTF-8编码方式，例如windows记事本保存一个以UTF-8编码文件时，会在头上加入三个不可见字节。</p>
-
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                  
-                    <span class="date">2018/1/30</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
-          				   
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
-
-                       
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-			<div class="article">
-                <a class="clearlink" href="15173052079033.html">
-                
-                  <h1>跨平台C／C++系统／编译器检测</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<p>通过预定义宏可以判断当前使用平台和所用编译器。</p>
-
-<h2 id="toc_0">平台宏</h2>
-
-<p>在不同的系统下编译器预定义宏不同，可以作为检测操作系统的方法。</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>windows x86</th>
-<th>windows x64</th>
-<th>linux</th>
-<th>mac</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>_WIN32</code></td>
-<td>**</td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>_WIN64</code></td>
-<td></td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__unix__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__linux__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__APPLE__</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h1 id="toc_1">编译器预定义宏</h1>
-
-<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Clang</th>
-<th>GCC</th>
-<th>ICC</th>
-<th>MSVC</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>__clang__</code></td>
-<td>**</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__GUNC__</code></td>
-<td>**</td>
-<td>**</td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__ICC</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__MSC_VER</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="toc_2">size_t大小</h2>
+<p>标签可以将提交标记为便于阅读和发行的版本号。例如可以在某个提交后添加标签为<code>v1.0</code>，将Terminal进入到本地仓库目录。</p>
 
 <ul>
-<li><p>在64位系统中定义<code>size_t = uint64_t</code></p></li>
-<li><p>在32位系统中定义<code>size_t = uint32_t</code></p></li>
+<li><code>git tag</code> 列出所有标签</li>
+<li><code>git tag -a v1.4.2 -m &#39;my version 1.4.2&#39;</code>创建标签和message</li>
+<li><code>git show v1.4.3</code>显示标签</li>
+<li><code>git push origin --tags</code>标签推送到版本库</li>
+<li><code>git push --delete origin YOUR-TAG-NAME</code>删除某个标签</li>
 </ul>
 
                         
@@ -305,7 +145,7 @@
                     <span class="date">2018/1/30</span>
                     <span>posted in&nbsp;</span> 
           				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
+          					    <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
           				   
                   </div>
                   <div class="more-right right">
@@ -319,34 +159,70 @@
               </div><!-- article -->
         
 			<div class="article">
-                <a class="clearlink" href="15173051110022.html">
+                <a class="clearlink" href="15173027148008.html">
                 
-                  <h1>curl库编译</h1>
+                  <h1>Shell 脚本</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<p>curl是一个命令行模式工具，用URLs方式传输数据。<a href="https://curl.haxx.se">网址</a></p>
+                        	<h3 id="toc_0">测试文件</h3>
 
-<blockquote>
-<p><strong>Supports...</strong></p>
+<p><code>test</code></p>
 
-<p>DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, Telnet and TFTP. curl supports SSL certificates, HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, HTTP/2, cookies, user+password authentication (Basic, Plain, Digest, CRAM-MD5, NTLM, Negotiate and Kerberos), file transfer resume, proxy tunneling and more.</p>
-</blockquote>
-
-<h2 id="toc_0">how to bulid</h2>
-
-<p><a href="https://curl.haxx.se/docs/install.html">参考网址</a></p>
-
-<h3 id="toc_1">Unix</h3>
-
-<pre><code>1 ./configure
-2 make
-3 make test (optional)
-4 make install(root)
+<pre><code class="language-shell">test -e ./filename
 </code></pre>
 
-<p>在Mac OSX中可能会遇到识别openssl的<a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl">问题</a>，</p>
+<p>测试文件是否存在</p>
+
+<h4 id="toc_1">echo</h4>
+
+<ol>
+<li>输出字符串</li>
+<li>执行指令</li>
+</ol>
+
+<pre><code class="language-shell">echo &quot;hello world&quot; //显示字符串
+echo &quot;hello world ${usrname}&quot;
+</code></pre>
+
+<pre><code class="language-shell">echo `date` //执行指令
+echo `ls -l | grep ${usrname}`
+</code></pre>
+
+<h3 id="toc_2">控制流</h3>
+
+<h4 id="toc_3">if</h4>
+
+<pre><code class="language-shell">if test -e ./hashfile
+then
+    rm hashfile
+fi
+</code></pre>
+
+<h4 id="toc_4">for</h4>
+
+<pre><code class="language-shell">for skill in Ada Coffe Action Java; do
+    echo `date`
+    echo &quot;file name is ${skill}&quot; &gt;&gt; hashfile
+    echo `./CXXTest fileis${skill}` &gt;&gt; hashfile
+done
+</code></pre>
+
+<pre><code class="language-shell">for ((i = 0; i &lt; 10; i++)); do
+    md5 u.sh &gt;&gt; hashfile
+    ./CXXTest &gt;&gt; hashfile
+done
+</code></pre>
+
+<h3 id="toc_5">重定向</h3>
+
+<p><code>&gt;</code>以重写方式将字符串写入文件</p>
+
+<p><code>&gt;&gt;</code> 以追加方式将字符串写入文件</p>
+
+<pre><code class="language-shell">md5 u.sh &gt;&gt; hashfile
+</code></pre>
 
                         
                       </div>
@@ -358,7 +234,258 @@
                     <span class="date">2018/1/30</span>
                     <span>posted in&nbsp;</span> 
           				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
+          					    <span class="posted-in"><a href='Linux.html'>Linux</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="15173026872373.html">
+                
+                  <h1>Linux基本指令</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<ul>
+<li>
+<a href="#toc_0">CPU</a>
+</li>
+<li>
+<a href="#toc_1">目录</a>
+</li>
+<li>
+<a href="#toc_2">GCC</a>
+</li>
+<li>
+<a href="#toc_3">sftp</a>
+</li>
+<li>
+<a href="#toc_4">Gzip</a>
+</li>
+<li>
+<a href="#toc_5">查看磁盘</a>
+</li>
+</ul>
+
+
+<h2 id="toc_0">CPU</h2>
+
+<p>查看CPU信息<code>lscpu</code></p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>top</td>
+<td></td>
+<td>显示进程以及CPU占用</td>
+</tr>
+<tr>
+<td>top -u</td>
+<td>top -udu</td>
+<td>显示指定用户的CPU占用</td>
+</tr>
+<tr>
+<td>top -p</td>
+<td>top -p123</td>
+<td>显示进程123的CPU占用</td>
+</tr>
+<tr>
+<td>top -d</td>
+<td>top -d 1</td>
+<td>设置显示刷新频率</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_1">目录</h2>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>mkdir</td>
+<td></td>
+<td>创建目录</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_2">GCC</h2>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>gcc -v</td>
+<td></td>
+<td>查看版本</td>
+</tr>
+<tr>
+<td>g++</td>
+<td></td>
+<td>gcc的c++编译指令</td>
+</tr>
+<tr>
+<td>-std=c++11</td>
+<td></td>
+<td>使用c++11标准</td>
+</tr>
+<tr>
+<td>-w</td>
+<td></td>
+<td>忽略警告</td>
+</tr>
+<tr>
+<td>-pthread</td>
+<td></td>
+<td>使用pthread实现多线程</td>
+</tr>
+<tr>
+<td>-D</td>
+<td><code>-DDEBUG</code> <code>-DPI=3.1415926</code></td>
+<td>定义宏</td>
+</tr>
+<tr>
+<td>-O0</td>
+<td></td>
+<td>优化级别不优化</td>
+</tr>
+<tr>
+<td>-O1</td>
+<td></td>
+<td>优化级别默认级别</td>
+</tr>
+<tr>
+<td>-O2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>-O3</td>
+<td></td>
+<td>优化级别最高级别</td>
+</tr>
+<tr>
+<td>-c</td>
+<td></td>
+<td>编译文件</td>
+</tr>
+<tr>
+<td>-o</td>
+<td></td>
+<td>编译并输出可执行文件</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_3">sftp</h2>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>put</td>
+<td></td>
+<td>从本地上传到远程主机</td>
+</tr>
+<tr>
+<td>get</td>
+<td></td>
+<td>从远程主机下载到本地</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_4">Gzip</h2>
+
+<p>解压使用<code>gunzip</code>指令</p>
+
+<pre><code class="language-c">//解压xxx.gz，生成xxx文件并删除原文件
+gunzip xxx.gz
+</code></pre>
+
+<pre><code>//解压xxx.gz，生成xxx文件并保留原文件
+gunzip -c xxx.gz &gt; xxx 
+</code></pre>
+
+<p>压缩使用<code>gzip</code>指令</p>
+
+<pre><code>//压缩xxx文件，生成xxx.gz并删除原文件
+gzip xxx
+</code></pre>
+
+<pre><code>//压缩xxx文件，生成xxx.gz并保留原文件
+gzip -c xxx &gt; xxx.gz
+</code></pre>
+
+<h2 id="toc_5">查看磁盘</h2>
+
+<p><code>cat /proc/scsi/scsi</code></p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/1/30</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Linux.html'>Linux</a></span>
           				   
                   </div>
                   <div class="more-right right">
@@ -377,12 +504,12 @@
 			<div class="row">
 			  <div class="large-6 columns">
 			  <p class="text-left" style="padding-top:25px;">
-			   
+			   <a href="all_13.html">&laquo; Prev Page</a>  
 			  </p>
 			  </div>
 			  <div class="large-6 columns">
 			<p class="text-right" style="padding-top:25px;">
-			 <a href="C++_1.html">&raquo; Next Page</a> 
+			 <a href="all_15.html">&raquo; Next Page</a> 
 			</p>
 			  </div>
 			</div>

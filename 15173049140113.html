@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  Intel random number generator - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>Intel random number generator</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,77 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <p>Intel recently announced the addition of the RDSEED instruction to the Intel® 64 and IA-32 Architectures. An addition to Intel® Secure Key, this new instruction will appear in future generations of Intel processors.</p>
+
+<p>Like RDRAND the RDSEED instruction returns random numbers, and with two instructions that appear to do the same thing it is only natural for the software developer to ask, &quot;Which one should I use?&quot;</p>
+
+<h2 id="toc_0">The Difference Between RDRAND and RDSEED</h2>
+
+<h3 id="toc_1">short answer</h3>
+
+<ul>
+<li>if you want to seed another pseudorandom number generator,use RESEED</li>
+<li>for other purposes, use RDRAND</li>
+</ul>
+
+<h3 id="toc_2">long answer</h3>
+
+<table>
+<thead>
+<tr>
+<th>Instruction</th>
+<th>Source</th>
+<th>NIST Compliance</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>RDRAND</td>
+<td>Crypto secure pseudorandom number generator</td>
+<td>SP 800-90A</td>
+</tr>
+<tr>
+<td>RDSEED</td>
+<td>Non-deterministic random number generator</td>
+<td>SP 800-90B&amp;C</td>
+</tr>
+</tbody>
+</table>
+
+<p>使用RDSEED可生成两个独立随机数。</p>
+
+<p>使用RDRAND只能生成两个高质量随机数，他们并不独立。</p>
+
+<p>因此说，RDSEED生成的随机数质量高于RDRAND</p>
+
+<h2 id="toc_3">NIST RBG standard</h2>
+
+<p>NIST SP 800-90A : DRGB</p>
+
+<p>NIST SP 800-90B : Entropy  source</p>
+
+<p>NIST SP 800-90C : RBG = Entropy source + DRBG</p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/103203_f349fa97_1453931.png" alt="SP800-90A" title="SP800-90A.png"/></p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/103554_c4e7af27_1453931.png" alt="SP800-90B" title="SP800-90B.png"/></p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/103714_d6d08b86_1453931.png" alt="SP800-90C" title="SP800-90C.png"/></p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/104006_0433b60c_1453931.png" alt="EntropySource" title="EntropySource.png"/></p>
+
+<h2 id="toc_4">AMD rand</h2>
+
+<p>AMD RYZEN and EPYC 处理器中也包含随机数生成器。</p>
+
+<p><img src="https://gitee.com/uploads/images/2017/1214/105541_e486e4c9_1453931.png" alt="AMD_rand" title="AMD_rand.png"/></p>
+
+<h2 id="toc_5">mbed TSL</h2>
+
+<p>Entropy source，On Linux, <strong>/dev/urandom</strong> is used by default. On Windows, the <strong>CryptGenRandom()</strong> function is used</p>
+
+<p><img src="https://tls.mbed.org/img/plantuml/bLInJiCm4Dtz5QTEhKI7Hc911BNGKbWOKaQaoaqEQYcnBVkCuEzn8YV4RLhA5CltxlczTtROt18tvAgICPwJCh3GkXGv9w4aqxuaSg6v91Wzl6RRPNQ_7W6taBsie-fAab7wE-vOuZjt9S56EPDZqsURvIp6hRx8y6DKmbYQmhCK97WfB4AQifuwcDwrnzxqKTuGOMr6VFf5fonyewuCBL9e6AhtMHj9y2Onu7Bb9A6nB3TOdzCww_64hJuFOmKUIOifaaEJOJkYEPN3eYX2a33knpffibnpsgE1riAPF6FasJGxbnydUWwJkPrEVvi2-WgagxOxGROVq42cdKAxvzUpPEjquP7ZG3Cv5fRy9ImP49PS92pvZx2XkVkHr5SGYteK_ab5F8z8-VwY2PoQMgcK1dzBHGcLaA9o5MXV3bUvlGMDjmlOK1Q3i4AvNOcmULfuso5hxmZFw3JDkpjwIKq4zH0wO4io5DxS2wh_Mpy0" alt=""/></p>
 
 
     
@@ -140,16 +210,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173050634716.html" 
+          title="Previous Post: 磁盘传输">&laquo; 磁盘传输</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173049140539.html" 
+          title="Next Post: Linux /dev/random">Linux /dev/random &raquo;</a>
       
       </p>
         </div>

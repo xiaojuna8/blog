@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  C++ - 
+  genome - 
   
   </title>
   
@@ -109,50 +109,39 @@
 		<div class="markdown-body home-categories">
 		
 			<div class="article">
-                <a class="clearlink" href="15173053129472.html">
+                <a class="clearlink" href="15173054141309.html">
                 
-                  <h1>字符编码</h1>
+                  <h1>Illumina Sequencing</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<h3 id="toc_0">Ascii</h3>
+                        	<p><em>Author：Brian LM Cheng</em></p>
 
-<p>是美国信息互换标准，用0x00到0x20表示控制字符，剩下空格，标点，数字，大小写字母编码到127.</p>
+<h2 id="toc_0">Step1</h2>
 
-<h3 id="toc_1">GB2312</h3>
+<p>In the Illumina genome analyzer, the DNA that you want to sequence is first fragmented and ligated with Illumina-specific adapters from a library of adapters. All these single stranded DNAs + unique adapters are then bound to the surface of a flow cell.</p>
 
-<p>对小于127的字节与Ascii相同，当两个字节都大于127时，前面字节称为高字节从0xA1到0xF7，后边称为低字节从0xA1到0xFE，这样组合出大约7000个简体字。</p>
+<p><img src="http://i0.wp.com/symposcium.com/wp-content/uploads/2013/05/illumina-1.png?w=1093" alt=""/></p>
 
-<h3 id="toc_2">GBK</h3>
+<h2 id="toc_1">Step2</h2>
 
-<p>为了编码生僻字和繁体字，规定只要第一个字节大于127就表示一个汉字的开始，GBK包含了GB2312所有内容，同时又增加了近两万个汉字和符号。</p>
+<p>Next, the adapter is then bind to the primer on the surface forming a bridge. At this point, PCR amplification takes place using unlabeled nucleotide. At the end of the PCR amplification, you will get two complementary single stranded strands attached to the surface of the flow cell channel.</p>
 
-<h3 id="toc_3">GB18030</h3>
+<p><img src="http://i2.wp.com/symposcium.com/wp-content/uploads/2013/05/illumina-22.png?w=1043" alt=""/></p>
 
-<p>在GBK基础上又增加了几千个少数民族字，形成了GB18030</p>
+<h2 id="toc_2">Step3</h2>
 
-<h3 id="toc_4">Unicode</h3>
+<p>Next, primer and special labeled reversible terminators are added. What are these terminators? These terminators carry a fluorescent tag and the 3’OH is blocked but it can be chemically removed to continue replication.</p>
 
-<p>ISO废除所有地区性编码方案，指定标准时计算机存储容量极大发展了。为每个字符进行了编码例如希伯来文的<code>N</code>编码为U+2135，英文字母<code>A</code>编码为U+0061。Unicode并不涉及字符怎样在计算机中表示，更没有规定占几个字节。所以他支持的字符数量没有限制。</p>
+<p><img src="http://i2.wp.com/symposcium.com/wp-content/uploads/2013/05/illumina-3.png?w=1052" alt=""/></p>
 
-<h2 id="toc_5">传输编码</h2>
+<p>Because of the unique blocking ability of this technique, you can add a terminator and then let it bind to the replicating strand. Then, determine the nucleotide identity by the fluorescent tag, followed by removing the blocking group at the 3’OH site to continue the next round.</p>
 
-<p>unicode在很长一段时间内无法推广，直到互联网的出现，为解决unicode如何在网络上传输的问题，于是面向传输的众多 <strong>UTF</strong>（UCS Transfer Format）标准出现了，顾名思义，<strong>UTF-8</strong>就是每次8个位传输数据，而<strong>UTF-16</strong>就是每次16个位。</p>
+<p><strong>Single-End Read:</strong> When the sequencing process only occurs in 1 direction<br/>
+<strong>Paired-End Read:</strong> If two separate read cycles occur in both directions. This kind of read will provide data about both sides of the fragment of interest (Blue). If the fragment size is consistent you will also be able to predict that both the forward and reverse reads will be a known distance from each other. This data can be used to help the software map the reads more accurately.</p>
 
-<h3 id="toc_6">UTF-8</h3>
-
-<p>UTF8是互联网上最广泛的传输方式。UTF8中0-127用一个字符表示，与US-Ascii相同，128以上字符用两个，三个和四个字节表示，UTF8可认为是变长编码。</p>
-
-<p>其中英文一般是1字节，希腊，希伯来，俄语占2字节，常见中文日文韩文占3字节，生僻中文韩文日文占4字节。</p>
-
-<p><img src="https://gitee.com/uploads/images/2017/1226/154002_d9a7a4bf_1453931.png" alt="char-boundaries" title="char-boundaries.png"/></p>
-
-<h4 id="toc_7">BOM</h4>
-
-<p>Byte Order Mark字节顺序标记，出现在文件头部。用于标识文件是用那种各式编码，UTF16中<code>FEFF</code>用来判断是大端还是小端模式。</p>
-
-<p>UTF8不需要BOM表示字节顺序，但可以用BOM表明编码方式<code>EF BB BF</code>三个字节表示UTF-8编码方式，例如windows记事本保存一个以UTF-8编码文件时，会在头上加入三个不可见字节。</p>
+<p><img src="http://tucf-genomics.tufts.edu/images/faq03_pic01.png?1378237299" alt=""/></p>
 
                         
                       </div>
@@ -164,7 +153,7 @@
                     <span class="date">2018/1/30</span>
                     <span>posted in&nbsp;</span> 
           				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
+          					    <span class="posted-in"><a href='genome.html'>genome</a></span>
           				   
                   </div>
                   <div class="more-right right">
@@ -178,175 +167,80 @@
               </div><!-- article -->
         
 			<div class="article">
-                <a class="clearlink" href="15173052079033.html">
+                <a class="clearlink" href="15173054141798.html">
                 
-                  <h1>跨平台C／C++系统／编译器检测</h1>
+                  <h1>Illumina二代测序原理</h1>
                   <div class="a-content">
                       
                       <div class="a-content-text">
                         
-                        	<p>通过预定义宏可以判断当前使用平台和所用编译器。</p>
+                        	<p><em>Author:Du</em></p>
 
-<h2 id="toc_0">平台宏</h2>
+<p><em>Date：2017.8.3</em></p>
 
-<p>在不同的系统下编译器预定义宏不同，可以作为检测操作系统的方法。</p>
+<hr/>
 
-<table>
-<thead>
-<tr>
-<th></th>
-<th>windows x86</th>
-<th>windows x64</th>
-<th>linux</th>
-<th>mac</th>
-</tr>
-</thead>
+<p>Illumina公司的测序仪Genome Analyzer最早由Solexa公司开发，后来Illumina公司收购了Solexa。Illumina的Genome Analyzer机器是二代测序仪中市场占有较高的机型。该机器读长可达100bp左右数据。测人类基因组一般打断为300-500bp长度。</p>
 
-<tbody>
-<tr>
-<td><code>_WIN32</code></td>
-<td>**</td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>_WIN64</code></td>
-<td></td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__unix__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__linux__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__APPLE__</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h1 id="toc_1">编译器预定义宏</h1>
-
-<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Clang</th>
-<th>GCC</th>
-<th>ICC</th>
-<th>MSVC</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>__clang__</code></td>
-<td>**</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__GUNC__</code></td>
-<td>**</td>
-<td>**</td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__ICC</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__MSC_VER</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="toc_2">size_t大小</h2>
-
-<ul>
-<li><p>在64位系统中定义<code>size_t = uint64_t</code></p></li>
-<li><p>在32位系统中定义<code>size_t = uint32_t</code></p></li>
-</ul>
-
-                        
-                      </div>
-                  </div>
-                </a>
-                <div class="read-more clearfix">
-                  <div class="more-left left">
-                  
-                    <span class="date">2018/1/30</span>
-                    <span>posted in&nbsp;</span> 
-          				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
-          				   
-                  </div>
-                  <div class="more-right right">
-                  <span class="comments">
-                      
-
-                       
-                  </span>
-                  </div>
-                </div>
-              </div><!-- article -->
-        
-			<div class="article">
-                <a class="clearlink" href="15173051110022.html">
-                
-                  <h1>curl库编译</h1>
-                  <div class="a-content">
-                      
-                      <div class="a-content-text">
-                        
-                        	<p>curl是一个命令行模式工具，用URLs方式传输数据。<a href="https://curl.haxx.se">网址</a></p>
+<h2 id="toc_0">原理</h2>
 
 <blockquote>
-<p><strong>Supports...</strong></p>
-
-<p>DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMB, SMBS, SMTP, SMTPS, Telnet and TFTP. curl supports SSL certificates, HTTP POST, HTTP PUT, FTP uploading, HTTP form based upload, proxies, HTTP/2, cookies, user+password authentication (Basic, Plain, Digest, CRAM-MD5, NTLM, Negotiate and Kerberos), file transfer resume, proxy tunneling and more.</p>
+<p>将基因组DNA随机片段附着到透明玻璃表面（Flow cell）这些DNA片段经过延伸和扩增后，Flow cell上形成了数亿Cluster，每个Cluster上有数千相同模版的单分子簇。然后利用带荧光的脱氧核糖核酸通过可逆性终止的SBS（边合成边测序）技术对待测模版DNA进行测序。</p>
 </blockquote>
 
-<h2 id="toc_0">how to bulid</h2>
+<h2 id="toc_1">步骤</h2>
 
-<p><a href="https://curl.haxx.se/docs/install.html">参考网址</a></p>
+<pre><code class="language-flow">st=&gt;start: 文库制备
+p1=&gt;operation: 产生DNA簇
+e=&gt;operation: SBS
+f=&gt;end: 分析
+st-&gt;p1-&gt;e-&gt;f
 
-<h3 id="toc_1">Unix</h3>
-
-<pre><code>1 ./configure
-2 make
-3 make test (optional)
-4 make install(root)
 </code></pre>
 
-<p>在Mac OSX中可能会遇到识别openssl的<a href="https://stackoverflow.com/questions/16248775/cmake-not-able-to-find-openssl">问题</a>，</p>
+<ol>
+<li><p>文库制备</p>
+
+<p>将基因组打断成几百碱基的片段，在片段两端加上接头（Adapter）。</p>
+
+<p>打断是由超声波打断的，长短不一。</p></li>
+<li><p>产生DNA簇</p>
+
+<p>利用芯片将DNA片段变成单链并将其中一端固定到芯片上。另外一端也被固定到芯片上，形成“桥”（bridge）。反复30轮扩增，每个单分子扩增1000倍，形成单克隆DNA簇。</p></li>
+<li><p>测序</p>
+
+<p>Genome Analyzer使用边合成边测序（SBS）原理</p>
+
+<p>细节：加入改造过的DNA聚合酶和4中荧光标记的dNTP。这些核苷酸是“可逆终止子”，因为3‘羟基末端带有可化学切割的部分，只允许每个循环掺入单个碱基。因此用激光扫描反应板表面，读取每条模版序列第一轮反应所聚合上去的核苷酸种类。之后将这些基团化学切割，恢复3’端粘性，继续聚合第二个核苷酸。如此下去知道每个模版序列都被合称为双链。同时每轮收集到荧光信号，就可得知每个模版DNA片段序列。目前配对末端读长可达2x50bp，越长读长错误率会增大。</p>
+
+<p>每一簇都是一样的顺序，每次加入特殊碱基同时用激光照射并扫描荧光，每簇发出一种颜色。<img src="https://pic3.zhimg.com/87e61ae2bb88b212a421e99659517b32_b.jpg" alt=""/></p>
+
+<p>​</p></li>
+<li><p>分析</p></li>
+</ol>
+
+<p><img src="https://www.intechopen.com/source/html/49419/media/image2.png" alt=""/></p>
+
+<p><img src="http://www.gtbiotech.com.tw/products/images/ga2-1.jpg" alt=""/></p>
+
+<h2 id="toc_2">序列长度受限原因</h2>
+
+<ol>
+<li>每次加碱基后，同一簇里有些单链可能加不上</li>
+<li>碱基是特殊的，越用越差</li>
+</ol>
+
+<h2 id="toc_3">机器特点</h2>
+
+<ol>
+<li><p>可扩展的高通量</p>
+
+<p>每次运行可获得20Gb高品质<strong>过滤</strong>数据</p></li>
+<li><p>需要样品量少</p>
+
+<p>最低100ng</p></li>
+<li><p>简单快速自动化</p></li>
+</ol>
 
                         
                       </div>
@@ -358,7 +252,85 @@
                     <span class="date">2018/1/30</span>
                     <span>posted in&nbsp;</span> 
           				  
-          					    <span class="posted-in"><a href='C++.html'>C++</a></span>
+          					    <span class="posted-in"><a href='genome.html'>genome</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="15173054025402.html">
+                
+                  <h1>DNA基本关系</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p><em>Date:2017.8.2</em></p>
+
+<hr/>
+
+<ul>
+<li><p>DNA即脱氧核糖核酸（英文Deoxyribonucleic acid的缩写）,是染色体主要组成成分</p></li>
+<li><p>基因是有遗传效应的DNA片段</p></li>
+<li><p>染色体是由DNA和组蛋白组成</p></li>
+<li><p>基因组，Genome，一个细胞或者生物体所携带的一套完整的单倍体序列，包括全套基因和间隔序列</p></li>
+</ul>
+
+<h2 id="toc_0">DNA</h2>
+
+<p>分子结构</p>
+
+<p>Adenine</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Adenine_numbered.svg/300px-Adenine_numbered.svg.png" alt="Adenine"/></p>
+
+<p>Thymine</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Thymine_skeletal.svg/240px-Thymine_skeletal.svg.png" alt="Thymine"/></p>
+
+<p>A-T G-C 之间互相连接</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/DNA_chemical_structure.svg/600px-DNA_chemical_structure.svg.png" alt=""/></p>
+
+<h2 id="toc_1">包含关系</h2>
+
+<p>Cell-Nucleus-Chromosom-DNA</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Eukaryote_DNA-en.svg/560px-Eukaryote_DNA-en.svg.png" alt="包含关系图"/></p>
+
+<p>大小约若干微米</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Chromosome.svg/500px-Chromosome.svg.png" alt=""/></p>
+
+<h2 id="toc_2">人类基本情况</h2>
+
+<p>​人类只有一个基因组，大约2-3万个基因。</p>
+
+<p>人类基因组又23对染色体（46条）构成，每个染色体含有几百个基因。</p>
+
+<p>1-22号染色体基本按照其尺寸大小排列，最大的含有约2.5亿对碱基，最小的约有5000万对碱基。X染色体约1.6亿对碱基，Y染色体约5700万对碱基。</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Genes_and_base_pairs_on_chromosomes.svg/592px-Genes_and_base_pairs_on_chromosomes.svg.png" alt=""/></p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2018/1/30</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='genome.html'>genome</a></span>
           				   
                   </div>
                   <div class="more-right right">
@@ -382,7 +354,7 @@
 			  </div>
 			  <div class="large-6 columns">
 			<p class="text-right" style="padding-top:25px;">
-			 <a href="C++_1.html">&raquo; Next Page</a> 
+			
 			</p>
 			  </div>
 			</div>

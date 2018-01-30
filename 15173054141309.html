@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  Illumina Sequencing - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>Illumina Sequencing</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='genome.html'>genome</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,32 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <p><em>Author：Brian LM Cheng</em></p>
+
+<h2 id="toc_0">Step1</h2>
+
+<p>In the Illumina genome analyzer, the DNA that you want to sequence is first fragmented and ligated with Illumina-specific adapters from a library of adapters. All these single stranded DNAs + unique adapters are then bound to the surface of a flow cell.</p>
+
+<p><img src="http://i0.wp.com/symposcium.com/wp-content/uploads/2013/05/illumina-1.png?w=1093" alt=""/></p>
+
+<h2 id="toc_1">Step2</h2>
+
+<p>Next, the adapter is then bind to the primer on the surface forming a bridge. At this point, PCR amplification takes place using unlabeled nucleotide. At the end of the PCR amplification, you will get two complementary single stranded strands attached to the surface of the flow cell channel.</p>
+
+<p><img src="http://i2.wp.com/symposcium.com/wp-content/uploads/2013/05/illumina-22.png?w=1043" alt=""/></p>
+
+<h2 id="toc_2">Step3</h2>
+
+<p>Next, primer and special labeled reversible terminators are added. What are these terminators? These terminators carry a fluorescent tag and the 3’OH is blocked but it can be chemically removed to continue replication.</p>
+
+<p><img src="http://i2.wp.com/symposcium.com/wp-content/uploads/2013/05/illumina-3.png?w=1052" alt=""/></p>
+
+<p>Because of the unique blocking ability of this technique, you can add a terminator and then let it bind to the replicating strand. Then, determine the nucleotide identity by the fluorescent tag, followed by removing the blocking group at the 3’OH site to continue the next round.</p>
+
+<p><strong>Single-End Read:</strong> When the sequencing process only occurs in 1 direction<br/>
+<strong>Paired-End Read:</strong> If two separate read cycles occur in both directions. This kind of read will provide data about both sides of the fragment of interest (Blue). If the fragment size is consistent you will also be able to predict that both the forward and reverse reads will be a known distance from each other. This data can be used to help the software map the reads more accurately.</p>
+
+<p><img src="http://tucf-genomics.tufts.edu/images/faq03_pic01.png?1378237299" alt=""/></p>
 
 
     
@@ -140,16 +165,13 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
-      
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173054141798.html" 
+          title="Next Post: Illumina二代测序原理">Illumina二代测序原理 &raquo;</a>
       
       </p>
         </div>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  消息认证码 - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>消息认证码</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='Crypt.html'>Crypt</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,21 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <p>在密码学中，<a href="https://en.wikipedia.org/wiki/Message_authentication_code">消息认证码</a>(message authentication code,MAC)，就像一个tag，认证消息是否被更改过。同时可作为消息来源的身份验证。</p>
+
+<h2 id="toc_0">MAC 方式</h2>
+
+<p>CBC-MAC，HMAC，OMAC，PMAC，VMAC等</p>
+
+<h3 id="toc_1">CBC-MAC</h3>
+
+<p>类似CBC加密模式，从头到位加密再加密，最后得到MAC</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/CBC-MAC_structure_%28en%29.svg/1140px-CBC-MAC_structure_%28en%29.svg.png" alt=""/></p>
+
+<h3 id="toc_2">HMAC</h3>
+
+<p>散列认证，将消息和密钥经过一系列融合，再计算Hash.</p>
 
 
     
@@ -140,16 +154,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173049144364.html" 
+          title="Previous Post: 椭圆曲线密码学">&laquo; 椭圆曲线密码学</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173049144928.html" 
+          title="Next Post: 认证加密">认证加密 &raquo;</a>
       
       </p>
         </div>

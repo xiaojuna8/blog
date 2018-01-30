@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 
+  Makefile - 
   
   </title>
   
@@ -109,14 +109,14 @@
       <div class="markdown-body article-wrap">
        <div class="article">
           
-          <h1>lldb</h1>
+          <h1>Makefile</h1>
      
         <div class="read-more clearfix">
           <span class="date">2018/1/30</span>
 
           <span>posted in&nbsp;</span> 
           
-              <span class="posted-in"><a href='Xcode.html'>Xcode</a></span>
+              <span class="posted-in"><a href='C++.html'>C++</a></span>
            
          
           <span class="comments">
@@ -129,7 +129,56 @@
       </div><!-- article -->
 
       <div class="article-content">
-      <p>lldb是调试llvm和clang的调试工具。</p>
+      <p>自动化编译工具</p>
+
+<h2 id="toc_0">功能</h2>
+
+<ol>
+<li>将编译指令记录到一个文件中，方便调用和修改</li>
+<li>可以添加编译选项，在不改动代码情况下控制编译</li>
+</ol>
+
+<h2 id="toc_1">用法</h2>
+
+<p>编写好makefile文件后，在Terminal中敲make指令，就按照makefile中的指令进行编译。</p>
+
+<h2 id="toc_2">语法</h2>
+
+<p>每条语句分为三个部分</p>
+
+<ol>
+<li>目标名称</li>
+<li>依赖项，依赖项可以是文件也可以是其他目标</li>
+<li>指令</li>
+</ol>
+
+<pre><code class="language-makefile">first: main.cpp fun.cpp
+    gcc -o test main.cpp fun.cpp
+</code></pre>
+
+<p>makefile只完成第一个目标。可以在第一个目标的依赖项中加入其它目标，实现先后编译。</p>
+
+<p>gcc是C编译器，g++是C++编译器。</p>
+
+<h2 id="toc_3">GCC选项</h2>
+
+<p><code>g++</code>是C++编译器</p>
+
+<p><code>-D</code>是定义编译选项，例如<code>-DDEBUG</code>为定义DEBUG宏</p>
+
+<p><code>-std</code>是指定C++版本，例如<code>-std=c++11</code></p>
+
+<p><code>-O</code>是编译优化选项，例如<code>-O3</code></p>
+
+<h2 id="toc_4">杂项</h2>
+
+<p>注释，在makefile中以“#”开始的行为注释内容。</p>
+
+<p>makefile每一句指令默认都会在Terminal中显示，若不想在Terminal中显示可以在指令开头加上“@”.</p>
+
+<p>若想在Terminal中显示一句话可以用<code>echo</code>指令，例如<code>@echo 开始编译xx模块</code></p>
+
+<p>要删除中间生成的.o文件可以用指令<code>rm *.o</code></p>
 
 
     
@@ -140,16 +189,16 @@
         <div class="large-6 columns">
         <p class="text-left" style="padding:15px 0px;">
       
-          <a href="15173026443060.html" 
-          title="Previous Post: cenos 安装 gcc/clang">&laquo; cenos 安装 gcc/clang</a>
+          <a href="15173044802818.html" 
+          title="Previous Post: 编译器预定义宏">&laquo; 编译器预定义宏</a>
       
         </p>
         </div>
         <div class="large-6 columns">
       <p class="text-right" style="padding:15px 0px;">
       
-          <a  href="15172827779506.html" 
-          title="Next Post: C++ 输入输出流">C++ 输入输出流 &raquo;</a>
+          <a  href="15173044214676.html" 
+          title="Next Post: 命令行参数">命令行参数 &raquo;</a>
       
       </p>
         </div>
