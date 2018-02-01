@@ -8,7 +8,7 @@
   记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,123 +326,78 @@
 
 	
 		<div class="markdown-body">
-		<h1>跨平台C／C++系统／编译器检测</h1>
+		<h1>Illumina二代测序原理</h1>
 
-		<p>通过预定义宏可以判断当前使用平台和所用编译器。</p>
+		<p><em>Author:Du</em></p>
 
-<h2 id="toc_0">平台宏</h2>
+<p><em>Date：2017.8.3</em></p>
 
-<p>在不同的系统下编译器预定义宏不同，可以作为检测操作系统的方法。</p>
+<hr/>
 
-<table>
-<thead>
-<tr>
-<th></th>
-<th>windows x86</th>
-<th>windows x64</th>
-<th>linux</th>
-<th>mac</th>
-</tr>
-</thead>
+<p>Illumina公司的测序仪Genome Analyzer最早由Solexa公司开发，后来Illumina公司收购了Solexa。Illumina的Genome Analyzer机器是二代测序仪中市场占有较高的机型。该机器读长可达100bp左右数据。测人类基因组一般打断为300-500bp长度。</p>
 
-<tbody>
-<tr>
-<td><code>_WIN32</code></td>
-<td>**</td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>_WIN64</code></td>
-<td></td>
-<td>**</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__unix__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__linux__</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__APPLE__</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
+<h2 id="toc_0">原理</h2>
 
-<h1 id="toc_1">编译器预定义宏</h1>
+<blockquote>
+<p>将基因组DNA随机片段附着到透明玻璃表面（Flow cell）这些DNA片段经过延伸和扩增后，Flow cell上形成了数亿Cluster，每个Cluster上有数千相同模版的单分子簇。然后利用带荧光的脱氧核糖核酸通过可逆性终止的SBS（边合成边测序）技术对待测模版DNA进行测序。</p>
+</blockquote>
 
-<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
+<h2 id="toc_1">步骤</h2>
 
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Clang</th>
-<th>GCC</th>
-<th>ICC</th>
-<th>MSVC</th>
-</tr>
-</thead>
+<pre><code class="language-flow">st=&gt;start: 文库制备
+p1=&gt;operation: 产生DNA簇
+e=&gt;operation: SBS
+f=&gt;end: 分析
+st-&gt;p1-&gt;e-&gt;f
 
-<tbody>
-<tr>
-<td><code>__clang__</code></td>
-<td>**</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><code>__GUNC__</code></td>
-<td>**</td>
-<td>**</td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__ICC</code></td>
-<td></td>
-<td></td>
-<td>**</td>
-<td></td>
-</tr>
-<tr>
-<td><code>__MSC_VER</code></td>
-<td></td>
-<td></td>
-<td></td>
-<td>**</td>
-</tr>
-</tbody>
-</table>
+</code></pre>
 
-<h2 id="toc_2">size_t大小</h2>
+<ol>
+<li><p>文库制备</p>
 
-<ul>
-<li><p>在64位系统中定义<code>size_t = uint64_t</code></p></li>
-<li><p>在32位系统中定义<code>size_t = uint32_t</code></p></li>
-</ul>
+<p>将基因组打断成几百碱基的片段，在片段两端加上接头（Adapter）。</p>
+
+<p>打断是由超声波打断的，长短不一。</p></li>
+<li><p>产生DNA簇</p>
+
+<p>利用芯片将DNA片段变成单链并将其中一端固定到芯片上。另外一端也被固定到芯片上，形成“桥”（bridge）。反复30轮扩增，每个单分子扩增1000倍，形成单克隆DNA簇。</p></li>
+<li><p>测序</p>
+
+<p>Genome Analyzer使用边合成边测序（SBS）原理</p>
+
+<p>细节：加入改造过的DNA聚合酶和4中荧光标记的dNTP。这些核苷酸是“可逆终止子”，因为3‘羟基末端带有可化学切割的部分，只允许每个循环掺入单个碱基。因此用激光扫描反应板表面，读取每条模版序列第一轮反应所聚合上去的核苷酸种类。之后将这些基团化学切割，恢复3’端粘性，继续聚合第二个核苷酸。如此下去知道每个模版序列都被合称为双链。同时每轮收集到荧光信号，就可得知每个模版DNA片段序列。目前配对末端读长可达2x50bp，越长读长错误率会增大。</p>
+
+<p>每一簇都是一样的顺序，每次加入特殊碱基同时用激光照射并扫描荧光，每簇发出一种颜色。<img src="https://pic3.zhimg.com/87e61ae2bb88b212a421e99659517b32_b.jpg" alt=""/></p>
+
+<p>​</p></li>
+<li><p>分析</p></li>
+</ol>
+
+<p><img src="https://www.intechopen.com/source/html/49419/media/image2.png" alt=""/></p>
+
+<p><img src="http://www.gtbiotech.com.tw/products/images/ga2-1.jpg" alt=""/></p>
+
+<h2 id="toc_2">序列长度受限原因</h2>
+
+<ol>
+<li>每次加碱基后，同一簇里有些单链可能加不上</li>
+<li>碱基是特殊的，越用越差</li>
+</ol>
+
+<h2 id="toc_3">机器特点</h2>
+
+<ol>
+<li><p>可扩展的高通量</p>
+
+<p>每次运行可获得20Gb高品质<strong>过滤</strong>数据</p></li>
+<li><p>需要样品量少</p>
+
+<p>最低100ng</p></li>
+<li><p>简单快速自动化</p></li>
+</ol>
 
 
 		</div>
-	
-
- 
 	
 
   

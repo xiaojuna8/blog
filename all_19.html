@@ -8,7 +8,7 @@
   记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,64 +326,44 @@
 
 	
 		<div class="markdown-body">
-		<h1>Makefile</h1>
+		<h1>SHA</h1>
 
-		<p>自动化编译工具</p>
+		<p>MD5碰撞已经很容易实现(2017年)，SHA-1已经被宣布<a href="https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html">不安全</a></p>
 
-<h2 id="toc_0">功能</h2>
+<p><img src="./pic/SHA-Comp.png" alt=""/></p>
 
-<ol>
-<li>将编译指令记录到一个文件中，方便调用和修改</li>
-<li>可以添加编译选项，在不改动代码情况下控制编译</li>
-</ol>
+<h2 id="toc_0">OSX计算哈希指令</h2>
 
-<h2 id="toc_1">用法</h2>
-
-<p>编写好makefile文件后，在Terminal中敲make指令，就按照makefile中的指令进行编译。</p>
-
-<h2 id="toc_2">语法</h2>
-
-<p>每条语句分为三个部分</p>
-
-<ol>
-<li>目标名称</li>
-<li>依赖项，依赖项可以是文件也可以是其他目标</li>
-<li>指令</li>
-</ol>
-
-<pre><code class="language-makefile">first: main.cpp fun.cpp
-    gcc -o test main.cpp fun.cpp
+<pre><code>//计算MD5
+md5 xxx
 </code></pre>
 
-<p>makefile只完成第一个目标。可以在第一个目标的依赖项中加入其它目标，实现先后编译。</p>
+<pre><code>//计算SHA-1
+shasum xxx
+</code></pre>
 
-<p>gcc是C编译器，g++是C++编译器。</p>
+<pre><code>//计算SHA-256
+shasum -a 256 xxx
+</code></pre>
 
-<h2 id="toc_3">GCC选项</h2>
+<p>计算字符串哈希</p>
 
-<p><code>g++</code>是C++编译器</p>
+<pre><code>echo -n hello world | md5
+</code></pre>
 
-<p><code>-D</code>是定义编译选项，例如<code>-DDEBUG</code>为定义DEBUG宏</p>
+<h2 id="toc_1">Linux计算哈希函数</h2>
 
-<p><code>-std</code>是指定C++版本，例如<code>-std=c++11</code></p>
+<p>md5计算<code>md5sum</code></p>
 
-<p><code>-O</code>是编译优化选项，例如<code>-O3</code></p>
+<p>sha-1计算<code>sha1sum</code></p>
 
-<h2 id="toc_4">杂项</h2>
+<p>sha-256计算<code>sha256sum</code></p>
 
-<p>注释，在makefile中以“#”开始的行为注释内容。</p>
-
-<p>makefile每一句指令默认都会在Terminal中显示，若不想在Terminal中显示可以在指令开头加上“@”.</p>
-
-<p>若想在Terminal中显示一句话可以用<code>echo</code>指令，例如<code>@echo 开始编译xx模块</code></p>
-
-<p>要删除中间生成的.o文件可以用指令<code>rm *.o</code></p>
+<pre><code>echo -n hello world | md5sum
+</code></pre>
 
 
 		</div>
-	
-
- 
 	
 
   

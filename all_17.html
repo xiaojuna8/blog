@@ -8,7 +8,7 @@
   记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,160 +326,66 @@
 
 	
 		<div class="markdown-body">
-		<h1>AES测试实例</h1>
+		<h1>RSA简介</h1>
 
-		<ul>
-<li>
-<a href="#toc_0">加密速度网站</a>
-</li>
-<li>
-<a href="#toc_1">测试1</a>
-</li>
-<li>
-<a href="#toc_2">测试2</a>
-</li>
-<li>
-<a href="#toc_3">测试3</a>
-</li>
-<li>
-<a href="#toc_4">测试4</a>
-</li>
-<li>
-<a href="#toc_5">Crypto++</a>
-</li>
-</ul>
+		<h2 id="toc_0">流程</h2>
 
+<ol>
+<li>选择两个素数\(p\)和\(q\)</li>
+<li>计算\(n=pq\)</li>
+<li>计算\(\lambda(n)=lcm(\lambda(p),\lambda(q))=lcm(p-1,q-1)\)</li>
+<li>选择随机整数\(e \in (1,\lambda(n))\)并且\(gcd(e,\lambda(n))=1\)</li>
+<li>计算\(d\equiv e^{-1} \bmod{\lambda(n)}\)</li>
+</ol>
 
-<p>2001年美国公布了AES分组加密算法。Intel在2010年提出了<code>AES-NI</code>指令集，可以用来加速AES加密解密。在不同架构处理器上速度不同。</p>
+<p>公钥是\((n,e)\),私钥是\((n,d)\)</p>
 
-<table>
-<thead>
-<tr>
-<th>架构</th>
-<th>周期</th>
-<th>吞吐</th>
-</tr>
-</thead>
+<h2 id="toc_1">example</h2>
 
-<tbody>
-<tr>
-<td>Skylake</td>
-<td>4</td>
-<td>1</td>
-</tr>
-<tr>
-<td>Broadwell</td>
-<td>7</td>
-<td>1</td>
-</tr>
-<tr>
-<td>Haswell</td>
-<td>7</td>
-<td>1</td>
-</tr>
-<tr>
-<td>Ivy Bridge</td>
-<td>8</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
+<ol>
+<li>Choose two distinct prime numbers
 
-<p>假定CPU运行在3GHz，单核心单线程<code>AES128</code>理论加密速度</p>
+<ul>
+<li>\(p=6 ,\  q = 53\)</li>
+</ul></li>
+<li>Compute \(n=pq\)
 
-<table>
-<thead>
-<tr>
-<th>架构</th>
-<th>速度(MB/s)</th>
-</tr>
-</thead>
+<ul>
+<li>\(n=61 \times 53 = 3233\)</li>
+</ul></li>
+<li>Compute \(\lambda(n) = lcm(p-1,q-1)\)
 
-<tbody>
-<tr>
-<td>Skylake</td>
-<td>1229</td>
-</tr>
-<tr>
-<td>Broadwell</td>
-<td>702</td>
-</tr>
-<tr>
-<td>Haswell</td>
-<td>702</td>
-</tr>
-<tr>
-<td>Ivy Bridge</td>
-<td>614</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li>\(\lambda(3233)=lcm(60,52)=780\)</li>
+</ul></li>
+<li>Choose a number \(1&lt;e&lt;780\) and is coprime for 780
 
-<h2 id="toc_0">加密速度网站</h2>
+<ul>
+<li>let \(e=17\)</li>
+</ul></li>
+<li>Copute \(d\)
 
-<p><strong>eBACS: ECRYPT Benchmarking of Cryptographic Systems</strong>，其单位为<code>周期／字节</code></p>
+<ul>
+<li>\(d= e^{-d}\bmod{\lambda(n)} = 17^{-1}\bmod{780}\)</li>
+<li>\(413\times17-780\times9 = 1\)</li>
+<li>\(d=17^{-1}\bmod{780} =413\)</li>
+</ul></li>
+</ol>
 
-<h2 id="toc_1">测试1</h2>
+<p>public key is (n=3233,e=17), the encryption function is \(c(m)=m^{17}\bmod{3233}\)<br/>
+private key is (n=3233,d=413),the decryption function is \(m(c)=c^{413}\bmod{3233}\)</p>
 
-<p>在<a href="https://software.intel.com/en-us/articles/intel-aes-ni-performance-enhancements-hytrust-datacontrol-case-study">Intel网站</a>2014年有篇文章，其中在<strong>RAM</strong>测试提到<code>Ivy Bridge</code>加密速度为581.3MB／s，<code>Haswell</code>加密速度663.8MB／s。这与架构处理从8周期减少到7周期基本吻合。(指令\(7/8 = 87.5\%\)，实测 \(581.3/663.8  \approx 87.6\%\))注意到测试中所用<code>Haswell</code>处理器频率稍低，反而加密速度更快。</p>
+<h3 id="toc_2">for instance</h3>
 
-<blockquote>
-<p><strong>On Ivy Bridge here are the raw numbers for both Cyber-Block-Chaining  (CBC) and XEX-based tweaked-codebook mode with ciphertext stealing</strong></p>
+<p>message is \(m=65\)<br/>
+\(m=65^{17}\bmod{3233} = 2790\)</p>
 
-<p>(XTS) modes with both 128- and 256-bit keys.  Note that for XTS mode, only half the key is used, so XTS-512 essentially utilizes a 256-bit key.</p>
+<p>decrypt c = 2790</p>
 
-<pre><code># Tests are approximate using memory only (no storage IO).
-#  Algorithm | Key |  Encryption |  Decryption
-     aes-cbc   128b   581.3 MiB/s  1961.8 MiB/s
-     aes-cbc   256b   431.4 MiB/s  1503.1 MiB/s
-     aes-xts   256b  1665.6 MiB/s  1642.3 MiB/s
-     aes-xts   512b  1318.3 MiB/s  1282.1 MiB/s
-</code></pre>
-
-<p>And for Haswell:</p>
-
-<pre><code># Tests are approximate using memory only (no storage IO).
-#  Algorithm | Key |  Encryption |  Decryption
-     aes-cbc   128b   663.8 MiB/s  2486.8 MiB/s
-     aes-cbc   256b   493.9 MiB/s  2043.6 MiB/s
-     aes-xts   256b  2265.2 MiB/s  2261.1 MiB/s
-     aes-xts   512b  1778.0 MiB/s  1778.7 MiB/s
-</code></pre>
-
-<p>The systems used were as follows:</p>
-
-<p>Haswell – Intel® Xeon® processor E5-2697 v3 @ 2.60GHz, 37.5MB L3 cache, 14 core pre-production system. Intel® SSD DC P3700 Series @ 400GB, 128GB memory (8x16GB DDR4 -2133Mhz), BIOS by Intel Corporation Version: GRNDSDP1.86B.0036.R05.1407140519, running RedHat Enterprise Linux* 7 (kernel 3.10.0-123.el7.x86_64)</p>
-
-<p>Ivy Bridge – Intel® Xeon® processor E5-2697 v2 @ 2.7Ghz, 30MB L3 cache, 12 core pre-production system with Intel® DC S3700 800GB SSD, 64GB memory @ DDR3 1866Mhz, BIOS by Intel Corporation Version: SE5C600.86B.02.01.0001.080620131246, running RedHat Enterprise Linux* 7 (kernel 3. 10.0-123.el7.x86_64)</p>
-</blockquote>
-
-<h2 id="toc_2">测试2</h2>
-
-<p>在<a href="https://www.scottbrownconsulting.com/2011/10/a-look-at-the-performance-impact-of-hardware-accelerated-aes/">某网站</a>2011年的测试，<code>Intel Core i5-2520M [Sandy Bridge] processor</code>,在<strong>RAM</strong>中测试，4线程AES加密速度从277提升到1500，提高5倍。</p>
-
-<p><img src="https://www.scottbrownconsulting.com/wp-content/uploads/2011/10/20111018a.gif" alt=""/></p>
-
-<p><img src="https://www.scottbrownconsulting.com/wp-content/uploads/2011/10/20111018b.gif" alt=""/></p>
-
-<h2 id="toc_3">测试3</h2>
-
-<p>在某<a href="https://kazoo.ga/quick-benchmark-cbc-vs-gcm/">博客</a>中，GCM加密模式加密速度是CBC模式1.7倍。</p>
-
-<h2 id="toc_4">测试4</h2>
-
-<p>在某个测试中，GCM模式比CBC模式快</p>
-
-<p><img src="https://blog.wilddog.com/wp-content/uploads/2015/12/1-4.png" alt=""/></p>
-
-<h2 id="toc_5">Crypto++</h2>
-
-<p><a href="https://www.cryptopp.com/benchmarks.html">Crypto++ 5.6.5 Benchmarks</a>中，The host CPU is a 6th generation Skylake, frequency is 3.14GHz.测试AES/128/CBC模式速度为1073MiB／s，AES/128/CTR模式速度为4499MiB/s，所以CTR并行模式可以大幅加速加密解密。曾经 &quot;AES finalists&quot;，Sepent/128/CTR只有87MiB／s，Twofish／128/CTR只有181MiB／s，而Camellia/128/CTR只有153MiB／s。所以可以看出AES-NI对速度提升影响很大，同时说明实现AES128强度加密用软件，其加密速度在百兆多以上，但很难超过200MiB／s</p>
+<p>\(m=2790^413\bmod{3233}=65\)</p>
 
 
 		</div>
-	
-
- 
 	
 
   

@@ -8,7 +8,7 @@
   Crypt - 记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,17 +326,198 @@
 
 	
 		<div class="markdown-body">
-		<h1>SM9加密</h1>
+		<h1>OpenSSH</h1>
 
-		<p>用户Alice给Bob发送消息M，需要用到主公钥\(P_{pub}\),识别符\(hid\)和目标用户ID</p>
+		<ul>
+<li>
+<a href="#toc_0">OpenSSL</a>
+<ul>
+<li>
+<a href="#toc_1">对称加密</a>
+<ul>
+<li>
+<a href="#toc_2">AES加密</a>
+<ul>
+<li>
+<a href="#toc_3">aes-128-cbc</a>
+</li>
+<li>
+<a href="#toc_4">aes-128-ecb</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
-<p>用户Bob收到发送过来的加密消息后，使用自己的私钥\(d_B\)和标识\(ID_B\)就能解密消息。</p>
+
+<p>OpenSSH 是SSH协议的实现。</p>
+
+<p>OpenSSL提供两个库libssl 和 libcrypto, OpenSSH 使用libcrypto中的加密算法。</p>
+
+<h2 id="toc_0">OpenSSL</h2>
+
+<p>密码学库</p>
+
+<h3 id="toc_1">对称加密</h3>
+
+<p>openssl参数</p>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>-S</td>
+<td>密码学盐</td>
+<td>从-S和-k导出key和iv</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>key导出参数(hex mode)</td>
+<td>从-S和-k导出key和iv</td>
+</tr>
+<tr>
+<td>-K,-iv</td>
+<td>制定key和iv(hex mode)</td>
+<td>若指定-K，则一定要有iv</td>
+</tr>
+<tr>
+<td>-iv</td>
+<td>指定iv(hex mode)</td>
+<td>可单独指定iv</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>显示加密所用参数</td>
+<td>此时只显示参数，不进行加密操作</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>显示加密所用参数</td>
+<td>执行加密操作</td>
+</tr>
+</tbody>
+</table>
+
+<p>若不指定密码学盐，则随机生成8Byte盐，并记录在加密文件中Magic word之后。</p>
+
+<pre><code class="language-c">//例如盐为123
+//Magic word is &#39;Salted__&#39; = &#39;5361 6c74 6564 5f5f&#39;
+//所以第一行16byte是
+5361 6c74 6564 5f5f 1230 0000 0000 0000
+4e00 3bcc 658a 9d03 2fbd 47c8 3d66 58e1
+325f 368a 8fe8 4542 0fdf 978c 0471 ff88
+4e0c 6dae b9f4 5825 bc10 e0c8 b059 e785
+c0f1 ac26 a669 a281 948d adc3 caab f686
+effc 918b 1ddb ed1e b261 4b1a ea9e 5a4c
+76af 8e28 6029 fc5e 7fd5 21ad b39d 5526
+7fc2 79a2 423b 9d91 47d2 023f 8b3b 63af
+f84f 8088 44e4 b873 c22c bb01 81b6 6ba7
+ffab 4273 be6d cc6b 6448 948e a248 4710
+d7cb 145c 1671 9d3e 2666 4e37 04b9 bbc7
+160e f879 528f c406 0d60 3766 3867 e0ec
+8eca 19a6 d488 28c0 062f e4bb 5eca 1a81
+9c74 37d8 ca3d f698 a7fa 2581 8b9c dec5
+d852 d2e5 18a3 9853 5051 ca8b 316b 7007
+b72f a1f1 0aa9 2e7f 54ef 61e9 0785 57ca
+</code></pre>
+
+<h4 id="toc_2">AES加密</h4>
+
+<p>实现了aes-128-cbc,aes-128-ecb,aes-192-cbc,aes-192-ecb,aes-256-cbc,aes-256-ecb</p>
+
+<h5 id="toc_3">aes-128-cbc</h5>
+
+<pre><code class="language-c">openssl aes-128-cbc -in ecdsa -out ecdsa.aes
+</code></pre>
+
+<p>对文件进行加密，需要输入密码，加密后文件变大(227B-256B),打开文件查看，开头是<em>Salted__</em>字符串。</p>
+
+<pre><code class="language-c">openssl aes-128-cbc -d -in ecdsa.aes -out ecdsa.aes.org
+</code></pre>
+
+<p>解密时输入密码，则还原出原文件。若密码输入错误会报警。</p>
+
+<p>若篡改加密文件的开头<em>Salted__</em>,则会出错<strong>bad magic number</strong></p>
+
+<p>若篡改密文，则会出<strong>bad decrypt</strong>,但是不能立即显示解密失败，需要先处理一段时间。</p>
+
+<table>
+<thead>
+<tr>
+<th>aes-128-cbc</th>
+<th>原文长度</th>
+<th>加密后长度</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td></td>
+<td>227</td>
+<td>256</td>
+</tr>
+<tr>
+<td></td>
+<td>239</td>
+<td>256</td>
+</tr>
+<tr>
+<td></td>
+<td>240</td>
+<td>272</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>同一文件，使用相同密码加密，两次得到的加密文件不同</strong>。</p>
+
+<pre><code class="language-c">openssl aes-128-cbc -in ecdsa -out ecdsa.aes
+openssl aes-128-cbc -in ecdsa -out ecdsa.aes2
+</code></pre>
+
+<p>例如ecdsa.aes 与 ecdsa.aes2不同</p>
+
+<h5 id="toc_4">aes-128-ecb</h5>
+
+<p>同样有魔法数字 <em>Salted__</em></p>
+
+<p>同一文件，同一密码，两次加密文件不同</p>
+
+<table>
+<thead>
+<tr>
+<th>aes-128-ecb</th>
+<th>原文长度</th>
+<th>加密后长度</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td></td>
+<td>239</td>
+<td>256</td>
+</tr>
+<tr>
+<td></td>
+<td>240</td>
+<td>272</td>
+</tr>
+</tbody>
+</table>
 
 
 		</div>
-	
-
- 
 	
 
   

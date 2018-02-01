@@ -8,7 +8,7 @@
   Linux - 记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,59 +326,227 @@
 
 	
 		<div class="markdown-body">
-		<h1>cenos 安装 gcc/clang</h1>
+		<h1>Linux基本指令</h1>
 
-		<h2 id="toc_0">yum</h2>
+		<ul>
+<li>
+<a href="#toc_0">CPU</a>
+</li>
+<li>
+<a href="#toc_1">目录</a>
+</li>
+<li>
+<a href="#toc_2">GCC</a>
+</li>
+<li>
+<a href="#toc_3">sftp</a>
+</li>
+<li>
+<a href="#toc_4">Gzip</a>
+</li>
+<li>
+<a href="#toc_5">查看磁盘</a>
+</li>
+</ul>
 
-<pre><code class="language-shell">yum list
+
+<h2 id="toc_0">CPU</h2>
+
+<p>查看CPU信息<code>lscpu</code></p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>top</td>
+<td></td>
+<td>显示进程以及CPU占用</td>
+</tr>
+<tr>
+<td>top -u</td>
+<td>top -udu</td>
+<td>显示指定用户的CPU占用</td>
+</tr>
+<tr>
+<td>top -p</td>
+<td>top -p123</td>
+<td>显示进程123的CPU占用</td>
+</tr>
+<tr>
+<td>top -d</td>
+<td>top -d 1</td>
+<td>设置显示刷新频率</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_1">目录</h2>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>mkdir</td>
+<td></td>
+<td>创建目录</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_2">GCC</h2>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>gcc -v</td>
+<td></td>
+<td>查看版本</td>
+</tr>
+<tr>
+<td>g++</td>
+<td></td>
+<td>gcc的c++编译指令</td>
+</tr>
+<tr>
+<td>-std=c++11</td>
+<td></td>
+<td>使用c++11标准</td>
+</tr>
+<tr>
+<td>-w</td>
+<td></td>
+<td>忽略警告</td>
+</tr>
+<tr>
+<td>-pthread</td>
+<td></td>
+<td>使用pthread实现多线程</td>
+</tr>
+<tr>
+<td>-D</td>
+<td><code>-DDEBUG</code> <code>-DPI=3.1415926</code></td>
+<td>定义宏</td>
+</tr>
+<tr>
+<td>-O0</td>
+<td></td>
+<td>优化级别不优化</td>
+</tr>
+<tr>
+<td>-O1</td>
+<td></td>
+<td>优化级别默认级别</td>
+</tr>
+<tr>
+<td>-O2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>-O3</td>
+<td></td>
+<td>优化级别最高级别</td>
+</tr>
+<tr>
+<td>-c</td>
+<td></td>
+<td>编译文件</td>
+</tr>
+<tr>
+<td>-o</td>
+<td></td>
+<td>编译并输出可执行文件</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_3">sftp</h2>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>put</td>
+<td></td>
+<td>从本地上传到远程主机</td>
+</tr>
+<tr>
+<td>get</td>
+<td></td>
+<td>从远程主机下载到本地</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_4">Gzip</h2>
+
+<p>解压使用<code>gunzip</code>指令</p>
+
+<pre><code class="language-c">//解压xxx.gz，生成xxx文件并删除原文件
+gunzip xxx.gz
 </code></pre>
 
-<pre><code class="language-shell">yum install xxx
+<pre><code>//解压xxx.gz，生成xxx文件并保留原文件
+gunzip -c xxx.gz &gt; xxx 
 </code></pre>
 
-<h2 id="toc_1">gcc</h2>
+<p>压缩使用<code>gzip</code>指令</p>
 
-<pre><code class="language-shell">yum install gcc
+<pre><code>//压缩xxx文件，生成xxx.gz并删除原文件
+gzip xxx
 </code></pre>
 
-<pre><code class="language-shell">yum install gcc-c++
+<pre><code>//压缩xxx文件，生成xxx.gz并保留原文件
+gzip -c xxx &gt; xxx.gz
 </code></pre>
 
-<pre><code class="language-shell">yum install gdb
-</code></pre>
+<h2 id="toc_5">查看磁盘</h2>
 
-<h2 id="toc_2">clang</h2>
-
-<pre><code class="language-shell">yum install clang
-</code></pre>
-
-<pre><code class="language-shell">yum install lldb
-</code></pre>
-
-<h2 id="toc_3">安装高版本</h2>
-
-<p>上面命令都是安装稳定版编译器，要安装高版本gcc/clang需要特殊设置</p>
-
-<p>By enabling the SCL repository you can install Clang 4 on CentOS 7 using the <a href="https://pkgs.org/download/llvm-toolset-7-llvm"><code>llvm-toolset-7</code></a>package.</p>
-
-<pre><code class="language-shell">$ sudo yum install centos-release-scl
-$ yum install llvm-toolset-7
-</code></pre>
-
-<pre><code class="language-shell">yum list | grep gcc
-</code></pre>
-
-<pre><code class="language-shell">yum install devtoolset-7-gcc
-scl enable devtoolset-7 bash
-</code></pre>
-
-<pre><code class="language-shell">yum install llvm-toolset-7-clang
-scl enable llvm-toolset-7 bash
-</code></pre>
-
-<pre><code class="language-shell">gcc -v
-clang -v
-</code></pre>
+<p><code>cat /proc/scsi/scsi</code></p>
 
 
 		</div>

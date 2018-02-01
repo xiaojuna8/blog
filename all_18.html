@@ -8,7 +8,7 @@
   记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,83 +326,114 @@
 
 	
 		<div class="markdown-body">
-		<h1>基于标识的加密</h1>
+		<h1>Slat</h1>
 
-		<ul>
-<li>
-<a href="#toc_0">优势</a>
-</li>
-<li>
-<a href="#toc_1">缺点</a>
-</li>
+		<p><a href="https://crackstation.net/hashing-security.htm">参考原文</a></p>
+
+<p>密码存储验证。一般并不存储密码明文，而是存储密码的Hash。但是若仅存储密码的Hash，很容易被破解。比如对密码进行SHA256运算，保留Hash值，用户输入密码，然后计算SHA并且与数据库中对比验证，即可知道密码输入是否正确。</p>
+
+<h2 id="toc_0">Add Slat</h2>
+
+<pre><code class="language-c">hash(&quot;hello&quot;)                    = 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824
+hash(&quot;hello&quot; + &quot;QxLUF1bgIAdeQX&quot;) = 9e209040c863f84a31e719795b2577523954739fe5ed3b58a75cff2127075ed1
+hash(&quot;hello&quot; + &quot;bv5PehSMfV11Cd&quot;) = d1d3ec2e6f20fd420d50e2642992841d8338a314b8ea157c9e18477aaef226ab
+hash(&quot;hello&quot; + &quot;YYLmfY6IehjZMQ&quot;) = a49670c3c18b9e079b9cfaf51634f563dc8ae3070db2c4a8544305df1b60f007
+</code></pre>
+
+<p>If two users have the same password, they&#39;ll have the same password hashes. We can randomize the hashes by appending or prepending a random string, called a <strong>salt</strong>, to the password before hashing.  To check if a password is correct, we need the salt, so it is usually stored in the user account database along with the hash, or as part of the hash string itself. The salt does not need to be secret. Just by randomizing the hashes. </p>
+
+<p>即使攻击者知道Slat，也无法使用查找表方式攻击。比如Slat是“slat”并且添加到密码后边。即使这样，攻击者需要一张结尾为“slat”的暴力破解字典，这仍需要很多的时间制作(需要在普通的字典后边加上“slat”，然后对所有项主歌计算hash，比较是否与数据库中存储一致)。</p>
+
+<h2 id="toc_1">WRONG Way: Short Salt &amp; Salt Reuse</h2>
+
+<p>最常见的错误使用方式是：Salt长度很短，重复使用相同的Salt。</p>
+
+<h3 id="toc_2">重复使用</h3>
+
+<p>若两个用户有相同的密码，恰好也使用了相同的Salt，那么Hash也相同。攻击者也可以使用字典攻击。</p>
+
+<p>当用户账户创建或者修改密码时，必须随机生成新的Salt。</p>
+
+<h3 id="toc_3">短Salt</h3>
+
+<p>比如如果Salt仅有三个ASCII字符，一共有95x95x95=857375种可能。假如查找表包含1MB常用密码，相乘后也只要837GB数据需要存储。在当前1TB磁盘价格是很容易承受的。基于这个原因，用户名不能作为salt。攻击者往往也使用常见的用户名做了攻击字典。为了防止攻击者使用查找表方式攻击，salt一定要长。一个较合理的方式是salt长度与hash长度一样长。比如，SHA256 is 256bit，so salt should be at least 32 random byte。</p>
+
+<h2 id="toc_4">WRONG Way: Double Hashing &amp; Wacky Hash Funcitons</h2>
+
+<p>人们通常希望通过复合两种Hash function来实现更安全的结果，实际上这对结果仅有一点点帮助。也不要使用特别奇怪的甚至自己写的Hash function</p>
+
+<p>无效的Hash function</p>
+
+<ul>
+<li>md5(sha1(password))</li>
+<li>md5(md5(salt) + md5(password))</li>
+<li>sha1(sha1(password))</li>
+<li>sha1(str_rot13(password + salt))</li>
+<li>md5(sha1(md5(md5(password) + sha1(password)) + md5(password)))</li>
 </ul>
 
+<p>不要使用以上的方式。</p>
 
-<blockquote>
-<p>Identity-based systems allow any party to generate a public key from a known identity value such as an ASCII string.A trusted third party, called the Private Key Generator (PKG), generates the corresponding private keys.</p>
-</blockquote>
+<p>一个攻击者不能攻击hash当他不知道hash方式的时候，但是往往攻击者通常是知道源码的人，尤其是使用了开源代码。</p>
 
-<p>任意组织都可以通过标识生成公钥，可靠的第三方PKG生成相关的私钥。</p>
+<p>最好是使用经过特殊设计的迭代算法。</p>
 
-<blockquote>
-<p>To operate, the PKG first publishes a master public key, and retains the corresponding <strong>master private key</strong> (referred to as <em>master key</em>). </p>
-</blockquote>
+<h2 id="toc_5">RIGHT Way</h2>
 
-<p>PKG公布公钥（<strong>a master public key</strong>一个主公钥，只有一个），保留主私钥。</p>
+<h3 id="toc_6">Salt</h3>
 
-<blockquote>
-<p>Given the master public key, any party can compute a public key corresponding to the identity by combining the master public key with the identity value.</p>
-</blockquote>
+<p>Salt should be generated using a <strong>Cryptographically Secure Pseudo-Random Number Generator</strong> (CSPRNG). </p>
 
-<p>根据主公钥，任何人都可以计算出与ID有关的公钥。</p>
+<table>
+<thead>
+<tr>
+<th>Paltform</th>
+<th></th>
+</tr>
+</thead>
 
-<blockquote>
-<p>To obtain a corresponding private key, the party authorized to use the identity <em>ID</em> contacts the PKG, which uses the master private key to generate the private key for identity <em>ID</em>.</p>
-</blockquote>
+<tbody>
+<tr>
+<td>Java</td>
+<td><a href="http://docs.oracle.com/javase/6/docs/api/java/security/SecureRandom.html">java.security.SecureRandom</a></td>
+</tr>
+<tr>
+<td>C#</td>
+<td><a href="http://msdn.microsoft.com/en-us/library/system.security.cryptography.rngcryptoserviceprovider.aspx">System.Security.Cryptography.RNGCryptoServiceProvider</a></td>
+</tr>
+<tr>
+<td>Python</td>
+<td><a href="http://docs.python.org/library/os.html">os.urandom</a></td>
+</tr>
+<tr>
+<td>C／C++（Windows）</td>
+<td><a href="http://www.wikiwand.com/en/CryptGenRandom">CryptGenRandom</a></td>
+</tr>
+<tr>
+<td>Linux／Unix</td>
+<td>Read from <a href="http://www.wikiwand.com/en//dev/random">/dev/random</a> or /dev/urandom</td>
+</tr>
+</tbody>
+</table>
 
-<p>为了获取相关私钥，经授权使用该ID的人联系PKG获取私钥。</p>
+<h3 id="toc_7">To Store a Password</h3>
 
-<p><img src="https://gitee.com/uploads/images/2017/1208/101016_a22e5b59_1453931.png" alt="Identity_Based_Encryption_Steps" title="Identity_Based_Encryption_Steps.png"/></p>
+<ol>
+<li>Generate a long random salt using a CSPRNG</li>
+<li>Prepend the salt to the password and hash it with a <strong>standard</strong> password hashing function like Argon1,bcrypt scrypt or PBKDF2</li>
+<li>Save both the salt and the hash in the user&#39;s database record.</li>
+</ol>
 
-<h2 id="toc_0">优势</h2>
+<h3 id="toc_8">To Validate a Password</h3>
 
-<blockquote>
-<p>once issued, keys are always valid</p>
-</blockquote>
-
-<p>密钥一次分发，永久有效。</p>
-
-<h2 id="toc_1">缺点</h2>
-
-<blockquote>
-<p>If a Private Key Generator (PKG) is compromised, all messages protected over the entire lifetime of the public-private key pair used by that server are also compromised. </p>
-</blockquote>
-
-<p>一旦PKG的主私钥危险，所有发送过的公钥-私钥对都危险。</p>
-
-<blockquote>
-<p>To limit the exposure due to a compromised server, the master private-public key pair could be updated with a new independent key pair. </p>
-</blockquote>
-
-<p>为了预防这种情况，主私钥可以升级。</p>
-
-<blockquote>
-<p>However, this introduces a key-management problem where all users must have the most recent public key for the server.</p>
-</blockquote>
-
-<p>但是这又会导致其它密钥管理方面的问题。</p>
-
-<blockquote>
-<p>Because the Private Key Generator (PKG) generates private keys for users, it may decrypt and/or sign any message without authorization. </p>
-</blockquote>
-
-<p>PKG有能力伪造用户进行加密／签名。</p>
+<ol>
+<li>Retrieve the user&#39;s salt and hash from the database</li>
+<li>Prepend the salt to the given password an hash it using the same hash function</li>
+<li>Compare the hash of the given password with the hash from the database. If they match, the password is corrent. Otherwise, the password is incorrect.</li>
+</ol>
 
 
 		</div>
-	
-
- 
 	
 
   

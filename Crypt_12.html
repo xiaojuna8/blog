@@ -8,7 +8,7 @@
   Crypt - 记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,33 +326,156 @@
 
 	
 		<div class="markdown-body">
-		<h1>ECC性能</h1>
+		<h1>Ciphertext stealing</h1>
 
-		<p><a href="http://www.evssl.cn/ev-ssl-knowledge/157.html">原文</a></p>
+		<p>在加密过程中<a href="https://en.wikipedia.org/wiki/Ciphertext_stealing">Ciphertext stealing</a>是一种通用的方法。作用是处理原文长度不是Block整数倍情况。使密文和原文长度相同。</p>
 
-<h2 id="toc_0">更适合移动互联网</h2>
+<h2 id="toc_0">EBC + CS</h2>
 
-<p>ECC加密算法的密钥长度很短(256位)，意味着占用更少的存储空间，更低的CPU开销和占用更少的带宽。随着越来越多的用户使用移动设备来完成各种网上活动，ECC加密算法为移动互联网安全提供更好的客户体验。</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/en/6/63/CTS_ECB_Encryption.png" alt=""/></p>
 
-<h2 id="toc_1">更好的安全性</h2>
+<p>ECB模式，需要原文长度大于block长度。</p>
 
-<p>ECC加密算法的密钥长度很短(256位)，意味着占用更少的存储空间，更低的CPU开销和占用更少的带宽。随着越来越多的用户使用移动设备来完成各种网上活动，ECC加密算法为移动互联网安全提供更好的客户体验。</p>
+<h2 id="toc_1">CBC模式+CS</h2>
 
-<h2 id="toc_2">更好的性能</h2>
+<p>CBC模式的Ciphertext stealing对<del>原文长度没有要求</del>，结构简单。</p>
 
-<p>ECC加密算法需要较短的密钥长度来提供更好的安全，例如，256位的ECC密钥加密强度等同于3072位RSA密钥的水平(目前普通使用的RSA密钥长度是2048位)。其结果是你以更低的计算能力代价得到了更高的安全性。经国外有关权威机构测试，在Apache和<a href="http://www.evssl.cn/ev-ssl-support/37.html">IIS服务器</a>采用ECC算法，Web服务器响应时间比RSA快十几倍。</p>
+<p><strong>个人看法</strong>当原文长度短于一个block时，先对iv进行加密，然后并异或原文，得到密文。解密时，先对iv加密，再异或密文，得到原文。这是仿照CFB模式进行加密解密。</p>
 
-<p><img src="http://www.evssl.cn/uploads/allimg/141209/2-1412091A546117.png" alt=""/></p>
+<h3 id="toc_2">CBC加密</h3>
 
-<h2 id="toc_3">ECC特点</h2>
+<ol>
+<li>最后一个blcok补0</li>
+<li>按照标准CBC模式加密</li>
+<li>交换最后两个block密文</li>
+<li>截断最后block长度</li>
+</ol>
 
-<p>ECC加密算法自1985年提出，因其工程应用中难度较高，到2005年才在各种操作系统中获得广泛支持，在全球安全市场需求的刺激下，ECC算法将逐步取代RSA算法，成为主流加密算法。目前，全球各大CA都已经陆续开始为用户签发采用ECC加密算法的各种证书。</p>
+<p><img src="./pic/1274px-CipherText_Stealing_(CTS)_on_CBC,_encryption_mode.svg.png" alt=""/></p>
+
+<p>CBC模式解密</p>
+
+<p><img src="./pic/CipherText_Stealing_(CTS)_on_CBC,_decryption_mode.svg.png" alt="CipherText_Stealing_(CTS)_on_CBC,_decryption_mode.svg"/></p>
+
+<h2 id="toc_3">Java Cryptography Extension包</h2>
+
+<p>该库函数加密支持情况</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: left">加密模式</th>
+<th style="text-align: left">16Byte加密后长度</th>
+<th style="text-align: left">不足16Byte(n&lt;16)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td style="text-align: left">AES/CBC/NoPadding</td>
+<td style="text-align: left">16</td>
+<td style="text-align: left">不支持</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/CBC/PKCS5</td>
+<td style="text-align: left">32</td>
+<td style="text-align: left">16</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/CBC/ISO10126</td>
+<td style="text-align: left">32</td>
+<td style="text-align: left">16</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/CFB/NoPadding</td>
+<td style="text-align: left">16</td>
+<td style="text-align: left">n</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/CFB/PKS5</td>
+<td style="text-align: left">32</td>
+<td style="text-align: left">16</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/CFB/ISO10126</td>
+<td style="text-align: left">32</td>
+<td style="text-align: left">16</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/ECB/NoPadding</td>
+<td style="text-align: left">16</td>
+<td style="text-align: left">不支持</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/ECB/PKS5</td>
+<td style="text-align: left">32</td>
+<td style="text-align: left">16</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/ECB/ISO10126</td>
+<td style="text-align: left">32</td>
+<td style="text-align: left">16</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/OFB/NoPadding</td>
+<td style="text-align: left">16</td>
+<td style="text-align: left">n</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/OFB/PKCS5</td>
+<td style="text-align: left">32</td>
+<td style="text-align: left">16</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/OFB/ISO10126</td>
+<td style="text-align: left">32</td>
+<td style="text-align: left">16</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/PCBC/NoPadding</td>
+<td style="text-align: left">16</td>
+<td style="text-align: left">不支持</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/PCBC/PKCS5</td>
+<td style="text-align: left">32</td>
+<td style="text-align: left">16</td>
+</tr>
+<tr>
+<td style="text-align: left">AES/PCBC/ISO10126</td>
+<td style="text-align: left">32</td>
+<td style="text-align: left">16</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="toc_4">ISO10126</h3>
+
+<p>最后Block必须填充随机byte.例如block是8Byte，最后有4Byte数据，因此需要填充4Byte随机数</p>
+
+<pre><code>... | DD DD DD DD DD DD DD DD | DD DD DD DD 81 A6 23 04 |
+</code></pre>
+
+<h3 id="toc_5">PKCS7</h3>
+
+<p>最后Block中查几个Byte就填充对应Byte.例如Block是8Byte，最后有4Byte数据，还差4Byte，因此填充0x04.</p>
+
+<pre><code>... | DD DD DD DD DD DD DD DD | DD DD DD DD 04 04 04 04 |
+</code></pre>
+
+<h3 id="toc_6">PKCS5</h3>
+
+<p>PKCS5是针对Block8Byte情况。原则与PKCS7相同。</p>
+
+<h3 id="toc_7">ZeroPadding</h3>
+
+<p>填充0.</p>
+
+<pre><code>... | DD DD DD DD DD DD DD DD | DD DD DD DD 00 00 00 00 |
+</code></pre>
 
 
 		</div>
-	
-
- 
 	
 
   

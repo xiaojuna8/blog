@@ -8,7 +8,7 @@
   记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,15 +326,80 @@
 
 	
 		<div class="markdown-body">
-		<h1>lldb</h1>
+		<h1>SM9代码注释</h1>
 
-		<p>lldb是调试llvm和clang的调试工具。</p>
+		<p>SM9代码中运用了<a href="https://libraries.docs.miracl.com">Miracl库</a></p>
+
+<h2 id="toc_0">Miracl</h2>
+
+<p>用到的部分函数</p>
+
+<h3 id="toc_1">mirvar</h3>
+
+<pre><code class="language-c">flash mirvar(iv)
+int iv;
+</code></pre>
+
+<p>An integer initial value for the big/flash number.example x=mirvar(8);</p>
+
+<h3 id="toc_2">multiply</h3>
+
+<pre><code class="language-c">void multiply(x,y,z)
+big x y z
+</code></pre>
+
+<p>Three big numbers x,y and z. On exit z=x * y</p>
+
+<h3 id="toc_3">premult</h3>
+
+<pre><code class="language-c">void premult(x,n,z)
+int n
+big x,z;
+</code></pre>
+
+<p>On exit z=n*x</p>
+
+<h3 id="toc_4">divide</h3>
+
+<pre><code class="language-c">void divide(x,y,z)
+big x,y,z;
+</code></pre>
+
+<p>Three big numbers x, y and z. On exit z=x/y; x=x mod y. The quotient only is returned if x and z are the same, the remainder only if y and z are the same.</p>
+
+<h3 id="toc_5">decr</h3>
+
+<pre><code class="language-c">void decr(x,n,z)
+big x,z;
+int n;
+</code></pre>
+
+<p>Big numbers x and z, and integer n. On exit z=x-n.</p>
+
+<h3 id="toc_6">ecurve_mult</h3>
+
+<pre><code class="language-c">void ecurve_mult(k,p,pa)
+big k;
+epoint *p,*pa;
+</code></pre>
+
+<p>A big number k, and two points p and pa. On exit pa=k*p.</p>
+
+<h3 id="toc_7">xgcd</h3>
+
+<pre><code class="language-c">int xgcd(x,y,xd,yd,z)
+big x,y,xd,yd,z;
+</code></pre>
+
+<p>Five big numbers x,y,xd,yd and z. On exit z=gcd(x,y)=x * xd+y * yd</p>
+
+<pre><code class="language-c">xgcd(x,p,x,x,x);  /* x = 1/x mod p  (p is prime) */
+</code></pre>
+
+<p>在SM9代码中用来求逆，\(t_1^{-1}\bmod{N}\)</p>
 
 
 		</div>
-	
-
- 
 	
 
   

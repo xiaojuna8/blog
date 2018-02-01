@@ -8,7 +8,7 @@
   Crypt - 记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,61 +326,14 @@
 
 	
 		<div class="markdown-body">
-		<h1>数据加密方式比较</h1>
+		<h1>SM9加密</h1>
 
-		<p>数据加密分为对称加密和非对称加密。</p>
+		<p>用户Alice给Bob发送消息M，需要用到主公钥\(P_{pub}\),识别符\(hid\)和目标用户ID</p>
 
-<blockquote>
-<p>Symmetric ciphers have good performance, so use them on large data sets.</p>
-</blockquote>
-
-<p><a href="https://cromwell-intl.com/cybersecurity/cipher-selection.html">密钥长度和等效的安全性能</a>，文章中特别提到最后一列确实是<code>521</code></p>
-
-<table>
-<thead>
-<tr>
-<th>加密方式</th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>Symmetric Encryption</td>
-<td>80</td>
-<td>112</td>
-<td>128</td>
-<td>192</td>
-<td>256</td>
-</tr>
-<tr>
-<td>Elliptic Curve encryption</td>
-<td>160</td>
-<td>224</td>
-<td>256</td>
-<td>384</td>
-<td>521</td>
-</tr>
-<tr>
-<td>RSA (asymmetric encryption)</td>
-<td>1024</td>
-<td>2048</td>
-<td>3072</td>
-<td>7680</td>
-<td>15380</td>
-</tr>
-</tbody>
-</table>
+<p>用户Bob收到发送过来的加密消息后，使用自己的私钥\(d_B\)和标识\(ID_B\)就能解密消息。</p>
 
 
 		</div>
-	
-
- 
 	
 
   

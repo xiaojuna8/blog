@@ -8,7 +8,7 @@
   C++ - 记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,65 +326,120 @@
 
 	
 		<div class="markdown-body">
-		<h1>GCC编译静态库</h1>
+		<h1>跨平台C／C++系统／编译器检测</h1>
 
-		<h2 id="toc_0">代码编写</h2>
+		<p>通过预定义宏可以判断当前使用平台和所用编译器。</p>
 
-<p>需要导出的库用<code>pragma GCC visibility push(default)</code>包围</p>
+<h2 id="toc_0">平台宏</h2>
 
-<pre><code class="language-c++">/* The classes below are exported */
-#pragma GCC visibility push(default)
+<p>在不同的系统下编译器预定义宏不同，可以作为检测操作系统的方法。</p>
 
-class StaticLibTest
-{
-    public:
-    void HelloWorld(const char *);
-};
+<table>
+<thead>
+<tr>
+<th></th>
+<th>windows x86</th>
+<th>windows x64</th>
+<th>linux</th>
+<th>mac</th>
+</tr>
+</thead>
 
-#pragma GCC visibility pop
-</code></pre>
+<tbody>
+<tr>
+<td><code>_WIN32</code></td>
+<td>**</td>
+<td>**</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>_WIN64</code></td>
+<td></td>
+<td>**</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>__unix__</code></td>
+<td></td>
+<td></td>
+<td>**</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__linux__</code></td>
+<td></td>
+<td></td>
+<td>**</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__APPLE__</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td>**</td>
+</tr>
+</tbody>
+</table>
 
-<h2 id="toc_1">编译</h2>
+<h1 id="toc_1">编译器预定义宏</h1>
 
-<p>首先编译为object文件，然后用<code>ar</code>工具编译为静态库<code>.a</code>文件</p>
+<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
 
-<pre><code class="language-bash">g++ -c -o out.o StaticLibTest.cpp
-ar rcs libout.a out.o
-</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Clang</th>
+<th>GCC</th>
+<th>ICC</th>
+<th>MSVC</th>
+</tr>
+</thead>
 
-<h2 id="toc_2">链接</h2>
+<tbody>
+<tr>
+<td><code>__clang__</code></td>
+<td>**</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>__GUNC__</code></td>
+<td>**</td>
+<td>**</td>
+<td>**</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__ICC</code></td>
+<td></td>
+<td></td>
+<td>**</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__MSC_VER</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td>**</td>
+</tr>
+</tbody>
+</table>
 
-<p>若静态库与原文件相同目录，则直接引用</p>
+<h2 id="toc_2">size_t大小</h2>
 
-<pre><code class="language-bash">g++ -o main main.cpp libout.a
-</code></pre>
-
-<h2 id="toc_3">混合链接</h2>
-
-<p>成功的，控制混合类型的链接(静态库和动态库)</p>
-
-<pre><code class="language-bash">g++ -o main main.cpp -L. -lout -ldy
-</code></pre>
-
-<ol>
-<li>指定库目录<code>-L</code>，其中<code>-L.</code>表示当前目录</li>
-<li>指定库<code>-l</code>,其中<code>-lout</code>表示链接库<code>libout</code>首先尝试动态库然后在尝试静态库</li>
-</ol>
-
-<p>在stackoverflow上找到的方法，但是没有成功</p>
-
-<pre><code class="language-bash">g++ -Wl,-Bstatic -lz -lfoo -Wl,-Bdynamic -lbar -Wl,--as-needed
-</code></pre>
-
-<blockquote>
-<p>Will link <code>zlib</code> and <code>libfoo</code> as static, and <code>libbar</code> as dynamic . <code>--as-needed</code> will drop any unused dynamic library.</p>
-</blockquote>
+<ul>
+<li><p>在64位系统中定义<code>size_t = uint64_t</code></p></li>
+<li><p>在32位系统中定义<code>size_t = uint32_t</code></p></li>
+</ul>
 
 
 		</div>
-	
-
- 
 	
 
   

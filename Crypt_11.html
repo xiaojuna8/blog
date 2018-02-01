@@ -8,7 +8,7 @@
   Crypt - 记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,99 +326,80 @@
 
 	
 		<div class="markdown-body">
-		<h1>AES</h1>
+		<h1>SM9代码注释</h1>
 
-		<ul>
-<li>
-<a href="#toc_0">AES中概念</a>
-</li>
-<li>
-<a href="#toc_1">AES的三种模式</a>
-</li>
-<li>
-<a href="#toc_2">AES加密算法描述</a>
-<ul>
-<li>
-<a href="#toc_3">密钥扩展</a>
-</li>
-</ul>
-</li>
-</ul>
+		<p>SM9代码中运用了<a href="https://libraries.docs.miracl.com">Miracl库</a></p>
 
+<h2 id="toc_0">Miracl</h2>
 
-<p><a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>是美国政府指定的商业分组加密方案，于<a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf">2001年公布</a>。</p>
+<p>用到的部分函数</p>
 
-<h2 id="toc_0">AES中概念</h2>
+<h3 id="toc_1">mirvar</h3>
 
-<ul>
-<li>word 32bit data or 4Byte</li>
-<li>Nb Number of columns, Nb = 4</li>
-<li>Nk Number of words for key</li>
-<li>Nr Number of rounds</li>
-</ul>
+<pre><code class="language-c">flash mirvar(iv)
+int iv;
+</code></pre>
 
-<h2 id="toc_1">AES的三种模式</h2>
+<p>An integer initial value for the big/flash number.example x=mirvar(8);</p>
 
-<p>AES的blocksize是16Byte，密钥分为128/192/256三种长度。</p>
+<h3 id="toc_2">multiply</h3>
 
-<ul>
-<li>128bit 10轮加密</li>
-<li>192bit 12轮加密</li>
-<li>256bit 14轮加密</li>
-</ul>
+<pre><code class="language-c">void multiply(x,y,z)
+big x y z
+</code></pre>
 
-<table>
-<thead>
-<tr>
-<th style="text-align: center"></th>
-<th style="text-align: center">Key Lenght(Nk words)</th>
-<th style="text-align: center">Block Size (Nb words)</th>
-<th style="text-align: center">Number of Rounds(Nr)</th>
-</tr>
-</thead>
+<p>Three big numbers x,y and z. On exit z=x * y</p>
 
-<tbody>
-<tr>
-<td style="text-align: center">AES128</td>
-<td style="text-align: center">4</td>
-<td style="text-align: center">4</td>
-<td style="text-align: center">10</td>
-</tr>
-<tr>
-<td style="text-align: center">AES192</td>
-<td style="text-align: center">6</td>
-<td style="text-align: center">4</td>
-<td style="text-align: center">12</td>
-</tr>
-<tr>
-<td style="text-align: center">AES256</td>
-<td style="text-align: center">8</td>
-<td style="text-align: center">4</td>
-<td style="text-align: center">14</td>
-</tr>
-</tbody>
-</table>
+<h3 id="toc_3">premult</h3>
 
-<p>通过观察可得<code>Nr = Nk + 6</code></p>
+<pre><code class="language-c">void premult(x,n,z)
+int n
+big x,z;
+</code></pre>
 
-<h2 id="toc_2">AES加密算法描述</h2>
+<p>On exit z=n*x</p>
 
-<ol>
-<li>密钥扩展</li>
-<li>初始轮</li>
-<li>普通轮</li>
-<li>最后轮</li>
-</ol>
+<h3 id="toc_4">divide</h3>
 
-<h3 id="toc_3">密钥扩展</h3>
+<pre><code class="language-c">void divide(x,y,z)
+big x,y,z;
+</code></pre>
 
-<p>AES加密根据密钥长度不同分别有不同轮数的加密，在对每个<code>block</code>每轮加密所使用的<code>轮密钥</code>都是从<code>初始密钥</code>生成。密钥扩展是串行的，每个<code>word</code>生成都依赖于前一个<code>word</code></p>
+<p>Three big numbers x, y and z. On exit z=x/y; x=x mod y. The quotient only is returned if x and z are the same, the remainder only if y and z are the same.</p>
+
+<h3 id="toc_5">decr</h3>
+
+<pre><code class="language-c">void decr(x,n,z)
+big x,z;
+int n;
+</code></pre>
+
+<p>Big numbers x and z, and integer n. On exit z=x-n.</p>
+
+<h3 id="toc_6">ecurve_mult</h3>
+
+<pre><code class="language-c">void ecurve_mult(k,p,pa)
+big k;
+epoint *p,*pa;
+</code></pre>
+
+<p>A big number k, and two points p and pa. On exit pa=k*p.</p>
+
+<h3 id="toc_7">xgcd</h3>
+
+<pre><code class="language-c">int xgcd(x,y,xd,yd,z)
+big x,y,xd,yd,z;
+</code></pre>
+
+<p>Five big numbers x,y,xd,yd and z. On exit z=gcd(x,y)=x * xd+y * yd</p>
+
+<pre><code class="language-c">xgcd(x,p,x,x,x);  /* x = 1/x mod p  (p is prime) */
+</code></pre>
+
+<p>在SM9代码中用来求逆，\(t_1^{-1}\bmod{N}\)</p>
 
 
 		</div>
-	
-
- 
 	
 
   

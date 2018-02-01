@@ -8,7 +8,7 @@
   记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,83 +326,86 @@
 
 	
 		<div class="markdown-body">
-		<h1>SM9代码注释</h1>
+		<h1>磁盘传输</h1>
 
-		<p>SM9代码中运用了<a href="https://libraries.docs.miracl.com">Miracl库</a></p>
+		<p><em>2017.11.28</em></p>
 
-<h2 id="toc_0">Miracl</h2>
+<ul>
+<li>
+<a href="#toc_0">SATA</a>
+</li>
+<li>
+<a href="#toc_1">NVMe</a>
+</li>
+<li>
+<a href="#toc_2">磁盘</a>
+</li>
+</ul>
 
-<p>用到的部分函数</p>
 
-<h3 id="toc_1">mirvar</h3>
+<h2 id="toc_0">SATA</h2>
 
-<pre><code class="language-c">flash mirvar(iv)
-int iv;
-</code></pre>
+<p>SATA是Serial ATA的意思，是连结物理存储设备的接口。在早些时用PATA接口。</p>
 
-<p>An integer initial value for the big/flash number.example x=mirvar(8);</p>
+<blockquote>
+<p>Generally, the actual SATA signalling is half-duplex, meaning that it can only read or write data at any one time.</p>
+</blockquote>
 
-<h3 id="toc_2">multiply</h3>
+<p>SATA是半双工模式，意味着同一时刻，只能读或者写。</p>
 
-<pre><code class="language-c">void multiply(x,y,z)
-big x y z
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Raw Rate Gbit/s</th>
+<th>Max Data Rate</th>
+</tr>
+</thead>
 
-<p>Three big numbers x,y and z. On exit z=x * y</p>
+<tbody>
+<tr>
+<td>SATA1.0</td>
+<td>1.5</td>
+<td>150MB/s</td>
+</tr>
+<tr>
+<td>SATA2.0</td>
+<td>3.0</td>
+<td>300MB/s</td>
+</tr>
+<tr>
+<td>SATA3.0</td>
+<td>6.0</td>
+<td>600MB/s</td>
+</tr>
+<tr>
+<td>SATA3.2</td>
+<td>16.0</td>
+<td>1.97GB/s</td>
+</tr>
+</tbody>
+</table>
 
-<h3 id="toc_3">premult</h3>
+<h2 id="toc_1">NVMe</h2>
 
-<pre><code class="language-c">void premult(x,n,z)
-int n
-big x,z;
-</code></pre>
+<p>依托于PCIe总线，NVMe设备可适用于各种支持PCIe总线的物理插槽上，接口速度可达3GB以上。</p>
 
-<p>On exit z=n*x</p>
+<p>例如三星的SSD数据，读可到3GB／s，写可到2GB／s</p>
 
-<h3 id="toc_4">divide</h3>
+<p><img src="http://www.fudzilla.com/images/stories/2017/Reviews/samsung-sm961-and-960-evo/samsung-third-generation-m.2-nvme-ssd-chart.jpg" alt=""/></p>
 
-<pre><code class="language-c">void divide(x,y,z)
-big x,y,z;
-</code></pre>
+<p>其中MLC成本高于TLC，性能也高。</p>
 
-<p>Three big numbers x, y and z. On exit z=x/y; x=x mod y. The quotient only is returned if x and z are the same, the remainder only if y and z are the same.</p>
+<h2 id="toc_2">磁盘</h2>
 
-<h3 id="toc_5">decr</h3>
+<p>普通机械硬盘，读写速度一般200MB／s内。</p>
 
-<pre><code class="language-c">void decr(x,n,z)
-big x,z;
-int n;
-</code></pre>
+<p>使用SATA3.0的SSD最大读写500MB／s左右。</p>
 
-<p>Big numbers x and z, and integer n. On exit z=x-n.</p>
-
-<h3 id="toc_6">ecurve_mult</h3>
-
-<pre><code class="language-c">void ecurve_mult(k,p,pa)
-big k;
-epoint *p,*pa;
-</code></pre>
-
-<p>A big number k, and two points p and pa. On exit pa=k*p.</p>
-
-<h3 id="toc_7">xgcd</h3>
-
-<pre><code class="language-c">int xgcd(x,y,xd,yd,z)
-big x,y,xd,yd,z;
-</code></pre>
-
-<p>Five big numbers x,y,xd,yd and z. On exit z=gcd(x,y)=x * xd+y * yd</p>
-
-<pre><code class="language-c">xgcd(x,p,x,x,x);  /* x = 1/x mod p  (p is prime) */
-</code></pre>
-
-<p>在SM9代码中用来求逆，\(t_1^{-1}\bmod{N}\)</p>
+<p>NVMe SSD读3GB／s写2GB／s</p>
 
 
 		</div>
-	
-
- 
 	
 
   

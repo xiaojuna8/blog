@@ -8,7 +8,7 @@
   Crypt - 记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,228 +326,44 @@
 
 	
 		<div class="markdown-body">
-		<h1>加密key生成</h1>
+		<h1>SHA</h1>
 
-		<ul>
-<li>
-<a href="#toc_0">PBKDF2</a>
-</li>
-<li>
-<a href="#toc_1">scrypt</a>
-<ul>
-<li>
-<a href="#toc_2">内存消耗</a>
-</li>
-<li>
-<a href="#toc_3">算法描述</a>
-</li>
-</ul>
-</li>
-<li>
-<a href="#toc_4">盐(密码学)</a>
-</li>
-<li>
-<a href="#toc_5">HMAC</a>
-</li>
-<li>
-<a href="#toc_6">SHA256</a>
-</li>
-</ul>
+		<p>MD5碰撞已经很容易实现(2017年)，SHA-1已经被宣布<a href="https://security.googleblog.com/2017/02/announcing-first-sha1-collision.html">不安全</a></p>
 
+<p><img src="./pic/SHA-Comp.png" alt=""/></p>
 
-<p>在AES加密中需要使用128/192/256bit的key进行加密解密。key随机性影响了加密的可靠性。<a href="https://pthree.org/2016/06/28/lets-talk-password-hashing/">see</a></p>
+<h2 id="toc_0">OSX计算哈希指令</h2>
 
-<blockquote>
-<p>Best practice? In order of preference, use:</p>
-
-<ol>
-<li>scrypt</li>
-<li>bcrypt</li>
-<li>Argon2</li>
-<li>sha512crypt</li>
-<li>sha256crypt</li>
-<li>PBKDF2</li>
-</ol>
-
-<p>Do not use:</p>
-
-<ol>
-<li>MD5</li>
-<li>md5crypt</li>
-<li>UNIX crypt(3)</li>
-<li>SHA-1/2/3</li>
-<li>Skein</li>
-<li>BLAKE2</li>
-<li>Any general purpose hashing function.</li>
-<li>Any encryption algorithm.</li>
-<li>Your own design.</li>
-<li>Plaintext</li>
-</ol>
-</blockquote>
-
-<p>几种方法之间效果对比scrypt&gt;bcrypt&gt;PBKDF2,scrypt和Argon2使用有<a href="https://pthree.org/2016/06/29/further-investigation-into-scrypt-and-argon2-password-hashing/">文章</a>，由于Argon2太新，有待时间检验</p>
-
-<p><img src="./pic/vstable.png" alt=""/></p>
-
-<p>在<a href="http://www.tarsnap.com/scrypt/scrypt.pdf">论文</a>中提到若密码长度为8个英文字母，破解时间1年，PBKDF2(5s)需要29，bcrypt(3s)要130，scrypt(3.8s)要610k</p>
-
-<h2 id="toc_0">PBKDF2</h2>
-
-<p><a href="https://en.wikipedia.org/wiki/PBKDF2">PBKDF2</a>(Password-Based Key Derivation Function)是一个用来生成密钥的函数，常用于生成加密的密码。它通过一个伪随机函数，把明文和盐作为输入，通过一系列重复运算，最终生成密钥</p>
-
-<pre><code>DK = PBKDF2(PRF, Password, Salt, c, dkLen)
+<pre><code>//计算MD5
+md5 xxx
 </code></pre>
 
-<p>其中</p>
-
-<ul>
-<li>PRF是伪随机函数，一般用HMAC</li>
-<li>Password是密码</li>
-<li>Salt盐</li>
-<li>c迭代次数</li>
-<li>dkLen期望得到的key长度</li>
-<li>DK生成的key</li>
-</ul>
-
-<pre><code>DK = T1 || T2 || ... || T_dklen/hlen
-Ti = F(Password, Salt, c, i)
+<pre><code>//计算SHA-1
+shasum xxx
 </code></pre>
 
-<p>hlen是hash函数生成的hash码长度</p>
-
-<p>其中F函数是异或函数</p>
-
-<pre><code>Ti = F(Password, Salt, c, i) = U1 ^ U2 ^...^ Uc
-where
-U1 = PRF(Password,Salt || INT_32_BE(i))
-U2 = PRF(Password,U1)
-...
-Uc = PRF(Password,Uc-1)
+<pre><code>//计算SHA-256
+shasum -a 256 xxx
 </code></pre>
 
-<h2 id="toc_1">scrypt</h2>
+<p>计算字符串哈希</p>
 
-<p><a href="https://en.wikipedia.org/wiki/Scrypt">scrypt</a>是一个基于密码的key生成方法，其安全性强于PBKDF2</p>
-
-<h3 id="toc_2">内存消耗</h3>
-
-<pre><code>Memory in bytes = (N*r*128)+(r*p*128)
+<pre><code>echo -n hello world | md5
 </code></pre>
 
-<h3 id="toc_3">算法描述</h3>
+<h2 id="toc_1">Linux计算哈希函数</h2>
 
-<ul>
-<li>Passphrase 用户密码</li>
-<li>Salt 盐</li>
-<li>N CPU/memory 花费</li>
-<li>p 并行参数</li>
-<li>dkLen 期望得到的key长度</li>
-<li>r 混合循环blocksize</li>
-</ul>
+<p>md5计算<code>md5sum</code></p>
 
-<pre><code>Function scrypt(Passphrase,Salt,N,p,dkLen):
-    (B0 ... Bp−1) ← PBKDF2(HMAC_SHA256, Passphrase, Salt, 1, p * MFLen)
-    for i = 0 to p-1 do
-        Bi ← SMix(Bi,N)
-    end for
-    Output ← PBKDF2(HMAC_SHA256, Passphrase, B0 || B1 ... Bp−1, 1, dkLen)
+<p>sha-1计算<code>sha1sum</code></p>
+
+<p>sha-256计算<code>sha256sum</code></p>
+
+<pre><code>echo -n hello world | md5sum
 </code></pre>
-
-<p>MFLen ？ = 128 * r</p>
-
-<pre><code>Function SMix(B,N):
-    X ← B
-    for i = 0 to N − 1 do
-       Vi ← X
-       X ← BlockMix(X)
-    end for
-    for i = 0 to N − 1 do
-        j ← Integerify(X) mod N
-        X ← BlockMix(X ⊕ Vj)
-    end for
-    Output ← X
-</code></pre>
-
-<p>Integerify() 是\(\{0,1\}^k \rightarrow \{0,1…2^k-1\}\)<br/>
-<code><br/>
-Function BlockMix(B):<br/>
-    (B0, ... , B2r-1) ← B<br/>
-    X ← B2r−1<br/>
-    for i = 0 to 2r − 1 do<br/>
-        X ← H(X ⊕ Bi)<br/>
-        Yi ← X<br/>
-    end for<br/>
-    Output ← (Y0, Y2, ... , Y2r−2, Y1, Y3, ... , Y2r−1)<br/>
-</code></p>
-
-<h2 id="toc_4">盐(密码学)</h2>
-
-<p>通常情况下字符串经过散列处理后无法还原为原始字符串，但是若原始字符串不够随机，很可能已经被作为破解字典，这样原密码会暴露。</p>
-
-<p>加盐的实现通常是在需要散列的字符串特定位置增加特定字符，打乱原始字符串，使其散列结果发生变化。例如用户密码为<code>x7faqgjw</code></p>
-
-<pre><code>x7faqgjw
-MD5:455e0e5c2bc109deae749e7ce0cdd397
-</code></pre>
-
-<p>若在用户密码后添加特定字符串</p>
-
-<pre><code>x7faqgjwabcdefghijklmnopqrstuvwxyz
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^
-MD5:4a1690d5eb6c126ef68606dda68c2f79
-</code></pre>
-
-<p>或者在字符串某些位置插入字符</p>
-
-<pre><code>x7afabqgcjw
-  ^  ^  ^  
-</code></pre>
-
-<h2 id="toc_5">HMAC</h2>
-
-<p><a href="https://en.wikipedia.org/wiki/Hash-based_message_authentication_code">HMAC</a>密钥散列消息认证码，为验证数据完整和身份认证</p>
-
-<p>\[ HMAC (K,m) = H( ( K^\prime \oplus opad ) || H((K^\prime\oplus ipad )||m) )\]</p>
-
-<ul>
-<li>H是哈希函数</li>
-<li>K是原始密码</li>
-<li>m是消息</li>
-<li>K‘是填充后密码</li>
-<li>||是字符串连结符号</li>
-<li>\(\oplus\)是异或运算符</li>
-<li>opad是外部填充(0x5c5c5c...)</li>
-<li>ipad是内部填充(0x363636...)</li>
-<li>blocksize是分块大小，对于SHA-256，<a href="https://tools.ietf.org/html/rfc4868">blocksize = 512bits</a></li>
-</ul>
-
-<pre><code> function hmac (key, message) {
-    if (length(key) &gt; blocksize) {
-        key = hash(key) // keys longer than blocksize are shortened
-    }
-    if (length(key) &lt; blocksize) {
-        // keys shorter than blocksize are zero-padded 
-        // Where * is repetition.(where ∥ is concatenation)
-        key = key ∥ [0x00 * (blocksize - length(key))] 
-    }
-    // Where blocksize is that of the underlying hash function
-    o_key_pad = [0x5c * blocksize] ⊕ key
-    // Where ⊕ is exclusive or (XOR)
-    i_key_pad = [0x36 * blocksize] ⊕ key
-     // Where ∥ is concatenation
-    return hash(o_key_pad ∥ hash(i_key_pad ∥ message))
-}
-</code></pre>
-
-<h2 id="toc_6">SHA256</h2>
-
-<p>SHA256是<a href="https://en.wikipedia.org/wiki/SHA-2">SHA-2</a>中的一个，是一种计算散列的方法。</p>
 
 
 		</div>
-	
-
- 
 	
 
   

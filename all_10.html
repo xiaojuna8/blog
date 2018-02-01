@@ -8,7 +8,7 @@
   记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,87 +326,44 @@
 
 	
 		<div class="markdown-body">
-		<h1>SM9数字签名</h1>
+		<h1>全局变量</h1>
 
-		<p>SM9是基于双线性对的标识密码算法，是我国商用密码行业公钥密码算法的一种标准算法。其内容主要包括数字签名算法，密钥交换协议，密钥封装机制和公钥加密算法。本文仅介绍SM9数字签名算法。</p>
+		<p>C/C++多文件使用全局变量</p>
 
-<ul>
-<li>
-<a href="#toc_0">目的</a>
-</li>
-<li>
-<a href="#toc_1">流程</a>
-<ul>
-<li>
-<a href="#toc_2">密钥生成</a>
-<ul>
-<li>
-<a href="#toc_3">主密钥生成</a>
-</li>
-<li>
-<a href="#toc_4">用户私钥生成</a>
-</li>
-</ul>
-</li>
-<li>
-<a href="#toc_5">数字签名生成</a>
-</li>
-<li>
-<a href="#toc_6">数字签名验证</a>
-</li>
-</ul>
-</li>
-</ul>
+<ol>
+<li>头文件声明<code>extern</code></li>
+<li>实现文件初始化</li>
+<li>其它调用位置包含声明头文件</li>
+</ol>
 
+<p>若仅在 头文件声明初始化，编译器报<strong>链接错误</strong></p>
 
-<h2 id="toc_0">目的</h2>
+<p>若声明不是extern也会有<strong>链接错误</strong></p>
 
-<p>数字签名用来验证文件来源。</p>
+<h2 id="toc_0">example</h2>
 
-<p>Alice发送带数字签名的文件给Bob，Bob可以通过验证签名来验证文件是否是Alice发送，文件是否完整，是否被篡改。</p>
-
-<h2 id="toc_1">流程</h2>
-
-<p>SM9数字签名分成三个步骤。</p>
-
-<pre><code>1. 密钥生成
-2. 数字签名生成
-3. 数字签名验证
+<pre><code class="language-c">//fun.h
+extern int globalInt;
+extern int globalArray[3];
 </code></pre>
 
-<p>这三个步骤由三方分别完成。其中密钥生成由密钥生成中心(KGC)完成，数字签名生成由签名者(例如Alice)完成，数字签名验证由验证者(例如Bob)完成。</p>
-
-<p><img src="https://gitee.com/uploads/images/2017/1201/144346_ca558594_1453931.png" alt="IBS架构" title="IBS架构.png"/></p>
-
-<h3 id="toc_2">密钥生成</h3>
-
-<p>密钥生成包括两个部分</p>
-
-<pre><code>1. KGC 主密钥生成，包括主公钥和主私钥
-2. 用户私钥生成
+<pre><code class="language-c">//fun.cpp
+int globalInt = 123;
+int globalArray[3] = {1,2,3};
 </code></pre>
 
-<h4 id="toc_3">主密钥生成</h4>
-
-<p>密钥生成中心随机选择s作为主私钥，计算得到主公钥Ppub.密钥生成中心保密s，公开Ppub。</p>
-
-<h4 id="toc_4">用户私钥生成</h4>
-
-<p>依照一定法则，生成用户Alice的私钥dA，并将该私钥给该用户Alice</p>
-
-<h3 id="toc_5">数字签名生成</h3>
-
-<p>设待签名消息串为M，用户Alice根据自己持有的私钥dA对消息进行签名处理，得到签名S。Alice将消息M和签名S一起发送给Bob</p>
-
-<h3 id="toc_6">数字签名验证</h3>
-
-<p>Bob接收到消息M&#39;和签名S&#39;，Bob可以通过KGC公布的主公钥Ppub和通过签名验证算法，验证消息是否来自Alice以及是否完整，是否被篡改。</p>
+<pre><code class="language-c">//main.cpp
+#include &quot;fun.h&quot;
+int main()
+{
+  //access globalInt
+  //access globalArray;
+  return 0;
+}
+</code></pre>
 
 
 		</div>
-	
-
- 
 	
 
   

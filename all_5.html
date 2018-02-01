@@ -8,7 +8,7 @@
   记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,89 +326,120 @@
 
 	
 		<div class="markdown-body">
-		<h1>磁盘传输</h1>
+		<h1>跨平台C／C++系统／编译器检测</h1>
 
-		<p><em>2017.11.28</em></p>
+		<p>通过预定义宏可以判断当前使用平台和所用编译器。</p>
 
-<ul>
-<li>
-<a href="#toc_0">SATA</a>
-</li>
-<li>
-<a href="#toc_1">NVMe</a>
-</li>
-<li>
-<a href="#toc_2">磁盘</a>
-</li>
-</ul>
+<h2 id="toc_0">平台宏</h2>
 
-
-<h2 id="toc_0">SATA</h2>
-
-<p>SATA是Serial ATA的意思，是连结物理存储设备的接口。在早些时用PATA接口。</p>
-
-<blockquote>
-<p>Generally, the actual SATA signalling is half-duplex, meaning that it can only read or write data at any one time.</p>
-</blockquote>
-
-<p>SATA是半双工模式，意味着同一时刻，只能读或者写。</p>
+<p>在不同的系统下编译器预定义宏不同，可以作为检测操作系统的方法。</p>
 
 <table>
 <thead>
 <tr>
-<th>Name</th>
-<th>Raw Rate Gbit/s</th>
-<th>Max Data Rate</th>
+<th></th>
+<th>windows x86</th>
+<th>windows x64</th>
+<th>linux</th>
+<th>mac</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>SATA1.0</td>
-<td>1.5</td>
-<td>150MB/s</td>
+<td><code>_WIN32</code></td>
+<td>**</td>
+<td>**</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
-<td>SATA2.0</td>
-<td>3.0</td>
-<td>300MB/s</td>
+<td><code>_WIN64</code></td>
+<td></td>
+<td>**</td>
+<td></td>
+<td></td>
 </tr>
 <tr>
-<td>SATA3.0</td>
-<td>6.0</td>
-<td>600MB/s</td>
+<td><code>__unix__</code></td>
+<td></td>
+<td></td>
+<td>**</td>
+<td></td>
 </tr>
 <tr>
-<td>SATA3.2</td>
-<td>16.0</td>
-<td>1.97GB/s</td>
+<td><code>__linux__</code></td>
+<td></td>
+<td></td>
+<td>**</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__APPLE__</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td>**</td>
 </tr>
 </tbody>
 </table>
 
-<h2 id="toc_1">NVMe</h2>
+<h1 id="toc_1">编译器预定义宏</h1>
 
-<p>依托于PCIe总线，NVMe设备可适用于各种支持PCIe总线的物理插槽上，接口速度可达3GB以上。</p>
+<p>通过预定义宏判断可识别当前使用的编译器和版本</p>
 
-<p>例如三星的SSD数据，读可到3GB／s，写可到2GB／s</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Clang</th>
+<th>GCC</th>
+<th>ICC</th>
+<th>MSVC</th>
+</tr>
+</thead>
 
-<p><img src="http://www.fudzilla.com/images/stories/2017/Reviews/samsung-sm961-and-960-evo/samsung-third-generation-m.2-nvme-ssd-chart.jpg" alt=""/></p>
+<tbody>
+<tr>
+<td><code>__clang__</code></td>
+<td>**</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><code>__GUNC__</code></td>
+<td>**</td>
+<td>**</td>
+<td>**</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__ICC</code></td>
+<td></td>
+<td></td>
+<td>**</td>
+<td></td>
+</tr>
+<tr>
+<td><code>__MSC_VER</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td>**</td>
+</tr>
+</tbody>
+</table>
 
-<p>其中MLC成本高于TLC，性能也高。</p>
+<h2 id="toc_2">size_t大小</h2>
 
-<h2 id="toc_2">磁盘</h2>
-
-<p>普通机械硬盘，读写速度一般200MB／s内。</p>
-
-<p>使用SATA3.0的SSD最大读写500MB／s左右。</p>
-
-<p>NVMe SSD读3GB／s写2GB／s</p>
+<ul>
+<li><p>在64位系统中定义<code>size_t = uint64_t</code></p></li>
+<li><p>在32位系统中定义<code>size_t = uint32_t</code></p></li>
+</ul>
 
 
 		</div>
-	
-
- 
 	
 
   

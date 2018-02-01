@@ -8,7 +8,7 @@
   记录
   
   </title>
- <meta name="description" content="">
+ <meta name="description" content="记录工作上的知识点">
  <link href="atom.xml" rel="alternate" title="记录" type="application/atom+xml">
     <link rel="stylesheet" href="asset/css/foundation.min.css" />
     <link rel="stylesheet" href="asset/css/docs.css" />
@@ -47,6 +47,8 @@
         <li><label>C++</label></li>
 
           
+            <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+          
             <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
           
             <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -65,7 +67,7 @@
           
             <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
           
-            <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+            <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
           
             <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
           
@@ -192,6 +194,8 @@
                     
                       <li class="side-title"><span>C++</span></li>
                         
+                          <li><a title="gcc第三方库文件目录" href="15173624959342.html">gcc第三方库文件目录</a></li>
+                        
                           <li><a title="字符编码" href="15173053129472.html">字符编码</a></li>
                         
                           <li><a title="跨平台C／C++系统／编译器检测" href="15173052079033.html">跨平台C／C++系统／编译器检测</a></li>
@@ -210,7 +214,7 @@
                         
                           <li><a title="Makefile" href="15173044568587.html">Makefile</a></li>
                         
-                          <li><a title="命令行参数" href="15173044214676.html">命令行参数</a></li>
+                          <li><a title="命令行参数解析" href="15173044214676.html">命令行参数解析</a></li>
                         
                           <li><a title="C++多线程" href="15173028055344.html">C++多线程</a></li>
                         
@@ -322,40 +326,26 @@
 
 	
 		<div class="markdown-body">
-		<h1>Illumina Sequencing</h1>
+		<h1>gcc第三方库文件目录</h1>
 
-		<p><em>Author：Brian LM Cheng</em></p>
+		<h2 id="toc_0">头文件</h2>
 
-<h2 id="toc_0">Step1</h2>
+<p>若引用第三方头文件，需要指定头文件所在的目录。<br/>
+<code>gcc -c -I/home/me/development/skia sample.c</code></p>
 
-<p>In the Illumina genome analyzer, the DNA that you want to sequence is first fragmented and ligated with Illumina-specific adapters from a library of adapters. All these single stranded DNAs + unique adapters are then bound to the surface of a flow cell.</p>
+<h2 id="toc_1">库文件</h2>
 
-<p><img src="http://i0.wp.com/symposcium.com/wp-content/uploads/2013/05/illumina-1.png?w=1093" alt=""/></p>
+<p>若引用第三方库文件<br/>
+<code>g++ test.cpp -lboost_system -L/v/users/regel/lib</code><br/>
+<code>-Wl,-rpath ./ -Wl,-rpath /Users/du/Documents/awshead/aws-dylib</code>运行时动态库搜索路径。指定rpath，tells the linker where to find the required library at runtime of the binary.<br/>
+<code>-Wl,-rpath .</code> 指定运行时动态库搜索路径为当前目录</p>
 
-<h2 id="toc_1">Step2</h2>
-
-<p>Next, the adapter is then bind to the primer on the surface forming a bridge. At this point, PCR amplification takes place using unlabeled nucleotide. At the end of the PCR amplification, you will get two complementary single stranded strands attached to the surface of the flow cell channel.</p>
-
-<p><img src="http://i2.wp.com/symposcium.com/wp-content/uploads/2013/05/illumina-22.png?w=1043" alt=""/></p>
-
-<h2 id="toc_2">Step3</h2>
-
-<p>Next, primer and special labeled reversible terminators are added. What are these terminators? These terminators carry a fluorescent tag and the 3’OH is blocked but it can be chemically removed to continue replication.</p>
-
-<p><img src="http://i2.wp.com/symposcium.com/wp-content/uploads/2013/05/illumina-3.png?w=1052" alt=""/></p>
-
-<p>Because of the unique blocking ability of this technique, you can add a terminator and then let it bind to the replicating strand. Then, determine the nucleotide identity by the fluorescent tag, followed by removing the blocking group at the 3’OH site to continue the next round.</p>
-
-<p><strong>Single-End Read:</strong> When the sequencing process only occurs in 1 direction<br/>
-<strong>Paired-End Read:</strong> If two separate read cycles occur in both directions. This kind of read will provide data about both sides of the fragment of interest (Blue). If the fragment size is consistent you will also be able to predict that both the forward and reverse reads will be a known distance from each other. This data can be used to help the software map the reads more accurately.</p>
-
-<p><img src="http://tucf-genomics.tufts.edu/images/faq03_pic01.png?1378237299" alt=""/></p>
+<blockquote>
+<p>gcc编译链接动态库时，很有可能编译通过，但是执行时，找不到动态链接库，那是因为-L选项指定的路径只在编译时有效，编译出来的可执行文件不知道-L选项后面的值，当然找不到。可以用ldd <your_execute>看看是不有 ‘not found’在你链接的库后面，解决方法是通过-Wl,rpath=<your_lib_dir>，使得execute记住链接库的位置</p>
+</blockquote>
 
 
 		</div>
-	
-
- 
 	
 
   
