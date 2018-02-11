@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  lldb - 记录
+  lldb usage - 记录
   
   </title>
  <meta name="description" content="记录工作上的知识点">
@@ -83,7 +83,7 @@
           
             <li><a title="Git" href="15173027520921.html">Git</a></li>
           
-            <li><a title="lldb" href="15172828404139.html">lldb</a></li>
+            <li><a title="lldb usage" href="15172828404139.html">lldb usage</a></li>
           
 
       
@@ -228,7 +228,7 @@
                         
                           <li><a title="Git" href="15173027520921.html">Git</a></li>
                         
-                          <li><a title="lldb" href="15172828404139.html">lldb</a></li>
+                          <li><a title="lldb usage" href="15172828404139.html">lldb usage</a></li>
                         
 
                     
@@ -322,9 +322,22 @@
             <div class="large-9 medium-9 columns">
 
  <div class="markdown-body">
-<h1>lldb</h1>
+<h1>lldb usage</h1>
 
-<p>lldb是调试llvm和clang的调试工具。</p>
+<p>lldb是调试llvm和clang的调试工具。lldb有命令行模式和GUI模式。</p>
+
+<h2 id="toc_0">breakpoint</h2>
+
+<pre><code>(lldb) breakpoint set --file foo.c --line 12 
+(lldb) breakpoint set -f foo.c -l 12
+</code></pre>
+
+<h2 id="toc_1">argv</h2>
+
+<p>Launch a process for with arguments <code>a.out 1 2 3</code> without having to supply the args every time. <br/>
+<code>lldb -- a.out 1 2 3</code><br/>
+Show the arguments that will be or were passed to the program when run.<br/>
+<code>settings show target.run-args</code></p>
 
 
 </div>
