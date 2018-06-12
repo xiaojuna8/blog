@@ -455,6 +455,8 @@ Error message and password prompt
 
 <li>BCrypt计算效率</li>
 
+<li>C++ std::async</li>
+
 <li>C++函数模板特化导致的多重定义链接错误</li>
 
 <li>cmake</li>
@@ -13092,10 +13094,10 @@ Error message and password prompt
 <div created="20180514094807728" creator="xiaojun" modified="20180518080628946" modifier="xiaojun" title="$:/state/tab-2065006209">
 <pre>$:/core/ui/ControlPanel/Saving/DownloadSaver</pre>
 </div>
-<div created="20180525074924552" creator="xiaojun" modified="20180601005632269" modifier="xiaojun" title="$:/state/tab/moresidebar-401116514">
+<div created="20180525074924552" creator="xiaojun" modified="20180612003627995" modifier="xiaojun" title="$:/state/tab/moresidebar-401116514">
 <pre>$:/core/ui/MoreSideBar/All</pre>
 </div>
-<div created="20180514095246688" creator="xiaojun" modified="20180604073602078" modifier="xiaojun" title="$:/state/tab/sidebar--1835078512">
+<div created="20180514095246688" creator="xiaojun" modified="20180612005521363" modifier="xiaojun" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
 <div created="20180514094755893" creator="xiaojun" modified="20180518080557703" modifier="xiaojun" title="$:/state/tabs/controlpanel/toolbars-1345989671">
@@ -13104,7 +13106,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[AWS S3计费]]" title="$:/StoryList">
+<div list="[[C++ std::async]] Git撤销更改 [[linux time]] linux获取退出code 生信数据库 Linux查看系统内核版本 [[How to change the aes key after encryption?]] [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14109,6 +14111,15 @@ log,,2,,(85) = 6.409...
 
 ! 缺点
 bcrypt并不是任何行业标准，也没有被政府采纳为国家标准，因此跨平台性不足(相对应PBKDF2).</pre>
+</div>
+<div created="20180612003637730" creator="xiaojun" modified="20180612005506231" modifier="xiaojun" tags="多线程 C++" title="C++ std::async">
+<pre>异步执行async不关心异步执行的细节，不用关心如何开启和结束线程。只要获取最终结果即可。
+必须要指定任务是立即执行还是需要的时候执行。
+
+&lt;&lt;&lt;
+If neither std::launch::async nor std::launch::deferred, nor any implementation-defined policy flag is set in policy, the behavior is undefined.
+&lt;&lt;&lt;
+</pre>
 </div>
 <div created="20180409012154509" modified="20180409015545366" tags="链接 编译 C++" title="C++函数模板特化导致的多重定义链接错误">
 <pre>[ext[参考原文|http://www.voidcn.com/article/p-rgfbajez-ke.html]] | [ext[参考|http://www.doocr.com/articles/58a874ac8d4f1f3990989f36]] |
