@@ -14593,7 +14593,7 @@ while ((c = getopt_long(argc,(char * const *) argv, &quot;u:p:i:o:vh&quot;, long
 |`git show v1.4`|显示标签|
 |`git push origin --tags`|提交标签到远程仓库|</pre>
 </div>
-<div created="20180404021040018" creator="xiaojun" modified="20180507093711053" modifier="xiaojun" tags="git" title="Git撤销更改">
+<div created="20180404021040018" creator="xiaojun" modified="20180612025949570" modifier="xiaojun" tags="git" title="Git撤销更改">
 <pre>! git discard all changes
 
 ```bash
@@ -14607,7 +14607,11 @@ git checkout -- .
 * `-n` dry run 演练
 * `-f` force
 * `-d` remove whole directories
-* `-x`  remove ignored files, too</pre>
+* `-x`  remove ignored files, too
+
+ 
+在用上述 git clean 前，墙裂建议加上 -n 参数来先看看会删掉哪些文件，防止重要文件被误删
+`git clean -nxfd`,确认后`git clean -xfd`</pre>
 </div>
 <div created="20180529070952695" creator="xiaojun" modified="20180529080700646" modifier="xiaojun" tags="命令行 linux" title="How long an argument list your kernel can take on the command line before it chokes">
 <pre>unix指令 `getconf ARG_MAX`
