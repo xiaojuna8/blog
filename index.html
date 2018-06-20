@@ -14716,7 +14716,7 @@ git checkout -- .
 在用上述 git clean 前，墙裂建议加上 -n 参数来先看看会删掉哪些文件，防止重要文件被误删
 `git clean -nxfd`,确认后`git clean -xfd`</pre>
 </div>
-<div created="20180620093214781" creator="xiaojun" modified="20180620094748251" modifier="xiaojun" tags="IEEE754" title="Half-precision floating-point format">
+<div created="20180620093214781" creator="xiaojun" modified="20180620103118729" modifier="xiaojun" tags="IEEE754" title="Half-precision floating-point format">
 <pre>In the IEEE 754-2008 standard, the 16-bit base 2 format is referred to as binary16. 
 
 ! format
@@ -14734,10 +14734,11 @@ In IEEE 754 parlance, there are 10 bits of significand, but there are 11 bits of
 
 `CPUID Flags: FP16C`单精度和半精度之间的转换
 
-|__m128i _mm_cvtps_ph (__m128 a, int rounding)|
-|__m128 _mm_cvtph_ps (__m128i a)|
-|__m128i _mm256_cvtps_ph (__m256 a, int rounding)|
-|__m256 _mm256_cvtph_ps (__m128i a)|</pre>
+|function| Latency |
+|__m128i _mm_cvtps_ph (__m128 a, int rounding)|-|
+|__m128 _mm_cvtph_ps (__m128i a)|4-6|
+|__m128i _mm256_cvtps_ph (__m256 a, int rounding)|4-9|
+|__m256 _mm256_cvtph_ps (__m128i a)|6-7|</pre>
 </div>
 <div created="20180529070952695" creator="xiaojun" modified="20180529080700646" modifier="xiaojun" tags="命令行 linux" title="How long an argument list your kernel can take on the command line before it chokes">
 <pre>unix指令 `getconf ARG_MAX`
