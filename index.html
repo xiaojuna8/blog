@@ -503,6 +503,8 @@ Error message and password prompt
 
 <li>Half-precision floating-point format</li>
 
+<li>How does free know how much to free?</li>
+
 <li>How long an argument list your kernel can take on the command line before it chokes</li>
 
 <li>How to change the aes key after encryption?</li>
@@ -13141,7 +13143,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[Half-precision floating-point format]] NCBI词汇 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="[[How does free know how much to free?]] [[Half-precision floating-point format]] NCBI词汇 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14739,6 +14741,40 @@ In IEEE 754 parlance, there are 10 bits of significand, but there are 11 bits of
 |__m128 _mm_cvtph_ps (__m128i a)|4-6|
 |__m128i _mm256_cvtps_ph (__m256 a, int rounding)|4-9|
 |__m256 _mm256_cvtph_ps (__m128i a)|6-7|</pre>
+</div>
+<div created="20180621101750369" creator="xiaojun" modified="20180621102439827" modifier="xiaojun" tags="c" title="How does free know how much to free?">
+<pre>[ext[参考链接|https://stackoverflow.com/questions/1518711/how-does-free-know-how-much-to-free]]
+
+C/C++的动态内存管理中的`new`和`malloc`都会多申请一段空间来存储信息
+
+&lt;&lt;&lt;
+When you call malloc(), you specify the amount of memory to allocate. The amount of memory actually used is slightly more than this, and includes extra information that records (at least) how big the block is. You can't (reliably) access that other information - and nor should you :-).
+
+When you call free(), it simply looks at the extra information to find out how big the block is.
+&lt;&lt;&lt;
+
+&lt;&lt;&lt;
+Most implementations of C memory allocation functions will store accounting information for each block, either in-line or separately.
+
+One typical way (in-line) is to actually allocate both a header and the memory you asked for, padded out to some minimum size. So for example, if you asked for 20 bytes, the system may allocate a 48-byte block:
+
+16-byte header containing size, special marker, checksum, pointers to next/previous block and so on.
+32 bytes data area (your 20 bytes padded out to a multiple of 16).
+The address then given to you is the address of the data area. Then, when you free the block, free will simply take the address you give it and, assuming you haven't stuffed up that address or the memory around it, check the accounting information immediately before it. Graphically, that would be along the lines of:
+
+```
+ ____ The allocated block ____
+/                             \
++--------+--------------------+
+| Header | Your data area ... |
++--------+--------------------+
+          ^
+          |
+          +-- The address you are given
+```
+&lt;&lt;&lt;
+
+</pre>
 </div>
 <div created="20180529070952695" creator="xiaojun" modified="20180529080700646" modifier="xiaojun" tags="命令行 linux" title="How long an argument list your kernel can take on the command line before it chokes">
 <pre>unix指令 `getconf ARG_MAX`
