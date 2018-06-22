@@ -195,6 +195,8 @@ Error message and password prompt
 
 <li>$:/state/editpreviewtype</li>
 
+<li>$:/state/image-picker/system-2042070162</li>
+
 <li>$:/state/plugin-info--1187089954-$:/plugins/tiddlywiki/katex---112608699</li>
 
 <li>$:/state/plugin-info--896887961-$:/plugins/tiddlywiki/highlight</li>
@@ -541,6 +543,8 @@ Error message and password prompt
 
 <li>My Index</li>
 
+<li>NCBI参考基因组记录</li>
+
 <li>NCBI词汇</li>
 
 <li>New Index</li>
@@ -580,6 +584,8 @@ Error message and password prompt
 <li>密码学安全随机数</li>
 
 <li>密钥库</li>
+
+<li>嵌入网页</li>
 
 <li>常用库</li>
 
@@ -13084,6 +13090,9 @@ Error message and password prompt
 <div created="20180525065434133" creator="xiaojun" modified="20180525065443707" modifier="xiaojun" title="$:/state/editpreviewtype">
 <pre>$:/core/ui/EditTemplate/body/preview/output</pre>
 </div>
+<div created="20180622090837267" creator="xiaojun" modified="20180622090839101" modifier="xiaojun" title="$:/state/image-picker/system-2042070162">
+<pre>show</pre>
+</div>
 <div created="20180615022923595" creator="xiaojun" modified="20180615023020375" modifier="xiaojun" title="$:/state/plugin-info--1187089954-$:/plugins/tiddlywiki/katex---112608699">
 <pre>readme</pre>
 </div>
@@ -13099,7 +13108,7 @@ Error message and password prompt
 <div created="20180615023130475" creator="xiaojun" modified="20180615023130475" modifier="xiaojun" title="$:/state/plugin-info--896887961-$:/plugins/tiddlywiki/katex--697552782">
 <pre>usage</pre>
 </div>
-<div created="20180514095202452" creator="xiaojun" modified="20180601005534387" modifier="xiaojun" title="$:/state/showeditpreview">
+<div created="20180514095202452" creator="xiaojun" modified="20180622090641141" modifier="xiaojun" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
 <div created="20180521071145109" creator="xiaojun" modified="20180604021531275" modifier="xiaojun" title="$:/state/sidebar">
@@ -13147,7 +13156,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="同时计算商和余数 [[Half-precision floating-point format]] NCBI词汇 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="嵌入网页 NCBI参考基因组记录 同时计算商和余数 [[Half-precision floating-point format]] NCBI词汇 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -15146,6 +15155,28 @@ Dirty — The total amount of memory, in kilobytes, waiting to be written back t
 !! all posts
 &lt;&lt;list-links filter:&quot;[!is[system]]&quot;&gt;&gt;</pre>
 </div>
+<div created="20180622060703608" creator="xiaojun" modified="20180622062043900" modifier="xiaojun" tags="" title="NCBI参考基因组记录">
+<pre>相同的`species taxid`的两个文件
+
+```
+species_taxid:674,file_cnts:2
+bacteria.d/genomes.d/GCF_001558475.1_ASM155847v1_genomic.fna.gz
+bacteria.d/genomes.d/GCF_001767355.1_ASM176735v1_genomic.fna.gz
+```
+
+|assembly_accession| bioproject|biosample|wgs_master|refseq_category|taxid|species_taxid|organism_name|infraspecific_name|isolate|version_status|assembly_level|release_type|genome_rep|seq_rel_date|asm_name|submitter|gbrs_paired_asm|paired_asm_comp|ftp_path|
+|GCF_001558475.1|PRJNA224116|SAMN03996328||na|674|674|Vibrio mimicus|strain=ATCC|33654|latest	Complete Genome	Major|Full| | |2016/02/11|ASM155847v1|University of Maryland School of Medicine Institute for Genome Sciences (IGS) - sequencing center|GCA_001558475.1|identical|	ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/001/558/475/GCF_001558475.1_ASM155847v1|
+
+```
+less assembly_summary_bacteria.1.txt  | grep GCF_001767355.1_ASM176735v1
+assembly_accession	bioproject	biosample	wgs_master	refseq_category	taxid	species_taxid	organism_name	infraspecific_name	isolate	version_status	assembly_level	release_type	genome_rep	seq_rel_date	asm_name	submitter	gbrs_paired_asm	paired_asm_comp	ftp_path
+GCF_001767355.1	PRJNA224116	SAMN05356867		na	674	674	Vibrio mimicus	strain=SCCF01		latest	Complete Genome	Major	Full	2016/10/18	ASM176735v1	Sichuan Agricultural University	GCA_001767355.1	identical	ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/001/767/355/GCF_001767355.1_ASM176735v1
+```
+
+;Vibrio mimicus
+:拟态弧菌（学名：Vibrio mimicus），又名模拟弧菌，为弧菌科弧菌属下的一个种。
+</pre>
+</div>
 <div created="20180620064745352" creator="xiaojun" modified="20180620065920787" modifier="xiaojun" tags="" title="NCBI词汇">
 <pre>; Taxonomy
 :分类学
@@ -15502,6 +15533,13 @@ password
 *若有10位密码，最多只有约有2^^64^^(1.8x10^^19^^)种密码，若每秒尝试10^^6^^个，需要1.8x10^^13^^秒=5.71x10^^5^^年
 *若只考虑常用密码，假定有百万(10^^6^^)密码是常用密码，若每秒可尝试1000个，只需要''1000秒!!!''
 *若将密码长度减少，并且常用密码更集中，则密码空间更小，破解需要次数更少，因此必须增加单次尝试成本</pre>
+</div>
+<div created="20180622090551717" creator="xiaojun" modified="20180622091738317" modifier="xiaojun" tags="TiddlyWiki" title="嵌入网页">
+<pre>使用`iframe`标签
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.draw.io/?lightbox=1&amp;highlight=0000ff&amp;edit=_blank&amp;layers=1&amp;nav=1&amp;title=Diagnoa_KeyLib_Diagram.svg#R7VpLc%2BI4EP41Pibll4w5AiHZqmRqp4rD7p6mhC3AE9tiZRFgf%2F1KtuSHJF7BTKYmkxywW612%2B%2BuHWi1b3iTbPRG4Xn3BMUot1453lvdgua5je0P2wyn7igKCQUVYkiQWTA1hlvyH5ExB3SQxKjqMFOOUJusuMcJ5jiLaoUFC8LbLtsBp96lruEQaYRbBVKf%2BlcR0VVFDd9DQ%2F0DJciWf7ATihecwel0SvMnF8yzXW5R%2F1XAGpSzxosUKxnjbInlTy5sQjGl1le0mKOXYStiqeY8HRmu9CcrpORPkG73BdIOkykHK5o7j5I0rSPcClODfDddqTNGO3sE0WeaWN2Ic3zcFTRb7hoFdLcVvKahYw7ymTQNrGFhj25oCKxxZI1tyMR07jA25VERS3Y5O7opmKbty2Nh2lVA0W8OID22ZXzJahLMkEuMFJfi1NidDerzAOX2EWZJyL52UrK49g3nBfr7MBMNMPIyLEG%2F9EDF0EWGEN0RowtxmJAbmmFKc8ZlJmk5wikmpprcA%2FL9WojUSlH%2F1q7UtJ4zJn4F2LZKw5BPCGaKEAW%2BLUc%2F370E1ScadZ0vKtvFjBwirr9o%2BLGMWithZ1vIb%2F2EXwoXM7uQbvEmxGIpZpIlbTOgKL3EO02lDHZfhg7hEm921LPwdUboXyQJuKGakRsILxmvBdxBK%2FuyjQBKUQpq8dbOACRAx9StO2CNqA7gSwzrtBRJ%2BKaTAGxIhMa8dmCdEBa6jiqKQLBHVRJU2qt%2FpLLO5utlYeI4erTCwpkNr6FojICjjSRm5A2s8khcPZVADFtTPD4%2BavbvWNAVpy8I9BIEzVGzgBYYQCG09Ajz7%2BgDwNCRXiGSIFHfPKH9C%2BcfDE6p%2B5er5wXYM%2BaGH9AA0dL7CothiEst0PycHUz1fd7pwdJNpjnOkZF5BOpm2sySOy9Rjwr9roT7StIRXeqhtaybwb%2BSf%2BnL%2FXC%2FTm7nEfr2N28tyM%2FCJjDL0zjKK24NRQkP6HVijqTVy%2BMXQLvOwKSGzJMz05DwjK%2FRbPANeWYXOT2ovXlfdqAZymaC2HX2DHR3nRoYcni5%2FWMG%2F5peLFO1GfKfCXhvlsbh8iFKWEHnJ2jaRUkzGEIWLyFhMRiGaL66qgFowAQNKknZloeRJtGW0uYP3FkqaqFATdaBQYpjDfYttzRmKC5T25ZMa96hkvrcOc%2FQFUnOgaEPeykByzvCcn94Pht1oDdQoPNsLFEEgUAT15QMDRWHPPq6Xr%2FA7l%2FGDsMN%2FvYcFhrVG7sTr5eMzFWOBsu6HP27ddw43X%2FgKaey%2B8IG7otwD8%2BYLWO8ON16uE3JmwaG4jj5LcyZTxdnIPlB36h5Z81WveYL8wdsuLT8B07bL4GdhH352QV0S7dOEIUNOozKvIHyZ14S69%2FnnhjIpqD%2F4gOxY1Zt6Q1fLBJ%2FjgOvxk7Gu90fGw7LUHvCGpu6iRyLol82nIPS7lpL7qh%2BQT2ttP0v5BEB38Xp3%2BaQKulX5BDxF4RPlE1B25afKJ5W%2F7%2FJJOtTv8kkCLhH5gPLJ0GyV0G9StSBIE0l5RVx%2Fp1UpNGOHuN2LuL2j3IzYVs%2FsGee6w4nzr4POgdnIIi0z34rRUH7brgwAyqoQmJryNyuA5LlUP8dQaJfQvzn53gXi9h%2FBxRAi%2B%2FYYv5eD5x5fXWyHKst39xRVwu7S%2Bjv%2BOht4cBvgj%2BD%2BG3bX3FE%2Bup1Tm82BNQa8f8yHQivsM0%2BVh%2BqVOVhc6ofsB3OWtvT1kJi8gaMcmfvymOVUYvL7SExn7MwkHi9wjtKvuEhogjvfGqiAUazs1OTeLtst%2Bec693PIKt378FtZrX0rmM8ecX8NdfXThjBCkbEbPQ%2BBD3qqM3yvuwEMgKGt7%2BtGkrQLjMRum%2B9vqhqx%2BcjJm%2F4P&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+
+效果图</pre>
 </div>
 <div created="20180502064704562" creator="xiaojun" modified="20180503025002125" modifier="xiaojun" tags="C++" title="常用库">
 <pre>|lib|description|h
