@@ -467,6 +467,8 @@ Error message and password prompt
 
 <li>C signal</li>
 
+<li>C/C++位域</li>
+
 <li>C++ std::async</li>
 
 <li>C++函数模板特化导致的多重定义链接错误</li>
@@ -14216,6 +14218,42 @@ int main ()
 output:
 signaled is 1.
 ```
+
+</pre>
+</div>
+<div created="20180622031210268" creator="xiaojun" modified="20180622032016794" modifier="xiaojun" tags="c C++" title="C/C++位域">
+<pre>
+```cpp
+struct {
+   unsigned int widthValidated : 1;
+   unsigned int heightValidated : 1;
+} status;
+```
+
+
+```cpp
+struct S {
+    // will usually occupy 2 bytes:
+    // 3 bits: value of b1
+    // 2 bits: unused
+    // 6 bits: value of b2
+    // 2 bits: value of b3
+    // 3 bits: unused
+    unsigned char b1 : 3, : 2, b2 : 6, b3 : 2;
+};
+```
+
+```cpp
+//内存对齐到1字节
+#pragma pack(push,1)
+struct W {
+    unsigned long long a : 40; //larger than 32，vs可能不适用
+    unsigned int b : 24;
+    int c;
+};
+#pragma pack(pop)
+```
+
 
 </pre>
 </div>
