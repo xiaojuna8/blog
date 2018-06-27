@@ -485,6 +485,8 @@ Error message and password prompt
 
 <li>CMake链接不同类型库</li>
 
+<li>Create a RAM disk in Linux</li>
+
 <li>docker learn 1</li>
 
 <li>docker learn 2</li>
@@ -496,6 +498,8 @@ Error message and password prompt
 <li>Forward secrecy</li>
 
 <li>GCC Link Order</li>
+
+<li>GCC自动识别CPU指令</li>
 
 <li>getopt</li>
 
@@ -13110,7 +13114,7 @@ Error message and password prompt
 <div created="20180615023130475" creator="xiaojun" modified="20180615023130475" modifier="xiaojun" title="$:/state/plugin-info--896887961-$:/plugins/tiddlywiki/katex--697552782">
 <pre>usage</pre>
 </div>
-<div created="20180514095202452" creator="xiaojun" modified="20180625093225444" modifier="xiaojun" title="$:/state/showeditpreview">
+<div created="20180514095202452" creator="xiaojun" modified="20180626085023719" modifier="xiaojun" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
 <div created="20180521071145109" creator="xiaojun" modified="20180604021531275" modifier="xiaojun" title="$:/state/sidebar">
@@ -13158,7 +13162,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="嵌入网页 [[Minimal Perfect Hashing]] [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="GCC自动识别CPU指令 [[Create a RAM disk in Linux]] [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -13870,7 +13874,7 @@ This plugin also requires the JSZip plugin ([[$:/plugins/tiddlywiki/jszip]]) to 
 <div author="JeremyRuston" core-version="&gt;=5.0.0" created="20180514094816240" creator="xiaojun" dependents="" description="Basic theme" modified="20180514094816240" modifier="xiaojun" name="Vanilla" original-plugin-type="theme" original-tags="" original-title="$:/themes/tiddlywiki/vanilla" original-type="application/json" plugin-priority="0" server-url="https://tiddlywiki.com/library/v5.1.17/index.html" tags="$:/tags/RemoteAssetInfo" title="$:/temp/RemoteAssetInfo/https://tiddlywiki.com/library/v5.1.17/index.html/$:/themes/tiddlywiki/vanilla" type="text/vnd.tiddlywiki" version="5.1.17">
 <pre></pre>
 </div>
-<div created="20180523094433487" creator="xiaojun" modified="20180620034110813" modifier="xiaojun" title="$:/temp/search">
+<div created="20180523094433487" creator="xiaojun" modified="20180626083907809" modifier="xiaojun" title="$:/temp/search">
 <pre></pre>
 </div>
 <div created="20180514094816232" creator="xiaojun" modified="20180514094816232" modifier="xiaojun" tags="$:/tags/ServerConnection" title="$:/temp/ServerConnection/https://tiddlywiki.com/library/v5.1.17/index.html" url="https://tiddlywiki.com/library/v5.1.17/index.html">
@@ -14546,6 +14550,11 @@ target_link_libraries(MyEXE debug Foo_d optimized Foo debug Bar_d optimized Bar 
 
 </pre>
 </div>
+<div created="20180627084359545" creator="xiaojun" modified="20180627103610404" modifier="xiaojun" tags="磁盘 linux" title="Create a RAM disk in Linux">
+<pre>[ext[ref link | http://www.jamescoyle.net/how-to/943-create-a-ram-disk-in-linux]]
+
+</pre>
+</div>
 <div created="20180419010139376" creator="xiaojun" modified="20180419020300527" modifier="xiaojun" tags="learn docker" title="docker learn 1">
 <pre>[img [https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Docker_%28container_engine%29_logo.svg/440px-Docker_%28container_engine%29_logo.svg.png]]
 
@@ -14678,6 +14687,30 @@ gcc -o exce -lhigh -lcore
 ```
 * 目标放在链接库之前
 * 越底层的库放在越靠后
+</pre>
+</div>
+<div created="20180627102634718" creator="xiaojun" modified="20180627102847166" modifier="xiaojun" tags="gcc" title="GCC自动识别CPU指令">
+<pre>`gcc -march=native -E -v - &lt;/dev/null 2&gt;&amp;1 | grep cc1`
+
+
+&lt;&lt;&lt;
+linux 服务器
+
+gcc -march=native -E -v - &lt;/dev/null 2&gt;&amp;1 | grep cc1
+
+ /opt/rh/devtoolset-7/root/usr/libexec/gcc/x86_64-redhat-linux/7/cc1 -E -quiet -v - -march=broadwell -mmmx -mno-3dnow -msse -msse2 -msse3 -mssse3 -mno-sse4a -mcx16 -msahf -mmovbe -maes -mno-sha -mpclmul -mpopcnt -mabm -mno-lwp -mfma -mno-fma4 -mno-xop -mbmi -mno-sgx -mbmi2 -mno-tbm -mavx -mavx2 -msse4.2 -msse4.1 -mlzcnt -mrtm -mhle -mrdrnd -mf16c -mfsgsbase -mrdseed -mprfchw -madx -mfxsr -mxsave -mxsaveopt -mno-avx512f -mno-avx512er -mno-avx512cd -mno-avx512pf -mno-prefetchwt1 -mno-clflushopt -mno-xsavec -mno-xsaves -mno-avx512dq -mno-avx512bw -mno-avx512vl -mno-avx512ifma -mno-avx512vbmi -mno-avx5124fmaps -mno-avx5124vnniw -mno-clwb -mno-mwaitx -mno-clzero -mno-pku -mno-rdpid --param l1-cache-size=32 --param l1-cache-line-size=64 --param l2-cache-size=30720 -mtune=broadwell
+&lt;&lt;&lt;
+
+
+&lt;&lt;&lt;
+imac 2017
+
+ gcc -march=native -E -v - &lt;/dev/null 2&gt;&amp;1 | grep cc1
+
+ &quot;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang&quot; -cc1 -triple x86_64-apple-macosx10.12.0 -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -E -disable-free -disable-llvm-verifier -discard-value-names -main-file-name - -mrelocation-model pic -pic-level 2 -mthread-model posix -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu broadwell -target-feature +sse2 -target-feature +cx16 -target-feature -tbm -target-feature -avx512ifma -target-feature -avx512dq -target-feature -fma4 -target-feature +prfchw -target-feature +bmi2 -target-feature +xsavec -target-feature +fsgsbase -target-feature +popcnt -target-feature +aes -target-feature -pcommit -target-feature +xsaves -target-feature -avx512er -target-feature -clwb -target-feature -avx512f -target-feature -pku -target-feature +smap -target-feature +mmx -target-feature -xop -target-feature +rdseed -target-feature -hle -target-feature -sse4a -target-feature -avx512bw -target-feature +clflushopt -target-feature +xsave -target-feature -avx512vl -target-feature +invpcid -target-feature -avx512cd -target-feature +avx -target-feature -rtm -target-feature +fma -target-feature +bmi -target-feature -mwaitx -target-feature +rdrnd -target-feature +sse4.1 -target-feature +sse4.2 -target-feature +avx2 -target-feature +sse -target-feature +lzcnt -target-feature +pclmul -target-feature -prefetchwt1 -target-feature +f16c -target-feature +ssse3 -target-feature +sgx -target-feature +cmov -target-feature -avx512vbmi -target-feature +movbe -target-feature +xsaveopt -target-feature -sha -target-feature +adx -target-feature -avx512pf -target-feature +sse3 -target-linker-version 278.4 -v -dwarf-column-info -debugger-tuning=lldb -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk -fdebug-compilation-dir /Users/du/Documents/doc/aws/hermes-transfer/DerivedData/hermes-transfer/Build/Products/Debug -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -fblocks -fobjc-runtime=macosx-10.12.0 -fencode-extended-block-signature -fmax-type-align=16 -fdiagnostics-show-option -o - -x c -
+clang -cc1 version 8.1.0 (clang-802.0.42) default target x86_64-apple-darwin16.7.0
+&lt;&lt;&lt;
+
 </pre>
 </div>
 <div created="20180413014539318" creator="xiaojun" modified="20180413014754969" modifier="xiaojun" tags="命令行 linux" title="getopt">
@@ -15141,8 +15174,13 @@ Dirty — The total amount of memory, in kilobytes, waiting to be written back t
 
 [img[https://shapeshed.com/images/articles/unix-exit-code.png]]</pre>
 </div>
-<div created="20180625090530711" creator="xiaojun" modified="20180625093339438" modifier="xiaojun" tags="HASH" title="Minimal Perfect Hashing">
+<div created="20180625090530711" creator="xiaojun" modified="20180626100812280" modifier="xiaojun" tags="HASH" title="Minimal Perfect Hashing">
 <pre>对于一个静态集合，当hash函数无冲突时称为“Perfect Hashing”。当hash table的长度等于key set时，称为“Minimal Perfect Hashing”
+
+&lt;&lt;&lt;
+It has been proven that a general purpose minimal perfect hash scheme requires at least 1.44 bits/key. The best currently known minimal perfect hashing schemes can be represented using less than 2.1 bits/key if given enough time.
+&lt;&lt;&lt;
+
 
 &lt;iframe width=&quot;860&quot; height=&quot;1024&quot; src=&quot;http://cmph.sourceforge.net/concepts.html&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 
@@ -15155,7 +15193,8 @@ Dirty — The total amount of memory, in kilobytes, waiting to be written back t
 ** paper https://arxiv.org/abs/1702.03154
 
 !! BBHash
-BBHash可以并行建立较大数据集，作者测试过2^^36^^个key，每个key存储平均不到4bits。</pre>
+BBHash可以并行建立较大数据集，作者测试过2^^36^^个key，每个key存储平均不到4bits。
+在服务器上，48线程，512GB内存。测试$$1.2 \times 10^{12}$$随机key，使用32个线程。最多使用10GB内存，35s耗时。</pre>
 </div>
 <div created="20180403081117668" creator="xiaojun" modified="20180420015431665" modifier="xiaojun" tags="index" title="My Index">
 <pre>! 主页
