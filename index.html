@@ -13162,7 +13162,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="GCC自动识别CPU指令 [[Create a RAM disk in Linux]] [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="[[Create a RAM disk in Linux]] GCC自动识别CPU指令" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14550,8 +14550,30 @@ target_link_libraries(MyEXE debug Foo_d optimized Foo debug Bar_d optimized Bar 
 
 </pre>
 </div>
-<div created="20180627084359545" creator="xiaojun" modified="20180627103610404" modifier="xiaojun" tags="磁盘 linux" title="Create a RAM disk in Linux">
+<div created="20180627084359545" creator="xiaojun" modified="20180628005324843" modifier="xiaojun" tags="磁盘 linux" title="Create a RAM disk in Linux">
 <pre>[ext[ref link | http://www.jamescoyle.net/how-to/943-create-a-ram-disk-in-linux]]
+
+使用内存当作虚拟磁盘，在linux上主要有两种
+
+* ramfs
+* tmpfs
+
+tmpfs比较新
+
+# Create a folder to use as a mount point for your RAM disk.
+#* `mkdir /mnt/ramdisk`
+# Then use the mount command to create a RAM disk.
+#* `mount -t [TYPE] -o size=[SIZE] [FSTYPE] [MOUNTPOINT]`
+#** [TYPE] is the type of RAM disk to use; either tmpfs or ramfs.
+#** [SIZE] is the size to use for the file system. Remember that ramfs does not have a physical limit and is specified as a starting size.
+#** [FSTYPE] is the type of RAM disk to use; either tmpfs, ramfs, ext4, etc.
+#** `mount -t tmpfs -o size=512m tmpfs /mnt/ramdisk`
+
+可以将RAM disk设置为开机自动生成，但是数据将会被清空
+
+&lt;&lt;&lt;
+You can add the mount entry into /etc/fstab to make the RAM disk persist over reboots. Remember however, that the data will disappear each time the machine is restarted.
+&lt;&lt;&lt;
 
 </pre>
 </div>
