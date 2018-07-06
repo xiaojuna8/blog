@@ -459,6 +459,8 @@ Error message and password prompt
 
 <li>1password原理</li>
 
+<li>AWS EC2计费</li>
+
 <li>aws s3 file etag</li>
 
 <li>AWS S3计费</li>
@@ -598,6 +600,8 @@ Error message and password prompt
 <li>文件头MagicWord</li>
 
 <li>生信数据库</li>
+
+<li>设置文件读写缓冲</li>
 
 <li>超算内存/磁盘</li>
 
@@ -13114,7 +13118,7 @@ Error message and password prompt
 <div created="20180615023130475" creator="xiaojun" modified="20180615023130475" modifier="xiaojun" title="$:/state/plugin-info--896887961-$:/plugins/tiddlywiki/katex--697552782">
 <pre>usage</pre>
 </div>
-<div created="20180514095202452" creator="xiaojun" modified="20180626085023719" modifier="xiaojun" title="$:/state/showeditpreview">
+<div created="20180514095202452" creator="xiaojun" modified="20180706032953194" modifier="xiaojun" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
 <div created="20180521071145109" creator="xiaojun" modified="20180604021531275" modifier="xiaojun" title="$:/state/sidebar">
@@ -13162,7 +13166,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[Create a RAM disk in Linux]] GCC自动识别CPU指令" title="$:/StoryList">
+<div list="设置文件读写缓冲 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14082,6 +14086,20 @@ Secret Key保存在用户的客户端程序中，同时也有一份打印出来�
 
 [img width=512 [https://blog.elcomsoft.com/wp-content/uploads/2017/08/1p_new-1024x460.png]]</pre>
 </div>
+<div created="20180628031240224" creator="xiaojun" modified="20180628032427216" modifier="xiaojun" tags="aws" title="AWS EC2计费">
+<pre>[ext[ ref link | https://amazonaws-china.com/cn/ec2/pricing/on-demand/]]
+
+|name| vCPU| mem|price|h
+|t2.nano|	1	|0.5 GiB	|	每小时 0.0058 USD|
+|t2.micro|	1		|1 GiB	|	每小时 0.0116 USD|
+|t2.small         |	1		|2 GiB	|	每小时 0.023 USD|
+|t2.medium	|2		|4 GiB	|	每小时 0.0464 USD|
+|t2.large|2	|8 GiB	|	每小时 0.0928 USD|
+|t2.xlarge|4	|16 GiB	|	每小时 0.1856 USD|
+|t2.2xlarge|8	|32 GiB	|	每小时 0.3712 USD|
+
+从t2.medium到t2.large，vCPU不变，内存从4G到8G，价格增加0.0928-0.0464=0.0464，0.0464/4=0.0116</pre>
+</div>
 <div created="20180525100557288" creator="xiaojun" modified="20180525101348739" modifier="xiaojun" tags="HASH 密码学" title="aws s3 file etag">
 <pre>! 亚马逊 aws s3 etag 计算
 当文件是小文件，整体上传的，文件的etag就是文件的md5.
@@ -14550,7 +14568,7 @@ target_link_libraries(MyEXE debug Foo_d optimized Foo debug Bar_d optimized Bar 
 
 </pre>
 </div>
-<div created="20180627084359545" creator="xiaojun" modified="20180628005324843" modifier="xiaojun" tags="磁盘 linux" title="Create a RAM disk in Linux">
+<div created="20180627084359545" creator="xiaojun" modified="20180628074447359" modifier="xiaojun" tags="磁盘 linux" title="Create a RAM disk in Linux">
 <pre>[ext[ref link | http://www.jamescoyle.net/how-to/943-create-a-ram-disk-in-linux]]
 
 使用内存当作虚拟磁盘，在linux上主要有两种
@@ -14575,7 +14593,8 @@ tmpfs比较新
 You can add the mount entry into /etc/fstab to make the RAM disk persist over reboots. Remember however, that the data will disappear each time the machine is restarted.
 &lt;&lt;&lt;
 
-</pre>
+! 实测
+在8GB内存的笔记本上，创建1GB虚拟磁盘，速度约3-4GB／s</pre>
 </div>
 <div created="20180419010139376" creator="xiaojun" modified="20180419020300527" modifier="xiaojun" tags="learn docker" title="docker learn 1">
 <pre>[img [https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Docker_%28container_engine%29_logo.svg/440px-Docker_%28container_engine%29_logo.svg.png]]
@@ -15638,6 +15657,21 @@ password
 |http://hgdownload.cse.ucsc.edu/downloads.html#human|
 |https://asia.ensembl.org/index.html|
 |https://www.ncbi.nlm.nih.gov/genome/browse/#!/overview/|</pre>
+</div>
+<div created="20180706032724591" creator="xiaojun" modified="20180706033054802" modifier="xiaojun" tags="c" title="设置文件读写缓冲">
+<pre>`int setvbuf ( FILE * stream, char * buffer, int mode, size_t size );`
+
+Specifies a mode for file buffering. Three special macro constants (_IOFBF, _IOLBF and _IONBF) are defined in `cstdio` to be used as the value for this parameter:
+
+
+
+
+
+
+|_IOFBF|	Full buffering: On output, data is written once the buffer is full (or flushed). On Input, the buffer is filled when an input operation is requested and the buffer is empty.|
+|_IOLBF|	Line buffering: On output, data is written when a newline character is inserted into the stream or when the buffer is full (or flushed), whatever happens first. On Input, the buffer is filled up to the next newline character when an input operation is requested and the buffer is empty.|
+|_IONBF|	No buffering: No buffer is used. Each I/O operation is written as soon as possible. In this case, the buffer and size parameters are ignored.|
+</pre>
 </div>
 <div created="20180620034114338" creator="xiaojun" modified="20180620035055325" modifier="xiaojun" tags="磁盘 内存" title="超算内存/磁盘">
 <pre>神威·太湖之光
