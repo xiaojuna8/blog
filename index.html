@@ -477,6 +477,8 @@ Error message and password prompt
 
 <li>C++函数模板特化导致的多重定义链接错误</li>
 
+<li>Chi-Square Goodness of Fit Test</li>
+
 <li>cmake</li>
 
 <li>CMake Checking Platform</li>
@@ -13121,7 +13123,7 @@ Error message and password prompt
 <div created="20180514095202452" creator="xiaojun" modified="20180706032953194" modifier="xiaojun" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div created="20180521071145109" creator="xiaojun" modified="20180604021531275" modifier="xiaojun" title="$:/state/sidebar">
+<div created="20180521071145109" creator="xiaojun" modified="20180710102944591" modifier="xiaojun" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div created="20180529084259032" creator="xiaojun" modified="20180529084300866" modifier="xiaojun" title="$:/state/tab--1498284803">
@@ -13166,7 +13168,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="设置文件读写缓冲 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="[[linux time]] [[docker learn 2]] 使用pipe连接两个程序 Base85 [[ECC ECIES]] [[Process PID]] Kmer分析时，为何选的Kmer长度不一样？ openssl加密文件 linux查看内存-缓存 [[C signal]] Katex [[Chi-Square Goodness of Fit Test]] GCC自动识别CPU指令 设置文件读写缓冲 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14315,6 +14317,87 @@ If neither std::launch::async nor std::launch::deferred, nor any implementation-
 
 &gt; Use /FORCE:MULTIPLE to create an output file whether or not LINK finds more than one definition for a symbol.  </pre>
 </div>
+<div created="20180710091456755" creator="xiaojun" modified="20180710102919088" modifier="xiaojun" tags="python 概率" title="Chi-Square Goodness of Fit Test">
+<pre>! 例子
+假设赌场有一个骰子，刻有1,2,3,4,5,6,这6个数字。如果有个赌徒进行了100次游戏,出现“6”的次数：
+
+|6出现次数|出现次数|h
+|0|48|
+|1|35|
+|2|15|
+|3|3|
+|sum|101|f
+
+如果是公平的每个面的出现概率都是1/6
+
+$$P_1 = P(\text{roll 0 sixes}) = P(X=0) = \left( \frac{5}{6}\right)^3 \approx 0.5787 \approx 0.58$$
+
+$$P_2 = P(\text{roll 1 sixes}) = P(X=1) = 3\times\left( \frac{5}{6}\right)^2\times\frac{1}{6} \approx 0.3472 \approx 0.345$$
+
+$$P_3 = P(\text{roll 2 sixes}) = P(X=2) = 3\times\frac{5}{6}\times\left(\frac{1}{6}\right)^2 \approx 0.0694 \approx 0.07$$
+
+$$P_3 = P(\text{roll 3 sixes}) = P(X=3) = \left( \frac{1}{6}\right)^3\ \approx 0.0046 \approx 0.005$$
+
+进行100次实验
+
+|6的个数| 期望次数|观察到次数|h
+|0|58|48|
+|1|34.5|35|
+|2|7|15|
+|3|0.5|3|
+
+期望次数与实际次数的对比图。
+[img[http://www.stat.yale.edu/Courses/1997-98/101/obscomp.gif]]
+
+很难看出两者之间的差别。
+
+
+进行$$\chi^2$$统计，虽然实验结果有4中可能(0,1,2,3)，但是只有3个自由度。所以实验服从自由度为3的$$\chi^2(3)$$分布。
+
+$$\displaystyle\frac{(48-58)^2}{58}+\frac{(35-34.5)^2}{34.5}+\frac{(15-7)^2}{7}+\frac{(3-0.5)^2}{0.5} \approx 1.72 + 0.007+9.14+0.007 = 23.367$$
+
+! $$\chi^2$$分布特性
+
+!! PDF
+&lt;$latex text=&quot;\displaystyle f(x,k)=\begin{cases} \frac{ x^{\frac{k}{2}-1}e^{-\frac{x}{2}}}{2^\frac{k}{2}\Gamma(\frac{k}{2})} \text{   x&gt;0}\\ 0 \text{ 
+ ohterwise} \end{cases}&quot;&gt;&lt;/$latex&gt;
+
+!! CDF
+&lt;$latex text=&quot;\displaystyle F(x,k)=\frac{\gamma(k/2,x/2)}{\Gamma(k/2)} = P(\frac{k}{2},\frac{x}{2})&quot;&gt;&lt;/$latex&gt;
+
+!! inv CDF
+
+
+
+!! python计算
+使用scipy包的special模块的`scipy.special.gammaincinv`函数,不完全逆gamma函数[ext[https://ww2.mathworks.cn/help/matlab/ref/gammaincinv.html]]
+
+
+&lt;&lt;&lt;
+gammaincinv 使用牛顿方法相对于积分范围 x 计算不完全 gamma 函数的反函数。
+&lt;&lt;&lt;
+
+
+
+```
+2*scipy.special.gammaincinv(3/2,0.95)
+7.1814727903251179
+```
+
+! Example
+
+
+&lt;&lt;&lt;
+Example
+In the gambling example above, the chi-square test statistic was calculated to be 23.367. Since k = 4 in this case (the possibilities are 0, 1, 2, or 3 sixes), the test statistic  is associated with the chi-square distribution with 3 degrees of freedom. If we are interested in a significance level of 0.05 we may reject the null hypothesis (that the dice are fair) if  $$\chi^2$$&gt; 7.815, the value corresponding to the 0.05 significance level for the (3) distribution. Since 23.367 is clearly greater than 7.815, we may reject the null hypothesis that the dice are fair at the 0.05 significance level.
+
+Given this information, the casino asked the gambler to take his dice (and his business) elsewhere.
+&lt;&lt;&lt;
+
+
+
+</pre>
+</div>
 <div color="#0000ff" created="20180404085743073" modified="20180404085743073" title="cmake">
 <pre></pre>
 </div>
@@ -14941,7 +15024,7 @@ Everything in the HTTPS message is encrypted, including the headers, and the req
 &lt;&lt;&lt;
 </pre>
 </div>
-<div created="20180615023100833" creator="xiaojun" modified="20180615030433766" modifier="xiaojun" tags="Latex Katex" title="Katex">
+<div created="20180615023100833" creator="xiaojun" modified="20180710102934039" modifier="xiaojun" tags="Latex Katex" title="Katex">
 <pre>&lt;$latex text = &quot; \begin{aligned} a&amp;=b+c \\d+e&amp;=f\end{aligned}&quot;&gt; &lt;/$latex&gt;
 
 &lt;$latex text = &quot; 	
@@ -15511,7 +15594,7 @@ Option相关的快捷键没有效果。
 | Tab | 自动补全文件或文件夹的名称 |
 </pre>
 </div>
-<div created="20180425090244414" creator="xiaojun" modified="20180425092716043" modifier="xiaojun" tags="pipe" title="使用pipe连接两个程序">
+<div created="20180425090244414" creator="xiaojun" modified="20180710094000287" modifier="xiaojun" tags="pipe" title="使用pipe连接两个程序">
 <pre>! 单个程序
 每个程序有一个标准输入流，一个标准输出流，一个标准错误输出流
 
