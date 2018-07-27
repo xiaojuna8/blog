@@ -13166,7 +13166,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="KMC进阶使用 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -15160,6 +15160,7 @@ $$ A \leftrightarrow T ,C \leftrightarrow G$$,反向互补序列例如$$ CCAGCT 
 对于某数据库，含有很多病原体和病毒参考DNA序列
 
 ```
+   k=18
    No. of k-mers below min. threshold :            0
    No. of k-mers above max. threshold :            0
    No. of unique k-mers               :  13989028758
@@ -15168,7 +15169,20 @@ $$ A \leftrightarrow T ,C \leftrightarrow G$$,反向互补序列例如$$ CCAGCT 
    Total no. of sequences             :       554312
    Total no. of super-k-mers          :  11360455893
 ```
-出现的Kmer达到了13G，总共出现56G，平均每个kmer出现5次。
+k=18,出现的Kmer达到了13G，总共出现56G，平均每个kmer出现5次。
+
+
+```
+   k=17
+   No. of k-mers below min. threshold :            0
+   No. of k-mers above max. threshold :            0
+   No. of unique k-mers               :   6493406153
+   No. of unique counted k-mers       :   6493406153
+   Total no. of k-mers                :  60276288663
+   Total no. of sequences             :       554312
+   Total no. of super-k-mers          :  12586945167
+```
+k=17,出现的Kmer达到了6G，总共出现56G，平均每个kmer出现9次。
 </pre>
 </div>
 <div created="20180524073420183" creator="xiaojun" modified="20180524073705523" modifier="xiaojun" tags="kmer 生信" title="Kmer分析时，为何选的Kmer长度不一样？">
