@@ -575,16 +575,6 @@ Error message and password prompt
 
 <li>RAR vint</li>
 
-<li>S4GD</li>
-
-<li>S4GD key data struct</li>
-
-<li>S4GD request</li>
-
-<li>S4GD requst type</li>
-
-<li>S4GD usrinfo</li>
-
 <li>SHA</li>
 
 <li>Terminal命令行快捷键</li>
@@ -13168,7 +13158,7 @@ Error message and password prompt
 <pre>$:/core/ui/MoreSideBar/Tags</pre>
 </div>
 <div created="20180514095246688" creator="xiaojun" modified="20180727004542380" modifier="xiaojun" title="$:/state/tab/sidebar--1835078512">
-<pre>$:/core/ui/SideBar/Open</pre>
+<pre>$:/core/ui/SideBar/Recent</pre>
 </div>
 <div created="20180514094755893" creator="xiaojun" modified="20180518080557703" modifier="xiaojun" title="$:/state/tabs/controlpanel/toolbars-1345989671">
 <pre>$:/core/ui/ControlPanel/Toolbars/EditorToolbar</pre>
@@ -13176,7 +13166,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="" title="$:/StoryList">
+<div list="[[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -15534,77 +15524,6 @@ Variable length integer. Can include one or more bytes, where lower 7 bits of ev
 !! 优点
 # 表示较小数字时有很高的效率
 # 可以表示任意长度数字</pre>
-</div>
-<div created="20180411004700401" creator="xiaojun" modified="20180411035555768" modifier="xiaojun" tags="S4GD" title="S4GD">
-<pre>;S4GD
-:安全基因组大数据文件存储和共享系统S4GD（Secure Storage and Sharing System for Genomic Data）：即本文档描述的系统，以下简称S4GD系统
-
-! 功能概述
-# 保存用户加密后的数据，以及管理用户加密时使用的对称密钥
-# 在用户A和用户B不交换加密时使用的对称密钥的情况下，允许用户A将一个其账户内的、只有用户A才能解密的加密文档在加密状态下传输给用户B，成为只有用户B才能够解密的、''存储于用户B账户内的加密文档''
-
-! 模块
-# 基因组大数据的加密压缩
-#*本S4GD系统提供''线上及线下''的对一个数据文件进行压缩、加密、封装的组件C
-# 系统密码管理模块
-# 自动识别对称密钥库中适合的对称密钥
-# 系统内用户间的数据加密共享
-#*加密文件分享是线上还是线下？</pre>
-</div>
-<div created="20180410093120238" creator="xiaojun" modified="20180411025916461" modifier="xiaojun" tags="key S4GD" title="S4GD key data struct">
-<pre>密钥存储格式
-
-! 公钥格式
-| format | base64 |
-| key | 明文base64 |
-| create time | unix time |
-| key state | 是否激活 |
-
-! 私钥格式
-| format | base64 |
-| key | 密文base64 |
-| pubkey hash | base64 ，可选加密 |
-| iv | 加密 key时所用iv， base64 |
-
-! 对称密钥
-| format | base64 |
-| key | 密文base64 |
-| create time | unix time |
-| iv | 加密key时的iv，base64 |
-</pre>
-</div>
-<div created="20180410095356568" creator="xiaojun" modified="20180411035104155" modifier="xiaojun" tags="S4GD" title="S4GD request">
-<pre>[[S4GD]]
-客户端与后台通过Https请求数据交互(主要是从后台获取密钥)。在请求的Body中携带
-
-|usrinfo| necessary |
-|request type | necessary |
-|array of key | optional |
-
----
-{{S4GD usrinfo}}
----
-{{S4GD requst type}}
----
-{{S4GD key data struct}}</pre>
-</div>
-<div created="20180410095019312" creator="xiaojun" modified="20180410095325571" modifier="xiaojun" tags="S4GD" title="S4GD requst type">
-<pre>请求用户key类型
-
-;请求主分类
-:请求的类型
-;请求辅助分类
-:请求的分类</pre>
-</div>
-<div created="20180410094551229" creator="xiaojun" modified="20180410102438183" modifier="xiaojun" tags="S4GD" title="S4GD usrinfo">
-<pre>用户信息
-
-;用户名
-:用户注册名称，是否在系统中唯一
-;用户ID
-:注册ID
-;用户令牌
-:用户认证令牌，该令牌是否与用户绑定</pre>
 </div>
 <div created="20180511031039814" creator="xiaojun" modified="20180511032518822" modifier="xiaojun" tags="密码学 HASH SHA" title="SHA">
 <pre>! 背景
