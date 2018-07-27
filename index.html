@@ -491,6 +491,8 @@ Error message and password prompt
 
 <li>Create a RAM disk in Linux</li>
 
+<li>C更改输出文件权限</li>
+
 <li>docker learn 1</li>
 
 <li>docker learn 2</li>
@@ -565,6 +567,8 @@ Error message and password prompt
 
 <li>Process PID</li>
 
+<li>python获取当前工作路径</li>
+
 <li>RAR File encryption record</li>
 
 <li>RAR format</li>
@@ -596,6 +600,8 @@ Error message and password prompt
 <li>密码学安全随机数</li>
 
 <li>密钥库</li>
+
+<li>将文件所有行合并</li>
 
 <li>嵌入网页</li>
 
@@ -631,14 +637,14 @@ Error message and password prompt
 <div created="20180413014924286" creator="xiaojun" modified="20180413014924286" modifier="xiaojun" title="$:/config/PageControlButtons/Visibility/$:/core/ui/Buttons/home">
 <pre>show</pre>
 </div>
-<div created="20180403081421731" creator="xiaojun" modified="20180410021619337" modifier="xiaojun" title="$:/config/PageControlButtons/Visibility/$:/core/ui/Buttons/timestamp">
-<pre>hide</pre>
+<div created="20180403081421731" creator="xiaojun" modified="20180727004538858" modifier="xiaojun" title="$:/config/PageControlButtons/Visibility/$:/core/ui/Buttons/timestamp">
+<pre>show</pre>
 </div>
 <div created="20180428095744136" creator="xiaojun" modified="20180428095744136" modifier="xiaojun" title="$:/config/RelinkOnRename">
 <pre>yes</pre>
 </div>
-<div created="20180403085107240" creator="xiaojun" modified="20180410021549806" modifier="xiaojun" title="$:/config/TimestampDisable">
-<pre>no</pre>
+<div created="20180403085107240" creator="xiaojun" modified="20180727004552201" modifier="xiaojun" title="$:/config/TimestampDisable">
+<pre>yes</pre>
 </div>
 <div created="20180409035917410" creator="xiaojun" modified="20180409035918569" modifier="xiaojun" title="$:/config/WikiParserRules/Inline/wikilink">
 <pre>enable</pre>
@@ -13161,8 +13167,8 @@ Error message and password prompt
 <div created="20180525074924552" creator="xiaojun" modified="20180713075422616" modifier="xiaojun" title="$:/state/tab/moresidebar-401116514">
 <pre>$:/core/ui/MoreSideBar/Tags</pre>
 </div>
-<div created="20180514095246688" creator="xiaojun" modified="20180713075832021" modifier="xiaojun" title="$:/state/tab/sidebar--1835078512">
-<pre>$:/core/ui/SideBar/Recent</pre>
+<div created="20180514095246688" creator="xiaojun" modified="20180727004542380" modifier="xiaojun" title="$:/state/tab/sidebar--1835078512">
+<pre>$:/core/ui/SideBar/Open</pre>
 </div>
 <div created="20180514094755893" creator="xiaojun" modified="20180518080557703" modifier="xiaojun" title="$:/state/tabs/controlpanel/toolbars-1345989671">
 <pre>$:/core/ui/ControlPanel/Toolbars/EditorToolbar</pre>
@@ -13170,7 +13176,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[linux top]] [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14683,6 +14689,18 @@ You can add the mount entry into /etc/fstab to make the RAM disk persist over re
 ! 实测
 在8GB内存的笔记本上，创建1GB虚拟磁盘，速度约3-4GB／s</pre>
 </div>
+<div created="20180725070238968" creator="xiaojun" modified="20180725071031065" modifier="xiaojun" tags="linux c" title="C更改输出文件权限">
+<pre>linux C/C++ 更改输出文件的访问权限
+
+```cpp
+    //&lt;sys/stat.h&gt; fchmod
+    //&lt;stdio.h&gt; fileno
+    FILE* f = fopen(&quot;x&quot;,&quot;wb&quot;);
+    fchmod(fileno(f), 0744);
+    fclose(f);
+```
+</pre>
+</div>
 <div created="20180419010139376" creator="xiaojun" modified="20180419020300527" modifier="xiaojun" tags="learn docker" title="docker learn 1">
 <pre>[img [https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Docker_%28container_engine%29_logo.svg/440px-Docker_%28container_engine%29_logo.svg.png]]
 
@@ -15146,7 +15164,22 @@ $$ A \leftrightarrow T ,C \leftrightarrow G$$,反向互补序列例如$$ CCAGCT 
 
 !!! 最多kmer数量
 有些序列的正向序列与反向互补序列相同比如$$ AATT \leftrightarrow AATT$$，所以也只出现一次。只用偶数长度的序列才有可能与反向互补序列相同。
-每个位置都有4中可能，kmer总数为$$4^k$$,其中若k为奇数，则字典序较小kmer总共有$$\large \boxed{\frac{4^k}{2}} ,k\in odd$$。若k为偶数，则正向序列与反向序列相同的个数有$$4^{k/2}$$,所以不同的有$$4^k-4^{k/2}$$，所以总共字典序较小kmer有$$\large \frac{4^k-4^{k/2}}{2}+4^{k/2} = \boxed{\frac{4^k+4^{k/2}}{2}}$$</pre>
+每个位置都有4中可能，kmer总数为$$4^k$$,其中若k为奇数，则字典序较小kmer总共有$$\large \boxed{\frac{4^k}{2}} ,k\in odd$$。若k为偶数，则正向序列与反向序列相同的个数有$$4^{k/2}$$,所以不同的有$$4^k-4^{k/2}$$，所以总共字典序较小kmer有$$\large \frac{4^k-4^{k/2}}{2}+4^{k/2} = \boxed{\frac{4^k+4^{k/2}}{2}}$$
+
+!! Kmer统计
+对于某数据库，含有很多病原体和病毒参考DNA序列
+
+```
+   No. of k-mers below min. threshold :            0
+   No. of k-mers above max. threshold :            0
+   No. of unique k-mers               :  13989028758
+   No. of unique counted k-mers       :  13989028758
+   Total no. of k-mers                :  60274941931
+   Total no. of sequences             :       554312
+   Total no. of super-k-mers          :  11360455893
+```
+出现的Kmer达到了13G，总共出现56G，平均每个kmer出现5次。
+</pre>
 </div>
 <div created="20180524073420183" creator="xiaojun" modified="20180524073705523" modifier="xiaojun" tags="kmer 生信" title="Kmer分析时，为何选的Kmer长度不一样？">
 <pre>一般来说，用来估计基因组大小的Kmer我们选取17-mer，其原因是ATCG四种不通过的碱基组成的长度为17的核苷酸片段有4^^17^^~=16G，足以覆盖一般的正常基因组；如果选择15的话，则只有1G的可能。对于正常基因组可能覆盖度不够，导致估计不准确，当然对于较大基因组&gt;15G，我们会尝试采用19-mer进行评估。
@@ -15435,6 +15468,18 @@ if (process.platform === 'win32' || process.platform === 'win64') {
     });
 }
 ```</pre>
+</div>
+<div created="20180718092613391" creator="xiaojun" modified="20180718092722530" modifier="xiaojun" tags="python" title="python获取当前工作路径">
+<pre> the current working directory:
+
+```
+import os 
+os.getcwd()
+```
+
+
+
+</pre>
 </div>
 <div created="20180410035518506" creator="xiaojun" modified="20180410090807498" modifier="xiaojun" tags="encryption 文件头 format RAR" title="RAR File encryption record">
 <pre>! RAR 文件加密文件头
@@ -15733,6 +15778,24 @@ password
 *若有10位密码，最多只有约有2^^64^^(1.8x10^^19^^)种密码，若每秒尝试10^^6^^个，需要1.8x10^^13^^秒=5.71x10^^5^^年
 *若只考虑常用密码，假定有百万(10^^6^^)密码是常用密码，若每秒可尝试1000个，只需要''1000秒!!!''
 *若将密码长度减少，并且常用密码更集中，则密码空间更小，破解需要次数更少，因此必须增加单次尝试成本</pre>
+</div>
+<div created="20180726063203396" creator="xiaojun" modified="20180726063610211" modifier="xiaojun" tags="linux" title="将文件所有行合并">
+<pre>去除某个字符
+
+&lt;&lt;&lt;
+tr - translate or delete characters
+&lt;&lt;&lt;
+
+```bash
+tr -d '\n'
+```
+
+
+```bash
+less abc.txt | tr -d '\n'
+```
+
+</pre>
 </div>
 <div created="20180622090551717" creator="xiaojun" modified="20180625090834671" modifier="xiaojun" tags="TiddlyWiki" title="嵌入网页">
 <pre>使用`iframe`标签
