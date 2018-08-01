@@ -553,6 +553,8 @@ Error message and password prompt
 
 <li>linux获取退出code</li>
 
+<li>Linux递归删除文件</li>
+
 <li>Minimal Perfect Hashing</li>
 
 <li>My Index</li>
@@ -634,7 +636,7 @@ Error message and password prompt
 <pre>yes</pre>
 </div>
 <div created="20180403085107240" creator="xiaojun" modified="20180727004552201" modifier="xiaojun" title="$:/config/TimestampDisable">
-<pre>yes</pre>
+<pre>no</pre>
 </div>
 <div created="20180409035917410" creator="xiaojun" modified="20180409035918569" modifier="xiaojun" title="$:/config/WikiParserRules/Inline/wikilink">
 <pre>enable</pre>
@@ -13157,8 +13159,8 @@ Error message and password prompt
 <div created="20180525074924552" creator="xiaojun" modified="20180713075422616" modifier="xiaojun" title="$:/state/tab/moresidebar-401116514">
 <pre>$:/core/ui/MoreSideBar/Tags</pre>
 </div>
-<div created="20180514095246688" creator="xiaojun" modified="20180727004542380" modifier="xiaojun" title="$:/state/tab/sidebar--1835078512">
-<pre>$:/core/ui/SideBar/Recent</pre>
+<div created="20180514095246688" creator="xiaojun" modified="20180801064202723" modifier="xiaojun" title="$:/state/tab/sidebar--1835078512">
+<pre>$:/core/ui/SideBar/Open</pre>
 </div>
 <div created="20180514094755893" creator="xiaojun" modified="20180518080557703" modifier="xiaojun" title="$:/state/tabs/controlpanel/toolbars-1345989671">
 <pre>$:/core/ui/ControlPanel/Toolbars/EditorToolbar</pre>
@@ -13166,7 +13168,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="KMC进阶使用 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="Linux递归删除文件 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -15354,6 +15356,13 @@ Dirty — The total amount of memory, in kilobytes, waiting to be written back t
 在执行完指令后，输入该命令可看到程序的退出号码
 
 [img[https://shapeshed.com/images/articles/unix-exit-code.png]]</pre>
+</div>
+<div created="20180801064116286" creator="xiaojun" modified="20180801064151710" modifier="xiaojun" tags="linux" title="Linux递归删除文件">
+<pre>
+```shell
+find . -name &quot;111&quot;  | xargs rm -f
+```
+</pre>
 </div>
 <div created="20180625090530711" creator="xiaojun" modified="20180626100812280" modifier="xiaojun" tags="HASH" title="Minimal Perfect Hashing">
 <pre>对于一个静态集合，当hash函数无冲突时称为“Perfect Hashing”。当hash table的长度等于key set时，称为“Minimal Perfect Hashing”
