@@ -475,6 +475,8 @@ Error message and password prompt
 
 <li>C++ std::async</li>
 
+<li>C++ string 连续存储</li>
+
 <li>C++函数模板特化导致的多重定义链接错误</li>
 
 <li>Chi-Square Goodness of Fit Test</li>
@@ -13168,7 +13170,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="Linux递归删除文件 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="[[C++ string 连续存储]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14297,6 +14299,23 @@ struct W {
 
 &lt;&lt;&lt;
 If neither std::launch::async nor std::launch::deferred, nor any implementation-defined policy flag is set in policy, the behavior is undefined.
+&lt;&lt;&lt;
+</pre>
+</div>
+<div created="20180803013205121" creator="xiaojun" modified="20180803015038550" modifier="xiaojun" tags="C++" title="C++ string 连续存储">
+<pre>在C++11标准中提到
+
+&lt;&lt;&lt;
+The char-like objects in a basic_string object shall be stored ''contiguously''. That is, for any basic_string
+object s, the identity 
+
+
+```cplus
+&amp;*(s.begin() + n) == &amp;*s.begin() + n 
+```
+
+
+shall hold for all values of n such that 0 &lt;= n &lt; s.size().
 &lt;&lt;&lt;
 </pre>
 </div>
