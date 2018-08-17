@@ -459,6 +459,36 @@ Error message and password prompt
 
 <li>1password原理</li>
 
+<li>常用库</li>
+
+<li>超算内存/磁盘</li>
+
+<li>假阴性</li>
+
+<li>将文件所有行合并</li>
+
+<li>密码学</li>
+
+<li>密码学安全随机数</li>
+
+<li>密钥库</li>
+
+<li>嵌入网页</li>
+
+<li>设置文件读写缓冲</li>
+
+<li>生物数据下载</li>
+
+<li>生信数据库</li>
+
+<li>使用pipe连接两个程序</li>
+
+<li>同时计算商和余数</li>
+
+<li>统计各文件夹内文件大小</li>
+
+<li>文件头MagicWord</li>
+
 <li>AWS EC2计费</li>
 
 <li>aws s3 file etag</li>
@@ -479,21 +509,21 @@ Error message and password prompt
 
 <li>C++函数模板特化导致的多重定义链接错误</li>
 
+<li>C更改输出文件权限</li>
+
 <li>Chi-Square Goodness of Fit Test</li>
 
 <li>cmake</li>
 
 <li>CMake Checking Platform</li>
 
-<li>CMake教程</li>
-
 <li>CMake调试发布不同编译参数</li>
+
+<li>CMake教程</li>
 
 <li>CMake链接不同类型库</li>
 
 <li>Create a RAM disk in Linux</li>
-
-<li>C更改输出文件权限</li>
 
 <li>docker learn 1</li>
 
@@ -543,21 +573,23 @@ Error message and password prompt
 
 <li>linux free cmd</li>
 
+<li>Linux hard-link sym-link</li>
+
 <li>linux time</li>
 
 <li>linux top</li>
-
-<li>linuxbrew</li>
-
-<li>linux命令行特殊字符</li>
 
 <li>linux查看内存-缓存</li>
 
 <li>Linux查看系统内核版本</li>
 
+<li>Linux递归删除文件</li>
+
 <li>linux获取退出code</li>
 
-<li>Linux递归删除文件</li>
+<li>linux命令行特殊字符</li>
+
+<li>linuxbrew</li>
 
 <li>Minimal Perfect Hashing</li>
 
@@ -584,32 +616,6 @@ Error message and password prompt
 <li>SHA</li>
 
 <li>Terminal命令行快捷键</li>
-
-<li>使用pipe连接两个程序</li>
-
-<li>假阴性</li>
-
-<li>同时计算商和余数</li>
-
-<li>密码学</li>
-
-<li>密码学安全随机数</li>
-
-<li>密钥库</li>
-
-<li>将文件所有行合并</li>
-
-<li>嵌入网页</li>
-
-<li>常用库</li>
-
-<li>文件头MagicWord</li>
-
-<li>生信数据库</li>
-
-<li>设置文件读写缓冲</li>
-
-<li>超算内存/磁盘</li>
 
 </ul>
 </p>
@@ -13172,7 +13178,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="GDB删除断点 [[C++ string 连续存储]] [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="[[Linux hard-link sym-link]] [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14092,6 +14098,242 @@ Secret Key保存在用户的客户端程序中，同时也有一份打印出来�
 
 [img width=512 [https://blog.elcomsoft.com/wp-content/uploads/2017/08/1p_new-1024x460.png]]</pre>
 </div>
+<div created="20180502064704562" creator="xiaojun" modified="20180503025002125" modifier="xiaojun" tags="C++" title="常用库">
+<pre>|lib|description|h
+|curl|http库|
+|winhttp|http库|
+|NLOHMANN_JSON|JSON for Modern C++|
+</pre>
+</div>
+<div created="20180620034114338" creator="xiaojun" modified="20180620035055325" modifier="xiaojun" tags="磁盘 内存" title="超算内存/磁盘">
+<pre>神威·太湖之光
+March 2018, is ranked number one in the TOP500 list as the fastest supercomputer in the world
+
+| mem | 1.31PB |
+| disk | 20PB |
+
+1 PB = 1000000000000000B $$\approx$$ 2^^50^^ B</pre>
+</div>
+<div created="20180521070305311" creator="xiaojun" modified="20180521071325810" modifier="xiaojun" tags="概率" title="假阴性" type="j">
+<pre>大牛说他浑身发痒。有一个检测可以知道她是不是对猫过敏，但这个检测不一定是对的：
+
+* 对于真的有这种过敏人，检测有 80% 的机会给回 &quot;有&quot; 的答案
+* 对于没有这种过敏的人，检测有 &quot;10%&quot; 的机会给回 &quot;有&quot; 的答案（&quot;假阳性&quot;）
+
+| | 检查结果“有”| 检查结果“没有”|h
+| !过敏 | 80% | 20% &quot;假阴性&quot; |
+|!不过敏 | 10% &quot;假阳性&quot; | 90% |
+|概率表|c</pre>
+</div>
+<div created="20180726063203396" creator="xiaojun" modified="20180726063610211" modifier="xiaojun" tags="linux" title="将文件所有行合并">
+<pre>去除某个字符
+
+&lt;&lt;&lt;
+tr - translate or delete characters
+&lt;&lt;&lt;
+
+```bash
+tr -d '\n'
+```
+
+
+```bash
+less abc.txt | tr -d '\n'
+```
+
+</pre>
+</div>
+<div created="20180509071950614" creator="xiaojun" modified="20180509072001542" modifier="xiaojun" title="密码学">
+<pre>&lt;&lt;list-links filter:&quot;[tag[密码学]]&quot;&gt;&gt;</pre>
+</div>
+<div created="20180403100659112" modified="20180404021258539" tags="C++ 随机数 密码学" title="密码学安全随机数">
+<pre>! 简介
+&gt; cryptographically secure pseudo-random number generator [ext[CSPRNG|https://www.wikiwand.com/en/Cryptographically_secure_pseudorandom_number_generator]]
+
+! Visual Studio
+''random_device'' Class,The class describes a source of random numbers, and is allowed but not required to be non-deterministic or cryptographically secure by the ISO C++ Standard.  In the Visual Studio implementation the values produced are ''non-deterministic and cryptographically secure''.
+
+! Linux random
+If you're not interested in reading the full post, then call this a good summary:
+
+*  There are 3 separate and distinct entropy pools in the Linux kernel.
+* /dev/random and /dev/urandom both use the same CSPRNG.
+*  Use /dev/urandom.
+! 参考链接
+* [ext[visual studio|https://msdn.microsoft.com/en-us/library/bb982250.aspx]] 
+* [ext[linux|https://pthree.org/2014/07/21/the-linux-random-number-generator/]]
+</pre>
+</div>
+<div created="20180428060222115" creator="xiaojun" modified="20180509033005064" modifier="xiaojun" tags="encryption key 密码学" title="密钥库">
+<pre>! 背景
+用户有n个文件，每个文件使用一个随机密钥加密，随机密钥保存在密钥库中，密钥库也进行加密。
+
+*文件加密方法都为F,,0,,，密钥长度为L,,0,,
+*密钥库加密方法为F,,1,,，密钥长度为L,,1,,
+!! 衡量指标
+# 单文件的破解代价
+# 总文件的破解代价
+!! 暴力破解
+逐一试验所有可能，直到找到正确结果
+
+&lt;&lt;&lt;
+[ext[原文|https://www.voltage.com/security/is-triple-des-not-secure-enough/]]写于2011年
+
+It's possible to buy a special-purpose machine today that can try all 2^^56^^ possible DES keys in a few hours
+&lt;&lt;&lt;
+
+2^^56^^ = 7.2x10^^16^^也就是在2011年每秒可进行10^^13^^次数量级DES
+
+2^^64^^ = 1.8x10^^19^^若每秒可以尝试10^^13^^次，则需要尝试1.8x10^^6^^秒 = 21天
+
+2^^126^^ = 8.51x10^^37^^若每秒可以尝试10^^13^^次，则需要尝试8.51x10^^24^^秒 = 2.7x10^^17^^年
+
+2^^128^^ = 3.4x10^^38^^若每秒可以尝试10^^13^^次，则需要尝试3.4x10^^25^^秒 = 1.08x10^^18^^年
+
+
+&lt;&lt;&lt;
+[ext[原文|https://www.voltage.com/current-affairs/aes-cracked-or-is-it/]]写于2011年
+
+The practical consequence is that the effective key length if AES is about 2 bits shorter than expected – it is more like AES-126, AES-190 and AES-254 instead of AES-128, AES-192 and AES-256.
+&lt;&lt;&lt;
+
+*1天约有8.64x10^^4^^秒
+*1年约有3.15x10^^7^^秒
+
+!! 密码本
+无论怎样加密，用户都需要记住密码，而不是密钥。密码本所有常见密码的集合，比如
+
+```
+abc
+password
+123456
+123456789
+666666
+88888888
+...
+```
+由于人们常用密码约10位，所以这种密码本要远小于暴力破解所需次数。要防止密码被暴力破解，只能增加每次尝试所消耗的时间。
+
+[img[https://camo.githubusercontent.com/3a511f816e147a649cff8ae3da46fa84a6ea4f55/687474703a2f2f322e62702e626c6f6773706f742e636f6d2f2d44424645726e472d3841452f56684a2d7a33592d3431492f41414141414141414467412f46474374386e61424d4b732f73313630302f6d74796f75726d696e642e31303030316d622e636f6d2e706e67]]
+
+!!! 密码空间
+---
+{{Base85}}
+---
+*若有10位密码，最多只有约有2^^64^^(1.8x10^^19^^)种密码，若每秒尝试10^^6^^个，需要1.8x10^^13^^秒=5.71x10^^5^^年
+*若只考虑常用密码，假定有百万(10^^6^^)密码是常用密码，若每秒可尝试1000个，只需要''1000秒!!!''
+*若将密码长度减少，并且常用密码更集中，则密码空间更小，破解需要次数更少，因此必须增加单次尝试成本</pre>
+</div>
+<div created="20180622090551717" creator="xiaojun" modified="20180625090834671" modifier="xiaojun" tags="TiddlyWiki" title="嵌入网页">
+<pre>使用`iframe`标签
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.draw.io/?lightbox=1&amp;highlight=0000ff&amp;edit=_blank&amp;layers=1&amp;nav=1&amp;title=Untitled%20Diagram.xml#R7ZtNc9o6FIZ%2FDcsw1pc%2FliFJezd3pjPpTNcqVoymBlEhgrm%2F%2Fsq2jG2kBKcVhNRlAz6SJfl9dKxzZDNBd8vis6Trxb8iZfkEBmkxQfcTCG%2BiONBfpWVfWyCqjzPJ09oCWsMj%2F48Zozkt2%2FKUbXoVlRC54uu%2BcS5WKzZXPRuVUuz61Z5E3u91TTNmGR7nNLet33iqFsYKwqQt%2BIfxbGG6jmFUF3yn8x%2BZFNuV6W8C0VP1qYuXtGnLXOhmQVOx65jQwwTdSSFU%2FWtZ3LG8lLaRrT7v0wulh3FLtlJDTogaMM8037JmzNXI1L5RY7fgij2u6bw83mngEzR74nl%2BJ3IhqyoIwNvbGdH2TNKU686bspVYsY75nkvNi4uVLmJ0o8c42ygpfrCj%2Bgu1zPURKHsSbWu6J4gwJnr0M%2FtSzdU%2FM6lY0TGZS%2F%2FMxJIpuddVTCnESTQl9VlmogIc4ikJ2o%2BRY9eZBg28RWcGAGSM1Ey97NBbK7%2F%2BYQi8RAOPmUZo0yAYN6ZTBEgwDbrckA8eZMw8Yod3JIN5gMCLR4QjJoACBwE4nEDkhUB0mgBL9fJpDk8qVPvnQdlmgUWW1t26L6pZdv2qll2VgtfmqWQ5Vfy5HwK4pDN9fBFcj6WzmCD79tW6S9PQRmzlnJlzuyvzgOYAsJpTVGZMWc1VVA8iDAQde3G1T0EcBR%2FO1VyhAELvGQokXmg8xCTE8E%2BgAYM%2BjaE3QS80mkbG6RuOwAzFeIqT9hMPpEGSadI9zUeUhoAXOB%2FUVVxwyOAYwY93wDF7hyNMrlaOgR4ReiHgJ43%2FoC7gIACGuwCIvRAYkLr%2FDZO9h8kIkSHNeQyTkb0n8IVKqptgshrXMXU9iysH0Z7HV9lXof3u%2FobY7M02KIibY9NEcHJuHHmdB5dCKLRljaHDpWLHXIFeHMrO%2FAswXFya86y8Pc21CBoMmpUXz%2Bc0vzUFS56mZSuW1iewXBKDKw4mSXjZxd3O%2Fwv71vaHc3BtTV6ag52eF2hsHBwr%2FcU5%2BEnMP%2BiOJLSW28S5JYxIbzceAOzC0d%2Bxb3YafwsPHnOmXuHppuVHqEg%2FaU%2BuCNuYc3iXVwFPXnWo83t47Az%2F637NtOUNIdmAXKe7wBBf4lprRgKS3lYisIQ%2BW1SL7UTdCPmGmOp6hCTvJ6Sdbxsh3xAUXY%2BQyfsJ%2BXo%2Bu%2F9lNX8ln%2FWgLkR2jBjE5JKpK7ZT1%2F21pq4%2BFMcBOVb89Gs0yLXJBPuPByIvoYWdwO6vNYE9Ew33fvTlCNip6%2F5aU9czEaieXr4jAVfSGubKCNEDEf7ciqbgZlNJdlsuq8G6qPRpyvWvrPy%2B51SH1UtdRXGl2zDt6jHVTde1zoa7ZoqCI%2Fxg2PLuBbe1ox07nz7EwIEbEw94yaiTXsdbUih6w3uDPgCMOn11AIDh8OdvwAsBO0Mt8JWuMWd7auMAcd7tUX3YvqxeP01r%2FxCAHv4H&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+
+效果图</pre>
+</div>
+<div created="20180706032724591" creator="xiaojun" modified="20180706033054802" modifier="xiaojun" tags="c" title="设置文件读写缓冲">
+<pre>`int setvbuf ( FILE * stream, char * buffer, int mode, size_t size );`
+
+Specifies a mode for file buffering. Three special macro constants (_IOFBF, _IOLBF and _IONBF) are defined in `cstdio` to be used as the value for this parameter:
+
+
+
+
+
+
+|_IOFBF|	Full buffering: On output, data is written once the buffer is full (or flushed). On Input, the buffer is filled when an input operation is requested and the buffer is empty.|
+|_IOLBF|	Line buffering: On output, data is written when a newline character is inserted into the stream or when the buffer is full (or flushed), whatever happens first. On Input, the buffer is filled up to the next newline character when an input operation is requested and the buffer is empty.|
+|_IONBF|	No buffering: No buffer is used. Each I/O operation is written as soon as possible. In this case, the buffer and size parameters are ignored.|
+</pre>
+</div>
+<div created="20180814021148097" creator="xiaojun" modified="20180814022106409" modifier="xiaojun" tags="生信" title="生物数据下载">
+<pre>! 外显子数据
+
+https://support.illumina.com/downloads/truseq-exome-product-files.html
+
+BED格式
+
+```
+chr1	12098	12258	CEX-chr1-12099-12258
+chr1	12553	12721	CEX-chr1-12554-12721
+chr1	13331	13701	CEX-chr1-13332-13701
+chr1	30334	30503	CEX-chr1-30335-30503
+chr1	35045	35544	CEX-chr1-35046-35544
+chr1	35618	35778	CEX-chr1-35619-35778
+chr1	69077	70017	CEX-chr1-69078-70017
+```
+
+第一列为染色体名称，第二列为起点，第三列为终点，第四列为外显子名称。以‘0’为起点。
+
+! 插入缺失数据(indel)
+
+参考 https://gatkforums.broadinstitute.org/gatk/discussion/1215/how-can-i-access-the-gsa-public-ftp-server
+
+!! Downloading
+
+```
+location: ftp.broadinstitute.org
+username: gsapubftp-anonymous
+password: &lt;blank&gt;
+```
+
+!! Uploading
+
+```
+location: ftp.broadinstitute.org
+username: gsapubftp
+password: 5WvQWSfi
+```
+
+</pre>
+</div>
+<div created="20180525034952932" creator="xiaojun" modified="20180531050936010" modifier="xiaojun" tags="生信" title="生信数据库">
+<pre>! 参考基因组数据库
+|http://hgdownload.cse.ucsc.edu/downloads.html#human|
+|https://asia.ensembl.org/index.html|
+|https://www.ncbi.nlm.nih.gov/genome/browse/#!/overview/|</pre>
+</div>
+<div created="20180425090244414" creator="xiaojun" modified="20180710094000287" modifier="xiaojun" tags="pipe" title="使用pipe连接两个程序">
+<pre>! 单个程序
+每个程序有一个标准输入流，一个标准输出流，一个标准错误输出流
+
+[img[https://ryanstutorials.net/linuxtutorial/img/streams.png]]
+
+! 多个程序
+将前一个程序的标准输出流当作下一个程序的标准输入流。
+
+[img[https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Pipeline.svg/640px-Pipeline.svg.png?1524647259916]]
+
+! linux
+*`|`同时运行多个程序
+*`||`先后运行多个程序</pre>
+</div>
+<div created="20180621103252695" creator="xiaojun" modified="20180621103445556" modifier="xiaojun" tags="C++" title="同时计算商和余数">
+<pre>''std::div, std::ldiv, std::lldiv''
+
+&lt;&lt;&lt;
+The quotient is the algebraic quotient with any fractional part discarded (truncated towards zero). The remainder is such that quot * y + rem == x.
+
+```
+struct div_t { int quot; int rem; };
+std::div_t     div( int x, int y );
+```
+&lt;&lt;&lt;
+</pre>
+</div>
+<div created="20180813074042463" creator="xiaojun" modified="20180813074143012" modifier="xiaojun" tags="linux" title="统计各文件夹内文件大小">
+<pre>```
+du -sh *
+```
+</pre>
+</div>
+<div created="20180416012110275" creator="xiaojun" modified="20180416022834555" modifier="xiaojun" tags="文件头" title="文件头MagicWord">
+<pre>[ext[Wiki|https://www.wikiwand.com/en/List_of_file_signatures]]
+某些二进制文件的文件头，开头的魔法数字。
+
+* 一般都不长，一般是4Byte，不超过8Byte
+* 一般第一个字节是不可见字符</pre>
+</div>
 <div created="20180628031240224" creator="xiaojun" modified="20180628032427216" modifier="xiaojun" tags="aws" title="AWS EC2计费">
 <pre>[ext[ ref link | https://amazonaws-china.com/cn/ec2/pricing/on-demand/]]
 
@@ -14338,6 +14580,18 @@ shall hold for all values of n such that 0 &lt;= n &lt; s.size().
 
 &gt; Use /FORCE:MULTIPLE to create an output file whether or not LINK finds more than one definition for a symbol.  </pre>
 </div>
+<div created="20180725070238968" creator="xiaojun" modified="20180725071031065" modifier="xiaojun" tags="linux c" title="C更改输出文件权限">
+<pre>linux C/C++ 更改输出文件的访问权限
+
+```cpp
+    //&lt;sys/stat.h&gt; fchmod
+    //&lt;stdio.h&gt; fileno
+    FILE* f = fopen(&quot;x&quot;,&quot;wb&quot;);
+    fchmod(fileno(f), 0744);
+    fclose(f);
+```
+</pre>
+</div>
 <div created="20180710091456755" creator="xiaojun" modified="20180711015858044" modifier="xiaojun" tags="python 概率" title="Chi-Square Goodness of Fit Test">
 <pre>[ext[参考|http://www.stat.yale.edu/Courses/1997-98/101/chigf.htm]
 
@@ -14443,6 +14697,23 @@ Given this information, the casino asked the gambler to take his dice (and his b
 :is TRUE when using the MSYS developer environment in Windows
 ;CYGWIN
 :is TRUE on Windows when using the CygWin version of cmake
+
+</pre>
+</div>
+<div created="20180409032017376" modified="20180409032338372" tags="链接 cmake" title="CMake调试发布不同编译参数">
+<pre>Debug和Release分别设置不同的编译／链接选项
+
+```cmake
+set(CMAKE_CXX_FLAGS_RELEASE &quot;/MT&quot;)
+set(CMAKE_CXX_FLAGS_DEBUG &quot;/MTd&quot;)
+```
+
+若之前已经定义了`CMAKE_CXX_FLAGS_DEBUG`和`CMAKE_CXX_FLAGS_RELEASE`，需要追加。
+
+```cmake
+set(CMAKE_CXX_FLAGS_RELEASE &quot;${CMAKE_CXX_FLAGS_RELEASE} /MT&quot;)
+set(CMAKE_CXX_FLAGS_DEBUG &quot;${CMAKE_CXX_FLAGS_DEBUG} /MTd&quot;)
+```
 
 </pre>
 </div>
@@ -14642,23 +14913,6 @@ add_definitions(-DWITH_OPENCV2)
 
 </pre>
 </div>
-<div created="20180409032017376" modified="20180409032338372" tags="链接 cmake" title="CMake调试发布不同编译参数">
-<pre>Debug和Release分别设置不同的编译／链接选项
-
-```cmake
-set(CMAKE_CXX_FLAGS_RELEASE &quot;/MT&quot;)
-set(CMAKE_CXX_FLAGS_DEBUG &quot;/MTd&quot;)
-```
-
-若之前已经定义了`CMAKE_CXX_FLAGS_DEBUG`和`CMAKE_CXX_FLAGS_RELEASE`，需要追加。
-
-```cmake
-set(CMAKE_CXX_FLAGS_RELEASE &quot;${CMAKE_CXX_FLAGS_RELEASE} /MT&quot;)
-set(CMAKE_CXX_FLAGS_DEBUG &quot;${CMAKE_CXX_FLAGS_DEBUG} /MTd&quot;)
-```
-
-</pre>
-</div>
 <div created="20180409034953082" modified="20180409035411671" tags="链接 cmake" title="CMake链接不同类型库">
 <pre>若Debug和Release需要链接不同的库，cmake需要制定库类型版本。
 
@@ -14701,18 +14955,6 @@ You can add the mount entry into /etc/fstab to make the RAM disk persist over re
 
 ! 实测
 在8GB内存的笔记本上，创建1GB虚拟磁盘，速度约3-4GB／s</pre>
-</div>
-<div created="20180725070238968" creator="xiaojun" modified="20180725071031065" modifier="xiaojun" tags="linux c" title="C更改输出文件权限">
-<pre>linux C/C++ 更改输出文件的访问权限
-
-```cpp
-    //&lt;sys/stat.h&gt; fchmod
-    //&lt;stdio.h&gt; fileno
-    FILE* f = fopen(&quot;x&quot;,&quot;wb&quot;);
-    fchmod(fileno(f), 0744);
-    fclose(f);
-```
-</pre>
 </div>
 <div created="20180419010139376" creator="xiaojun" modified="20180419020300527" modifier="xiaojun" tags="learn docker" title="docker learn 1">
 <pre>[img [https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Docker_%28container_engine%29_logo.svg/440px-Docker_%28container_engine%29_logo.svg.png]]
@@ -15276,6 +15518,31 @@ Swap:       4194300           0     4194300
 
 </pre>
 </div>
+<div created="20180815090914513" creator="xiaojun" modified="20180815092953978" modifier="xiaojun" tags="linux" title="Linux hard-link sym-link">
+<pre>! hard-link 
+hard-link是操作系统中的“元数据”，记录文件在磁盘中的真实数据位置，磁盘上的一个文件可以有几个hard-link，它们都指向磁盘中同一数据块。若通过其中一个hard-link编辑文件内容，其他hard-link打开也有响应的变化。若删除一个hard-link，还有其他hard-link指向该数据块，那么磁盘中的数据不删除。hard-link比作C++中的`shared_ptr`,有引用计数。
+
+[img[https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Hard_Link_Illustration.svg/314px-Hard_Link_Illustration.svg.png]]
+
+! sym-link
+sym-link比如windows中的快捷方式，可以通过sym-link访问文件，进行修改。但是删除sym-link不会删除数据。
+
+! ln
+linux中使用`ln`创建link
+
+```shell
+ln -s real-file file-link
+ln file1 file2
+```
+
+! C++
+
+C++17的`std::filesystem`可进行创建link
+
+!ref
+* https://www.lifewire.com/what-are-hard-links-2190041
+* https://www.wikiwand.com/en/Hard_link</pre>
+</div>
 <div created="20180425061559827" creator="xiaojun" modified="20180425063535447" modifier="xiaojun" tags="linux time" title="linux time">
 <pre>`time`用于统计指令所花时间
 
@@ -15311,29 +15578,6 @@ VIRT  -- Virtual Image (KB)  VIRT = SWAP +RES  (公式1)
 
 　　The non-swappedphysical memory a task has used. (一个任务正在使用的没有交换的物理内存)我们一般称为驻留内存空间。先给大家声明，man给出的这个公式2是有问题的，这个错误万恶的公式2估计误导了很多人
 &lt;&lt;&lt;
-</pre>
-</div>
-<div created="20180419072617739" creator="xiaojun" modified="20180420014105475" modifier="xiaojun" tags="linux 包管理" title="linuxbrew">
-<pre>`linuxbrew`可以在非管理员用户安装自己的工具。其本质是下载源文件进行编译，同时设置系统`PATH`环境变量。从而达到非管理员权限安装软件的效果。</pre>
-</div>
-<div created="20180411033854013" creator="xiaojun" modified="20180411034417157" modifier="xiaojun" tags="特殊字符 linux" title="linux命令行特殊字符">
-<pre>若要创建一个带`-`文件
-
-```bash
-vim -- -h.txt
-```
-若带空格，需要加引号
-
-```bash
-vim &quot;h v.txt&quot;
-```
-
-若既有空格又有`-`
-
-```bash
-vim -- &quot;-h -v.txt&quot;
-```
-
 </pre>
 </div>
 <div created="20180604073006545" creator="xiaojun" modified="20180604073232707" modifier="xiaojun" tags="linux" title="linux查看内存-缓存">
@@ -15394,17 +15638,40 @@ Dirty — The total amount of memory, in kilobytes, waiting to be written back t
 ```
 </pre>
 </div>
+<div created="20180801064116286" creator="xiaojun" modified="20180801064151710" modifier="xiaojun" tags="linux" title="Linux递归删除文件">
+<pre>```shell
+find . -name &quot;111&quot;  | xargs rm -f
+```
+</pre>
+</div>
 <div created="20180416005248705" creator="xiaojun" modified="20180416005916915" modifier="xiaojun" tags="exit linux" title="linux获取退出code">
 <pre>`echo $?`
 在执行完指令后，输入该命令可看到程序的退出号码
 
 [img[https://shapeshed.com/images/articles/unix-exit-code.png]]</pre>
 </div>
-<div created="20180801064116286" creator="xiaojun" modified="20180801064151710" modifier="xiaojun" tags="linux" title="Linux递归删除文件">
-<pre>```shell
-find . -name &quot;111&quot;  | xargs rm -f
+<div created="20180411033854013" creator="xiaojun" modified="20180411034417157" modifier="xiaojun" tags="特殊字符 linux" title="linux命令行特殊字符">
+<pre>若要创建一个带`-`文件
+
+```bash
+vim -- -h.txt
 ```
+若带空格，需要加引号
+
+```bash
+vim &quot;h v.txt&quot;
+```
+
+若既有空格又有`-`
+
+```bash
+vim -- &quot;-h -v.txt&quot;
+```
+
 </pre>
+</div>
+<div created="20180419072617739" creator="xiaojun" modified="20180420014105475" modifier="xiaojun" tags="linux 包管理" title="linuxbrew">
+<pre>`linuxbrew`可以在非管理员用户安装自己的工具。其本质是下载源文件进行编译，同时设置系统`PATH`环境变量。从而达到非管理员权限安装软件的效果。</pre>
 </div>
 <div created="20180625090530711" creator="xiaojun" modified="20180626100812280" modifier="xiaojun" tags="HASH" title="Minimal Perfect Hashing">
 <pre>对于一个静态集合，当hash函数无冲突时称为“Perfect Hashing”。当hash table的长度等于key set时，称为“Minimal Perfect Hashing”
@@ -15642,195 +15909,6 @@ Option相关的快捷键没有效果。
 | Esc + T | 将光标前的两个单词进行互换 |
 | Tab | 自动补全文件或文件夹的名称 |
 </pre>
-</div>
-<div created="20180425090244414" creator="xiaojun" modified="20180710094000287" modifier="xiaojun" tags="pipe" title="使用pipe连接两个程序">
-<pre>! 单个程序
-每个程序有一个标准输入流，一个标准输出流，一个标准错误输出流
-
-[img[https://ryanstutorials.net/linuxtutorial/img/streams.png]]
-
-! 多个程序
-将前一个程序的标准输出流当作下一个程序的标准输入流。
-
-[img[https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Pipeline.svg/640px-Pipeline.svg.png?1524647259916]]
-
-! linux
-*`|`同时运行多个程序
-*`||`先后运行多个程序</pre>
-</div>
-<div created="20180521070305311" creator="xiaojun" modified="20180521071325810" modifier="xiaojun" tags="概率" title="假阴性" type="j">
-<pre>大牛说他浑身发痒。有一个检测可以知道她是不是对猫过敏，但这个检测不一定是对的：
-
-* 对于真的有这种过敏人，检测有 80% 的机会给回 &quot;有&quot; 的答案
-* 对于没有这种过敏的人，检测有 &quot;10%&quot; 的机会给回 &quot;有&quot; 的答案（&quot;假阳性&quot;）
-
-| | 检查结果“有”| 检查结果“没有”|h
-| !过敏 | 80% | 20% &quot;假阴性&quot; |
-|!不过敏 | 10% &quot;假阳性&quot; | 90% |
-|概率表|c</pre>
-</div>
-<div created="20180621103252695" creator="xiaojun" modified="20180621103445556" modifier="xiaojun" tags="C++" title="同时计算商和余数">
-<pre>''std::div, std::ldiv, std::lldiv''
-
-&lt;&lt;&lt;
-The quotient is the algebraic quotient with any fractional part discarded (truncated towards zero). The remainder is such that quot * y + rem == x.
-
-```
-struct div_t { int quot; int rem; };
-std::div_t     div( int x, int y );
-```
-&lt;&lt;&lt;
-</pre>
-</div>
-<div created="20180509071950614" creator="xiaojun" modified="20180509072001542" modifier="xiaojun" title="密码学">
-<pre>&lt;&lt;list-links filter:&quot;[tag[密码学]]&quot;&gt;&gt;</pre>
-</div>
-<div created="20180403100659112" modified="20180404021258539" tags="C++ 随机数 密码学" title="密码学安全随机数">
-<pre>! 简介
-&gt; cryptographically secure pseudo-random number generator [ext[CSPRNG|https://www.wikiwand.com/en/Cryptographically_secure_pseudorandom_number_generator]]
-
-! Visual Studio
-''random_device'' Class,The class describes a source of random numbers, and is allowed but not required to be non-deterministic or cryptographically secure by the ISO C++ Standard.  In the Visual Studio implementation the values produced are ''non-deterministic and cryptographically secure''.
-
-! Linux random
-If you're not interested in reading the full post, then call this a good summary:
-
-*  There are 3 separate and distinct entropy pools in the Linux kernel.
-* /dev/random and /dev/urandom both use the same CSPRNG.
-*  Use /dev/urandom.
-! 参考链接
-* [ext[visual studio|https://msdn.microsoft.com/en-us/library/bb982250.aspx]] 
-* [ext[linux|https://pthree.org/2014/07/21/the-linux-random-number-generator/]]
-</pre>
-</div>
-<div created="20180428060222115" creator="xiaojun" modified="20180509033005064" modifier="xiaojun" tags="encryption key 密码学" title="密钥库">
-<pre>! 背景
-用户有n个文件，每个文件使用一个随机密钥加密，随机密钥保存在密钥库中，密钥库也进行加密。
-
-*文件加密方法都为F,,0,,，密钥长度为L,,0,,
-*密钥库加密方法为F,,1,,，密钥长度为L,,1,,
-!! 衡量指标
-# 单文件的破解代价
-# 总文件的破解代价
-!! 暴力破解
-逐一试验所有可能，直到找到正确结果
-
-&lt;&lt;&lt;
-[ext[原文|https://www.voltage.com/security/is-triple-des-not-secure-enough/]]写于2011年
-
-It's possible to buy a special-purpose machine today that can try all 2^^56^^ possible DES keys in a few hours
-&lt;&lt;&lt;
-
-2^^56^^ = 7.2x10^^16^^也就是在2011年每秒可进行10^^13^^次数量级DES
-
-2^^64^^ = 1.8x10^^19^^若每秒可以尝试10^^13^^次，则需要尝试1.8x10^^6^^秒 = 21天
-
-2^^126^^ = 8.51x10^^37^^若每秒可以尝试10^^13^^次，则需要尝试8.51x10^^24^^秒 = 2.7x10^^17^^年
-
-2^^128^^ = 3.4x10^^38^^若每秒可以尝试10^^13^^次，则需要尝试3.4x10^^25^^秒 = 1.08x10^^18^^年
-
-
-&lt;&lt;&lt;
-[ext[原文|https://www.voltage.com/current-affairs/aes-cracked-or-is-it/]]写于2011年
-
-The practical consequence is that the effective key length if AES is about 2 bits shorter than expected – it is more like AES-126, AES-190 and AES-254 instead of AES-128, AES-192 and AES-256.
-&lt;&lt;&lt;
-
-*1天约有8.64x10^^4^^秒
-*1年约有3.15x10^^7^^秒
-
-!! 密码本
-无论怎样加密，用户都需要记住密码，而不是密钥。密码本所有常见密码的集合，比如
-
-```
-abc
-password
-123456
-123456789
-666666
-88888888
-...
-```
-由于人们常用密码约10位，所以这种密码本要远小于暴力破解所需次数。要防止密码被暴力破解，只能增加每次尝试所消耗的时间。
-
-[img[https://camo.githubusercontent.com/3a511f816e147a649cff8ae3da46fa84a6ea4f55/687474703a2f2f322e62702e626c6f6773706f742e636f6d2f2d44424645726e472d3841452f56684a2d7a33592d3431492f41414141414141414467412f46474374386e61424d4b732f73313630302f6d74796f75726d696e642e31303030316d622e636f6d2e706e67]]
-
-!!! 密码空间
----
-{{Base85}}
----
-*若有10位密码，最多只有约有2^^64^^(1.8x10^^19^^)种密码，若每秒尝试10^^6^^个，需要1.8x10^^13^^秒=5.71x10^^5^^年
-*若只考虑常用密码，假定有百万(10^^6^^)密码是常用密码，若每秒可尝试1000个，只需要''1000秒!!!''
-*若将密码长度减少，并且常用密码更集中，则密码空间更小，破解需要次数更少，因此必须增加单次尝试成本</pre>
-</div>
-<div created="20180726063203396" creator="xiaojun" modified="20180726063610211" modifier="xiaojun" tags="linux" title="将文件所有行合并">
-<pre>去除某个字符
-
-&lt;&lt;&lt;
-tr - translate or delete characters
-&lt;&lt;&lt;
-
-```bash
-tr -d '\n'
-```
-
-
-```bash
-less abc.txt | tr -d '\n'
-```
-
-</pre>
-</div>
-<div created="20180622090551717" creator="xiaojun" modified="20180625090834671" modifier="xiaojun" tags="TiddlyWiki" title="嵌入网页">
-<pre>使用`iframe`标签
-
-&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.draw.io/?lightbox=1&amp;highlight=0000ff&amp;edit=_blank&amp;layers=1&amp;nav=1&amp;title=Untitled%20Diagram.xml#R7ZtNc9o6FIZ%2FDcsw1pc%2FliFJezd3pjPpTNcqVoymBlEhgrm%2F%2Fsq2jG2kBKcVhNRlAz6SJfl9dKxzZDNBd8vis6Trxb8iZfkEBmkxQfcTCG%2BiONBfpWVfWyCqjzPJ09oCWsMj%2F48Zozkt2%2FKUbXoVlRC54uu%2BcS5WKzZXPRuVUuz61Z5E3u91TTNmGR7nNLet33iqFsYKwqQt%2BIfxbGG6jmFUF3yn8x%2BZFNuV6W8C0VP1qYuXtGnLXOhmQVOx65jQwwTdSSFU%2FWtZ3LG8lLaRrT7v0wulh3FLtlJDTogaMM8037JmzNXI1L5RY7fgij2u6bw83mngEzR74nl%2BJ3IhqyoIwNvbGdH2TNKU686bspVYsY75nkvNi4uVLmJ0o8c42ygpfrCj%2Bgu1zPURKHsSbWu6J4gwJnr0M%2FtSzdU%2FM6lY0TGZS%2F%2FMxJIpuddVTCnESTQl9VlmogIc4ikJ2o%2BRY9eZBg28RWcGAGSM1Ey97NBbK7%2F%2BYQi8RAOPmUZo0yAYN6ZTBEgwDbrckA8eZMw8Yod3JIN5gMCLR4QjJoACBwE4nEDkhUB0mgBL9fJpDk8qVPvnQdlmgUWW1t26L6pZdv2qll2VgtfmqWQ5Vfy5HwK4pDN9fBFcj6WzmCD79tW6S9PQRmzlnJlzuyvzgOYAsJpTVGZMWc1VVA8iDAQde3G1T0EcBR%2FO1VyhAELvGQokXmg8xCTE8E%2BgAYM%2BjaE3QS80mkbG6RuOwAzFeIqT9hMPpEGSadI9zUeUhoAXOB%2FUVVxwyOAYwY93wDF7hyNMrlaOgR4ReiHgJ43%2FoC7gIACGuwCIvRAYkLr%2FDZO9h8kIkSHNeQyTkb0n8IVKqptgshrXMXU9iysH0Z7HV9lXof3u%2FobY7M02KIibY9NEcHJuHHmdB5dCKLRljaHDpWLHXIFeHMrO%2FAswXFya86y8Pc21CBoMmpUXz%2Bc0vzUFS56mZSuW1iewXBKDKw4mSXjZxd3O%2Fwv71vaHc3BtTV6ag52eF2hsHBwr%2FcU5%2BEnMP%2BiOJLSW28S5JYxIbzceAOzC0d%2Bxb3YafwsPHnOmXuHppuVHqEg%2FaU%2BuCNuYc3iXVwFPXnWo83t47Az%2F637NtOUNIdmAXKe7wBBf4lprRgKS3lYisIQ%2BW1SL7UTdCPmGmOp6hCTvJ6Sdbxsh3xAUXY%2BQyfsJ%2BXo%2Bu%2F9lNX8ln%2FWgLkR2jBjE5JKpK7ZT1%2F21pq4%2BFMcBOVb89Gs0yLXJBPuPByIvoYWdwO6vNYE9Ew33fvTlCNip6%2F5aU9czEaieXr4jAVfSGubKCNEDEf7ciqbgZlNJdlsuq8G6qPRpyvWvrPy%2B51SH1UtdRXGl2zDt6jHVTde1zoa7ZoqCI%2Fxg2PLuBbe1ox07nz7EwIEbEw94yaiTXsdbUih6w3uDPgCMOn11AIDh8OdvwAsBO0Mt8JWuMWd7auMAcd7tUX3YvqxeP01r%2FxCAHv4H&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
-
-效果图</pre>
-</div>
-<div created="20180502064704562" creator="xiaojun" modified="20180503025002125" modifier="xiaojun" tags="C++" title="常用库">
-<pre>|lib|description|h
-|curl|http库|
-|winhttp|http库|
-|NLOHMANN_JSON|JSON for Modern C++|
-</pre>
-</div>
-<div created="20180416012110275" creator="xiaojun" modified="20180416022834555" modifier="xiaojun" tags="文件头" title="文件头MagicWord">
-<pre>[ext[Wiki|https://www.wikiwand.com/en/List_of_file_signatures]]
-某些二进制文件的文件头，开头的魔法数字。
-
-* 一般都不长，一般是4Byte，不超过8Byte
-* 一般第一个字节是不可见字符</pre>
-</div>
-<div created="20180525034952932" creator="xiaojun" modified="20180531050936010" modifier="xiaojun" tags="生信" title="生信数据库">
-<pre>! 参考基因组数据库
-|http://hgdownload.cse.ucsc.edu/downloads.html#human|
-|https://asia.ensembl.org/index.html|
-|https://www.ncbi.nlm.nih.gov/genome/browse/#!/overview/|</pre>
-</div>
-<div created="20180706032724591" creator="xiaojun" modified="20180706033054802" modifier="xiaojun" tags="c" title="设置文件读写缓冲">
-<pre>`int setvbuf ( FILE * stream, char * buffer, int mode, size_t size );`
-
-Specifies a mode for file buffering. Three special macro constants (_IOFBF, _IOLBF and _IONBF) are defined in `cstdio` to be used as the value for this parameter:
-
-
-
-
-
-
-|_IOFBF|	Full buffering: On output, data is written once the buffer is full (or flushed). On Input, the buffer is filled when an input operation is requested and the buffer is empty.|
-|_IOLBF|	Line buffering: On output, data is written when a newline character is inserted into the stream or when the buffer is full (or flushed), whatever happens first. On Input, the buffer is filled up to the next newline character when an input operation is requested and the buffer is empty.|
-|_IONBF|	No buffering: No buffer is used. Each I/O operation is written as soon as possible. In this case, the buffer and size parameters are ignored.|
-</pre>
-</div>
-<div created="20180620034114338" creator="xiaojun" modified="20180620035055325" modifier="xiaojun" tags="磁盘 内存" title="超算内存/磁盘">
-<pre>神威·太湖之光
-March 2018, is ranked number one in the TOP500 list as the fastest supercomputer in the world
-
-| mem | 1.31PB |
-| disk | 20PB |
-
-1 PB = 1000000000000000B $$\approx$$ 2^^50^^ B</pre>
 </div>
 
 </div>
