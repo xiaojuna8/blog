@@ -515,6 +515,8 @@ Error message and password prompt
 
 <li>C更改输出文件权限</li>
 
+<li>C基本类型读写</li>
+
 <li>Chi-Square Goodness of Fit Test</li>
 
 <li>cmake</li>
@@ -618,6 +620,8 @@ Error message and password prompt
 <li>RAR vint</li>
 
 <li>SHA</li>
+
+<li>shared_ptr管理数组</li>
 
 <li>Terminal命令行快捷键</li>
 
@@ -13182,7 +13186,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="shared_ptr管理数组 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14606,6 +14610,14 @@ shall hold for all values of n such that 0 &lt;= n &lt; s.size().
 ```
 </pre>
 </div>
+<div created="20180925083135714" creator="xiaojun" modified="20180925083953650" modifier="xiaojun" tags="C++" title="C基本类型读写">
+<pre>将基本数据类型比如`uint16_t`,`uint32_t`按二进制方式fread/fwrite读写到磁盘，都是按照小端模式的。因此如果这个数比较小，比如4095(0x0fff),无论使用`uint16_t`还是`uint32_t`都能精确表示。
+
+* 按照`uint16_t`写入磁盘，读取到`uint32_t`中
+** `fwrite(&amp;x, 2, 1, fp);fread(&amp;y, 2, 1, fp);`
+* 按照`uint32_t`写入磁盘，读取到`uint16_t`中
+** `fwrite(&amp;x, 2, 1, fp);fread(&amp;y, 2, 1, fp);`</pre>
+</div>
 <div created="20180710091456755" creator="xiaojun" modified="20180711015858044" modifier="xiaojun" tags="python 概率" title="Chi-Square Goodness of Fit Test">
 <pre>[ext[参考|http://www.stat.yale.edu/Courses/1997-98/101/chigf.htm]
 
@@ -15876,6 +15888,14 @@ SHA是美国的HASH计算标准，一共有三个系列。
 * SHA2
 * SHA3
 [img[http://blog.agamitechnologies.com/wp-content/uploads/2016/07/SHA-Comparison.jpg]]</pre>
+</div>
+<div created="20180928092142185" creator="xiaojun" modified="20180928092439342" modifier="xiaojun" tags="内存 C++" title="shared_ptr管理数组">
+<pre>
+```cpp
+std::shared_ptr&lt;int&gt; pt = nullptr;
+pt.reset(new int[lenght], std::default_delete&lt;int[]&gt;());
+```
+</pre>
 </div>
 <div created="20180611004035809" creator="xiaojun" modified="20180611005810948" modifier="xiaojun" tags="命令行" title="Terminal命令行快捷键">
 <pre>Here’s a quick list of commands that you’ll get a lot of day to day usage from, if you aren’t already:
