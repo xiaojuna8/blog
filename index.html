@@ -653,8 +653,8 @@ Error message and password prompt
 <div created="20180428095744136" creator="xiaojun" modified="20180428095744136" modifier="xiaojun" title="$:/config/RelinkOnRename">
 <pre>yes</pre>
 </div>
-<div created="20180403085107240" creator="xiaojun" modified="20180727004552201" modifier="xiaojun" title="$:/config/TimestampDisable">
-<pre>no</pre>
+<div created="20180403085107240" creator="xiaojun" modified="20181012005525602" modifier="xiaojun" title="$:/config/TimestampDisable">
+<pre>yes</pre>
 </div>
 <div created="20180409035917410" creator="xiaojun" modified="20180409035918569" modifier="xiaojun" title="$:/config/WikiParserRules/Inline/wikilink">
 <pre>enable</pre>
@@ -13186,7 +13186,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="shared_ptr管理数组 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="[[How does free know how much to free?]] C基本类型读写 shared_ptr管理数组 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -15306,6 +15306,14 @@ The address then given to you is the address of the data area. Then, when you fr
 ```
 &lt;&lt;&lt;
 
+!! 如何从指针获取申请了多少内存
+[ext[参考|https://stackoverflow.com/questions/1281686/determine-size-of-dynamically-allocated-memory-in-c]]
+
+There is no standard way to find this information. However, some implementations provide functions like msize to do this. For example:
+
+*`_msize` on Windows
+*`malloc_size` on MacOS
+*`malloc_usable_size` on systems with glibc
 </pre>
 </div>
 <div created="20180529070952695" creator="xiaojun" modified="20180529080700646" modifier="xiaojun" tags="命令行 linux" title="How long an argument list your kernel can take on the command line before it chokes">
@@ -15890,8 +15898,7 @@ SHA是美国的HASH计算标准，一共有三个系列。
 [img[http://blog.agamitechnologies.com/wp-content/uploads/2016/07/SHA-Comparison.jpg]]</pre>
 </div>
 <div created="20180928092142185" creator="xiaojun" modified="20180928092439342" modifier="xiaojun" tags="内存 C++" title="shared_ptr管理数组">
-<pre>
-```cpp
+<pre>```cpp
 std::shared_ptr&lt;int&gt; pt = nullptr;
 pt.reset(new int[lenght], std::default_delete&lt;int[]&gt;());
 ```
