@@ -13186,7 +13186,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[How does free know how much to free?]] C基本类型读写 shared_ptr管理数组 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="[[How does free know how much to free?]] [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -15314,7 +15314,8 @@ There is no standard way to find this information. However, some implementations
 *`_msize` on Windows
 *`malloc_size` on MacOS
 *`malloc_usable_size` on systems with glibc
-</pre>
+
+在申请内存时往往系统会多分配一些，系统会按照一定规则分配，比如小于16字节会直接分配16字节，大内存会对齐到4KB等。</pre>
 </div>
 <div created="20180529070952695" creator="xiaojun" modified="20180529080700646" modifier="xiaojun" tags="命令行 linux" title="How long an argument list your kernel can take on the command line before it chokes">
 <pre>unix指令 `getconf ARG_MAX`
