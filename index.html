@@ -499,6 +499,8 @@ Error message and password prompt
 
 <li>Base85</li>
 
+<li>bash遍历当前目录下所有文件</li>
+
 <li>BCrypt计算效率</li>
 
 <li>C signal</li>
@@ -654,7 +656,7 @@ Error message and password prompt
 <pre>yes</pre>
 </div>
 <div created="20180403085107240" creator="xiaojun" modified="20181012005525602" modifier="xiaojun" title="$:/config/TimestampDisable">
-<pre>yes</pre>
+<pre>no</pre>
 </div>
 <div created="20180409035917410" creator="xiaojun" modified="20180409035918569" modifier="xiaojun" title="$:/config/WikiParserRules/Inline/wikilink">
 <pre>enable</pre>
@@ -13186,7 +13188,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[How does free know how much to free?]] [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="bash遍历当前目录下所有文件 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14421,6 +14423,14 @@ After you initiate a multipart upload and upload one or more parts, you must eit
 ```
 
 log,,2,,(85) = 6.409...
+</pre>
+</div>
+<div created="20181022083338476" creator="xiaojun" modified="20181022083503965" modifier="xiaojun" tags="linux" title="bash遍历当前目录下所有文件">
+<pre>遍历当前目录所有文件并计算其MD5
+
+```bash
+for file in ./*; do md5sum $file; done
+```
 </pre>
 </div>
 <div created="20180428094334663" creator="xiaojun" modified="20180525084619128" modifier="xiaojun" tags="密码学" title="BCrypt计算效率">
