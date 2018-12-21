@@ -575,6 +575,8 @@ Error message and password prompt
 
 <li>Kmer分析时，为何选的Kmer长度不一样？</li>
 
+<li>Kraken2 report analysis</li>
+
 <li>linux</li>
 
 <li>linux free -h</li>
@@ -13140,7 +13142,7 @@ Error message and password prompt
 <div created="20180615023130475" creator="xiaojun" modified="20180615023130475" modifier="xiaojun" title="$:/state/plugin-info--896887961-$:/plugins/tiddlywiki/katex--697552782">
 <pre>usage</pre>
 </div>
-<div created="20180514095202452" creator="xiaojun" modified="20180706032953194" modifier="xiaojun" title="$:/state/showeditpreview">
+<div created="20180514095202452" creator="xiaojun" modified="20181221015712624" modifier="xiaojun" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
 <div created="20180521071145109" creator="xiaojun" modified="20180710102944591" modifier="xiaojun" title="$:/state/sidebar">
@@ -13188,7 +13190,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="bash遍历当前目录下所有文件 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="[[Kraken2 report analysis]] 生物划分 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20180514094916703" creator="xiaojun" modified="20180514094916703" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -15525,6 +15527,64 @@ k=17,出现的Kmer达到了6G，总共出现56G，平均每个kmer出现9次。
 另外为了避免回文序列，Kmer分析选择K长度均为奇数。而对于高重复的重复，我们通常会选择一些长度较长的Kmer，这是因为较大的Kmer能够跨过一些高重复区域，对于组装具有较好的结果。
 
 [ext[参考|http://www.novogene.com/tech/service/survey/qa/]]</pre>
+</div>
+<div created="20181221015641567" creator="xiaojun" modified="20181221030837718" modifier="xiaojun" tags="生信" title="Kraken2 report analysis">
+<pre>Kraken2报告中包含了检测出的每个等级的浓度。
+
+;浓度
+:检测出的read数 / 总read数
+
+以下面截取某检测报告为例说明。第一列，浓度百分值，精度显示到万分之一。第二列，包含该等级的read数。第三列，直接确定种类的read数。第二，三列的区别是，如果只能确定属于该等级，则记录在第三列，如果还能更细划分，那么就记录在第二列。第四列，域界门纲目科属种。第五列，TaxID。第六列，学名。
+
+属于570属的read共有7352460条，其中918020条仅能确定属于该属，剩下`6434440`（7352460 - 918020）可以进一步划分物种。再看下面可以划分到物种的行（第四列是S的行）`3494120 + 2543177 + 381111 + 6159 + 3018 + 2675 + 2233 + 1905 + 42 = 6434440`。也就是说，属570下面包含了571，573，548，1134687，1463165，1934254，244366，2026240和1905288这几个物种。
+
+```
+...
+ 15.75	7352460	 918020	 G	    570	              Klebsiella
+  7.49	3494120	3494119	 S	    571	                Klebsiella oxytoca
+  0.00	      1	      1	S1	1333852	                  Klebsiella oxytoca KONIH1
+  5.45	2543177	2530297	 S	    573	                Klebsiella pneumoniae
+  0.02	   9245	  3060	S1	  72407	                  Klebsiella pneumoniae subsp. pneumoniae
+  0.01	   4568	  4568	S2	1193292	                    Klebsiella pneumoniae subsp. pneumoniae 1084
+  0.00	    505	   505	S2	 272620	                    Klebsiella pneumoniae subsp. pneumoniae MGH 78578
+  0.00	    424	   424	S2	1123862	                    Klebsiella pneumoniae subsp. pneumoniae Kp13
+  0.00	    327	   327	S2	1125630	                    Klebsiella pneumoniae subsp. pneumoniae HS11286
+  0.00	    203	   203	S2	1328324	                    Klebsiella pneumoniae subsp. pneumoniae KPNIH27
+  0.00	     84	    84	S2	1094170	                    Klebsiella pneumoniae subsp. pneumoniae KPNIH10
+  0.00	     59	    59	S2	1392499	                    Klebsiella pneumoniae subsp. pneumoniae 1158
+  0.00	      9	     9	S2	1328325	                    Klebsiella pneumoniae subsp. pneumoniae KPR0928
+  0.00	      6	     6	S2	 484021	                    Klebsiella pneumoniae subsp. pneumoniae NTUH-K2044
+  0.00	   1262	     0	S1	  39831	                  Klebsiella pneumoniae subsp. rhinoscleromatis
+  0.00	   1262	  1262	S2	 861365	                    Klebsiella pneumoniae subsp. rhinoscleromatis SB3432
+  0.00	    943	   943	S1	 507522	                  Klebsiella pneumoniae 342
+  0.00	    519	   519	S1	1380908	                  Klebsiella pneumoniae JM45
+  0.00	    357	   357	S1	1304922	                  Klebsiella pneumoniae 500_1420
+  0.00	    164	   164	S1	1284802	                  Klebsiella pneumoniae UHKPC33
+  0.00	    163	   163	S1	1365186	                  Klebsiella pneumoniae KP-1
+  0.00	    103	   103	S1	1049565	                  Klebsiella pneumoniae KCTC 2242
+  0.00	     65	    65	S1	1420012	                  Klebsiella pneumoniae 30660/NJST258_1
+  0.00	     43	    43	S1	1392500	                  Klebsiella pneumoniae HK787
+  0.00	     10	    10	S1	1244085	                  Klebsiella pneumoniae CG43
+  0.00	      3	     3	S1	    574	                  Klebsiella pneumoniae subsp. ozaenae
+  0.00	      2	     2	S1	1420013	                  Klebsiella pneumoniae 30684/NJST258_2
+  0.00	      1	     1	S1	1284804	                  Klebsiella pneumoniae UHKPC07
+  0.82	 381111	353933	 S	    548	                Klebsiella aerogenes
+  0.06	  27006	 27006	S1	1028307	                  Klebsiella aerogenes KCTC 2190
+  0.00	    172	   172	S1	 935296	                  Klebsiella aerogenes EA1509E
+  0.01	   6159	  4261	 S	1134687	                Klebsiella michiganensis
+  0.00	   1477	  1477	S1	1308980	                  Klebsiella michiganensis HKOPL1
+  0.00	    247	   247	S1	1191061	                  Klebsiella michiganensis E718
+  0.00	    174	   174	S1	1006551	                  Klebsiella michiganensis KCTC 1686
+  0.01	   3018	  1681	 S	1463165	                Klebsiella quasipneumoniae
+  0.00	   1337	  1337	S1	1667327	                  Klebsiella quasipneumoniae subsp. quasipneumoniae
+  0.01	   2675	  2675	 S	1934254	                Klebsiella sp. M5al
+  0.00	   2233	  2130	 S	 244366	                Klebsiella variicola
+  0.00	    103	   103	S1	 640131	                  Klebsiella variicola At-22
+  0.00	   1905	  1905	 S	2026240	                Klebsiella quasivariicola
+  0.00	     42	    42	 S	1905288	                Klebsiella sp. LTGPAF-6F
+```
+
+</pre>
 </div>
 <div created="20180420015340761" creator="xiaojun" modified="20180509072003657" modifier="xiaojun" title="linux">
 <pre>&lt;&lt;list-links filter:&quot;[tag[linux]]&quot;&gt;&gt;</pre>
