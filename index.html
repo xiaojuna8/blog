@@ -13315,7 +13315,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="随机生成有序数列 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div created="20190102072048065" creator="xiaojun" list="随机生成有序数列 [[My Index]] [[New Index]]" modified="20190102072048065" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13791,7 +13791,7 @@ password: 5WvQWSfi
 *`|`同时运行多个程序
 *`||`先后运行多个程序</pre>
 </div>
-<div created="20181229072230430" creator="xiaojun" modified="20181229072912289" modifier="xiaojun" tags="随机数" title="随机生成有序数列">
+<div created="20181229072230430" creator="xiaojun" modified="20190102072516644" modifier="xiaojun" tags="随机数" title="随机生成有序数列">
 <pre>!生成排序好的随机数
 要求产生（0，1）上的均匀随机数序列，长度为n，并按大小顺序排列。
 
@@ -13807,6 +13807,43 @@ password: 5WvQWSfi
 
 &lt;&lt;&lt;
 https://stats.stackexchange.com/questions/134241/how-to-generate-sorted-uniformly-distributed-values-in-an-interval-efficiently
+&lt;&lt;&lt;
+
+!! 方法3
+
+
+```cpp
+    std::mt19937 mt{std::random_device{}()};
+    std::uniform_real_distribution&lt;&gt; dis;
+    int N = 10;
+    int cnt = N;
+    double ln_cur_sum = 0;
+    for (int i = 0; i &lt; N; i++) {
+        if (cnt &lt;= 0) {
+            break;
+        }
+        ln_cur_sum += std::log(dis(mt))/cnt;
+        cnt -= 1;
+        std::cout &lt;&lt; std::exp(ln_cur_sum) &lt;&lt; std::endl;
+    }
+```
+
+Possible output:
+
+```
+0.968147
+0.951776
+0.890048
+0.728931
+0.645539
+0.603101
+0.586945
+0.453802
+0.296476
+0.00214569
+```
+&lt;&lt;&lt;
+https://apps.dtic.mil/dtic/tr/fulltext/u2/a066739.pdf
 &lt;&lt;&lt;
 </pre>
 </div>
