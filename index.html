@@ -181,6 +181,8 @@ Error message and password prompt
 
 <li>$:/state/showeditpreview</li>
 
+<li>$:/state/tab--278313153</li>
+
 <li>$:/state/tab/sidebar--595412856</li>
 
 <li>$:/status/UserName</li>
@@ -223,6 +225,8 @@ Error message and password prompt
 
 <li>1password原理</li>
 
+<li>常见操作的CPU耗时</li>
+
 <li>常用库</li>
 
 <li>超算内存/磁盘</li>
@@ -236,6 +240,8 @@ Error message and password prompt
 <li>密码学安全随机数</li>
 
 <li>密钥库</li>
+
+<li>命令行参数隐藏</li>
 
 <li>嵌入网页</li>
 
@@ -256,6 +262,8 @@ Error message and password prompt
 <li>统计各文件夹内文件大小</li>
 
 <li>文件头MagicWord</li>
+
+<li>组装水平</li>
 
 <li>AWS EC2计费</li>
 
@@ -425,7 +433,7 @@ Error message and password prompt
 <div created="20180428095744136" creator="xiaojun" modified="20180428095744136" modifier="xiaojun" title="$:/config/RelinkOnRename">
 <pre>yes</pre>
 </div>
-<div created="20180403085107240" creator="xiaojun" modified="20181012005525602" modifier="xiaojun" title="$:/config/TimestampDisable">
+<div created="20180403085107240" creator="xiaojun" modified="20190104091637008" modifier="xiaojun" title="$:/config/TimestampDisable">
 <pre>no</pre>
 </div>
 <div created="20180409035917410" creator="xiaojun" modified="20180409035918569" modifier="xiaojun" title="$:/config/WikiParserRules/Inline/wikilink">
@@ -13309,13 +13317,16 @@ Error message and password prompt
 <div created="20181228020250896" creator="xiaojun" modified="20181228020250896" modifier="xiaojun" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
+<div title="$:/state/tab--278313153">
+<pre>密码学</pre>
+</div>
 <div created="20181228020159100" creator="xiaojun" modified="20181228020159100" modifier="xiaojun" title="$:/state/tab/sidebar--595412856">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190102072048065" creator="xiaojun" list="随机生成有序数列 [[My Index]] [[New Index]]" modified="20190102072048065" modifier="xiaojun" title="$:/StoryList">
+<div list="常见操作的CPU耗时 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13574,6 +13585,13 @@ Secret Key保存在用户的客户端程序中，同时也有一份打印出来�
 
 [img width=512 [https://blog.elcomsoft.com/wp-content/uploads/2017/08/1p_new-1024x460.png]]</pre>
 </div>
+<div created="20190111020358723" creator="xiaojun" modified="20190111020944704" modifier="xiaojun" tags="CPU" title="常见操作的CPU耗时">
+<pre>[img[http://ithare.com/wp-content/uploads/part101_infographics_v08.png]]
+
+* 原子操作相比于非原子操作慢一个数量级，比如原子的自增VS寄存器自增
+* 分支预测成功与失败差一个数量级
+* 多插槽CPU原子操作相对于单颗CPU耗时高一个数量级</pre>
+</div>
 <div created="20180502064704562" creator="xiaojun" modified="20180503025002125" modifier="xiaojun" tags="C++" title="常用库">
 <pre>|lib|description|h
 |curl|http库|
@@ -13699,6 +13717,33 @@ password
 *若有10位密码，最多只有约有2^^64^^(1.8x10^^19^^)种密码，若每秒尝试10^^6^^个，需要1.8x10^^13^^秒=5.71x10^^5^^年
 *若只考虑常用密码，假定有百万(10^^6^^)密码是常用密码，若每秒可尝试1000个，只需要''1000秒!!!''
 *若将密码长度减少，并且常用密码更集中，则密码空间更小，破解需要次数更少，因此必须增加单次尝试成本</pre>
+</div>
+<div created="20190107100329950" creator="xiaojun" modified="20190107100329950" modifier="xiaojun" tags="密码学" title="命令行参数隐藏">
+<pre>在使用命令行执行程序时，其他用户也可以看到完整的指令。因此直接在命令行参数中携带密码是不安全的。
+
+! 方法1
+但是openssl可以通过使用`-K`参数指定密钥，同时做到了在命令行参数中隐藏敏感信息。
+
+! 方法2
+openssl可以使用密码文件进行加密解密。
+
+```cpp
+int main ()
+{
+    FILE *fd=tmpfile();
+    fwrite(&quot;123&quot;,1,10,fd);
+    fflush(fd);
+    rewind(fd);
+    char command[128];
+    sprintf(command,&quot;openssl aes-256-cbc -in encrypt_file -d -pass fd:%d&quot;,fileno(fd));
+    char buf[4096];
+    auto fp = popen(command, &quot;r&quot;);
+    fread(buf, 1, 4096-1, fp);
+    fclose(fd);
+    return 0;
+}
+```
+</pre>
 </div>
 <div created="20180622090551717" creator="xiaojun" modified="20180625090834671" modifier="xiaojun" tags="TiddlyWiki" title="嵌入网页">
 <pre>使用`iframe`标签
@@ -13872,6 +13917,22 @@ du -sh *
 
 * 一般都不长，一般是4Byte，不超过8Byte
 * 一般第一个字节是不可见字符</pre>
+</div>
+<div created="20190108031637871" creator="xiaojun" modified="20190108033102902" modifier="xiaojun" tags="生信" title="组装水平">
+<pre>NCBI上的参考序列组装水平有几种，
+从小到大分别是
+
+[img[https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvEhaBS315sMPYMBrNMX6OH4f0aco0EpUpq0d7IzqlnDZqrzk4]] 
+
+# Read
+# Contig
+# Scaffold
+# Chromosome
+# Genome
+
+
+
+[img[https://www.researchgate.net/profile/Jang-il_Sohn/publication/309161336/figure/fig1/AS:428870114516992@1479262011314/General-workflow-of-the-de-novo-assembly-of-a-whole-genome-By-overlapping-reads-contigs.png]]</pre>
 </div>
 <div created="20180628031240224" creator="xiaojun" modified="20180628032427216" modifier="xiaojun" tags="aws" title="AWS EC2计费">
 <pre>[ext[ ref link | https://amazonaws-china.com/cn/ec2/pricing/on-demand/]]
@@ -14493,7 +14554,7 @@ target_link_libraries(MyEXE debug Foo_d optimized Foo debug Bar_d optimized Bar 
 
 [img[https://valid.x86.fr/cache/screenshot/lmdr5k.png]]
 
-这台电脑CPU主频5GHz，每个周期是0.2ns。
+这台电脑CPU主频5GHz，每个周期是0.2ns。6核心，L1，L2是每核心独立缓存，L3是共享缓存。
 
 # L1缓存32KB，延时4个时钟周期
 # L2缓存256KB，延时12个时钟周期
