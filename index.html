@@ -349,6 +349,8 @@ Error message and password prompt
 
 <li>KMC进阶使用</li>
 
+<li>kmer递推</li>
+
 <li>Kmer分析时，为何选的Kmer长度不一样？</li>
 
 <li>Kraken2 report analysis</li>
@@ -434,7 +436,7 @@ Error message and password prompt
 <pre>yes</pre>
 </div>
 <div created="20180403085107240" creator="xiaojun" modified="20190117091930750" modifier="xiaojun" title="$:/config/TimestampDisable">
-<pre>yes</pre>
+<pre>no</pre>
 </div>
 <div created="20180409035917410" creator="xiaojun" modified="20180409035918569" modifier="xiaojun" title="$:/config/WikiParserRules/Inline/wikilink">
 <pre>enable</pre>
@@ -13326,7 +13328,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190117084939508" creator="xiaojun" list="随机生成有序数列 [[My Index]] [[New Index]]" modified="20190117084939508" modifier="xiaojun" title="$:/StoryList">
+<div list="kmer递推 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -15113,6 +15115,55 @@ k=18,出现的Kmer达到了13G，总共出现56G，平均每个kmer出现5次。
    Total no. of super-k-mers          :  12586945167
 ```
 k=17,出现的Kmer达到了6G，总共出现56G，平均每个kmer出现9次。
+</pre>
+</div>
+<div created="20190128055946877" creator="xiaojun" modified="20190128062202228" modifier="xiaojun" tags="生信" title="kmer递推">
+<pre>给定一条参考序列可统计出kmer。kmer表有两部分组成，kmer种类和kmer出现次数。
+
+* 若已知序列的kmer种类表，则可以推出(k-1)mer种类表
+* 已知kmer次数表，不能推出(k-1)mer次数表
+
+''举例''
+
+比如序列`AAAAC`，的4-mer种类表
+
+```
+AAAA
+AAAC
+```
+则从4-mer表中得到3-mer
+
+```
+(AAA-AAA)-&gt;AAA
+(AAA-AAC)-&gt;AAC
+```
+
+''举例''
+
+若可从k-mer次数表得到(k-1)-mer次数表，则可从k-mer表得到1-mer表，也就是ACGT个数表。
+
+`ACACC`和`ACCAC`的2-mer次数表相同，但3-mer种类表不同.所以不能从k-mer表得出(k+1)-mer表
+
+```
+AC:2
+CA:1
+CC:1
+```
+
+```
+ACA:1
+CAC:1
+ACC:1
+```
+
+```
+ACC:1
+CCA:1
+CAC:1
+```
+
+
+
 </pre>
 </div>
 <div created="20180524073420183" creator="xiaojun" modified="20180524073705523" modifier="xiaojun" tags="kmer 生信" title="Kmer分析时，为何选的Kmer长度不一样？">
