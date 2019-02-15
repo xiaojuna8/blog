@@ -335,6 +335,8 @@ Error message and password prompt
 
 <li>Git撤销更改</li>
 
+<li>gzip文件格式</li>
+
 <li>Half-precision floating-point format</li>
 
 <li>How does free know how much to free?</li>
@@ -13217,7 +13219,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190212063242789" creator="xiaojun" list="参考基因组 [[My Index]] [[New Index]]" modified="20190212063242789" modifier="xiaojun" title="$:/StoryList">
+<div list="gzip文件格式 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -14773,6 +14775,22 @@ git checkout -- .
  
 在用上述 git clean 前，墙裂建议加上 -n 参数来先看看会删掉哪些文件，防止重要文件被误删
 `git clean -nxfd`,确认后`git clean -xfd`</pre>
+</div>
+<div created="20190215040413756" creator="xiaojun" modified="20190215065900414" modifier="xiaojun" tags="format" title="gzip文件格式">
+<pre>gzip使用DEFLATE算法(混合了LZ77和Huffman编码)。
+[[参考|http://www.onicos.com/staff/iz/formats/gzip.html]]
+
+|各字节表示内容|c
+|头|前两个字节`1f8b`|&lt;|
+|~|再一个字节表示压缩方法,08表示DEFLATE|
+|~|再一个字节中，每个bit有相应的含义|bit 0 set: file probably ascii text &lt;br&gt; bit 1 set: continuation of multi-part gzip file, part number present &lt;br&gt; bit 2 set: extra field present &lt;br&gt; bit 3 set: original file name present &lt;br&gt; bit 4 set: file comment present &lt;br&gt; bit 5 set: file is encrypted, encryption header present &lt;br&gt; bit 6,7:   reserved |
+|~|再四字节表示文件修改时间的Unix时间戳|&lt;|
+|~|再一个字节，扩展标志，(depend on compression method)|
+|~|再一个字节，操作系统类型|&lt;|
+|~|可选区域|&lt;|
+|body|若干字节数据压缩区域|&lt;|
+|尾|4字节，原文CRC32|&lt;|
+|~|4字节，原文长度(mod 2^^32^^)|&lt;|</pre>
 </div>
 <div created="20180620093214781" creator="xiaojun" modified="20180620103118729" modifier="xiaojun" tags="IEEE754" title="Half-precision floating-point format">
 <pre>In the IEEE 754-2008 standard, the 16-bit base 2 format is referred to as binary16. 
