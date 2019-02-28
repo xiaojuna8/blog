@@ -415,6 +415,8 @@ Error message and password prompt
 
 <li>RAR vint</li>
 
+<li>rsync使用</li>
+
 <li>SHA</li>
 
 <li>shared_ptr管理数组</li>
@@ -13228,7 +13230,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="grep使用 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="rsync使用 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -15687,6 +15689,23 @@ Variable length integer. Can include one or more bytes, where lower 7 bits of ev
 !! 优点
 # 表示较小数字时有很高的效率
 # 可以表示任意长度数字</pre>
+</div>
+<div created="20190228065135712" creator="xiaojun" modified="20190228070327023" modifier="xiaojun" tags="linux 工具" title="rsync使用">
+<pre>rsync是一个用来同步文件的工具。可以用来同步两个文件夹里的内容，采用增量更新，可以减少磁盘占用。
+
+! 选项
+* `-a`归档模式，保留文件属性
+* `-h`可读模式
+* `-v`详细模式
+
+! 同步
+!! 同步远程文件夹到本地
+保持本地文件夹内容跟随远程文件夹变化
+
+```
+rsync -ahv root@10.0.0.38:/home ./
+```
+效果：将远程的home目录完整拷贝到当前文件夹中。</pre>
 </div>
 <div created="20180511031039814" creator="xiaojun" modified="20180511032518822" modifier="xiaojun" tags="密码学 HASH SHA" title="SHA">
 <pre>! 背景
