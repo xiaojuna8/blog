@@ -343,6 +343,8 @@ Error message and password prompt
 
 <li>Half-precision floating-point format</li>
 
+<li>hash_table尺寸选择</li>
+
 <li>How does free know how much to free?</li>
 
 <li>How long an argument list your kernel can take on the command line before it chokes</li>
@@ -13230,7 +13232,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="rsync使用 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="hash_table尺寸选择 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -14844,6 +14846,25 @@ In IEEE 754 parlance, there are 10 bits of significand, but there are 11 bits of
 |__m128 _mm_cvtph_ps (__m128i a)|4-6|
 |__m128i _mm256_cvtps_ph (__m256 a, int rounding)|4-9|
 |__m256 _mm256_cvtph_ps (__m128i a)|6-7|</pre>
+</div>
+<div created="20190305073535790" creator="xiaojun" modified="20190305080612075" modifier="xiaojun" tags="HASH" title="hash_table尺寸选择">
+<pre>对于hash table尺寸选择，2的整数幂可能会导致大量冲突。
+
+! hash table结构
+
+[img[https://www.geeksforgeeks.org/wp-content/uploads/implementing-own-hash-table.png]]
+
+期望的情况是每个bucket有相同的元素，这样可以避免查询时间长度不一。
+
+! 某次实验
+比如将305591637个62位整数散列，期望每个bucket上有9个元素
+
+* 如果hash size选择2^^25^^，最多的bucket有15300个元素
+* 如果hash size选择2^^25^^-1，最多的bucket有29个元素
+* 如果hash size选择2^^25^^+1，最多的bucket有30个元素
+* 如果hash size选择33554467(素数)，最多的bucket有30个元素
+
+可见，2的整数幂容易发生冲突，素数也没发现更好的效果</pre>
 </div>
 <div created="20180621101750369" creator="xiaojun" modified="20180621102439827" modifier="xiaojun" tags="c" title="How does free know how much to free?">
 <pre>[ext[参考链接|https://stackoverflow.com/questions/1518711/how-does-free-know-how-much-to-free]]
