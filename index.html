@@ -139,6 +139,8 @@ Error message and password prompt
 
 <li>#pragma once vs ifndef</li>
 
+<li>$:/config/EditorToolbarButtons/Visibility/$:/core/ui/EditorToolbar/rotate-left</li>
+
 <li>$:/config/EditorToolbarButtons/Visibility/$:/plugins/tiddlywiki/katex/ui/EditorToolbar/katex</li>
 
 <li>$:/config/PageControlButtons/Visibility/$:/core/ui/Buttons/close-all</li>
@@ -150,6 +152,10 @@ Error message and password prompt
 <li>$:/config/RelinkOnRename</li>
 
 <li>$:/config/TimestampDisable</li>
+
+<li>$:/config/Toolbar/ButtonClass</li>
+
+<li>$:/config/Toolbar/Text</li>
 
 <li>$:/config/WikiParserRules/Inline/wikilink</li>
 
@@ -183,9 +189,21 @@ Error message and password prompt
 
 <li>$:/state/showeditpreview</li>
 
+<li>$:/state/sidebar</li>
+
+<li>$:/state/tab--1963855381</li>
+
+<li>$:/state/tab--2112689675</li>
+
 <li>$:/state/tab--278313153</li>
 
+<li>$:/state/tab--959111941</li>
+
+<li>$:/state/tab-1749438307</li>
+
 <li>$:/state/tab/sidebar--595412856</li>
+
+<li>$:/state/tabs/controlpanel/toolbars-1345989671</li>
 
 <li>$:/status/UserName</li>
 
@@ -202,6 +220,16 @@ Error message and password prompt
 <li>$:/themes/tiddlywiki/snowwhite</li>
 
 <li>$:/themes/tiddlywiki/vanilla</li>
+
+<li>$:/themes/tiddlywiki/vanilla/metrics/bodyfontsize</li>
+
+<li>$:/themes/tiddlywiki/vanilla/metrics/bodylineheight</li>
+
+<li>$:/themes/tiddlywiki/vanilla/metrics/fontsize</li>
+
+<li>$:/themes/tiddlywiki/vanilla/metrics/lineheight</li>
+
+<li>$:/themes/tiddlywiki/vanilla/metrics/sidebarbreakpoint</li>
 
 <li>$:/themes/tiddlywiki/vanilla/metrics/sidebarwidth</li>
 
@@ -234,6 +262,8 @@ Error message and password prompt
 <li>常用库</li>
 
 <li>超算内存/磁盘</li>
+
+<li>假阳性假阴性判断</li>
 
 <li>假阴性</li>
 
@@ -438,6 +468,9 @@ Error message and password prompt
 <div created="20180409011727627" modified="20180409011925034" tags="编译 C++" title="#pragma once vs ifndef">
 <pre>&gt; pragma once is less prone to making mistakes and it is less code to type.</pre>
 </div>
+<div created="20190312061140406" creator="xiaojun" modified="20190312061140406" modifier="xiaojun" title="$:/config/EditorToolbarButtons/Visibility/$:/core/ui/EditorToolbar/rotate-left">
+<pre>hide</pre>
+</div>
 <div created="20180518080606053" creator="xiaojun" modified="20180518080606053" modifier="xiaojun" title="$:/config/EditorToolbarButtons/Visibility/$:/plugins/tiddlywiki/katex/ui/EditorToolbar/katex">
 <pre>hide</pre>
 </div>
@@ -454,6 +487,12 @@ Error message and password prompt
 <pre>yes</pre>
 </div>
 <div created="20180403085107240" creator="xiaojun" modified="20190215073948343" modifier="xiaojun" title="$:/config/TimestampDisable">
+<pre>no</pre>
+</div>
+<div created="20190312042523964" creator="xiaojun" modified="20190312042604114" modifier="xiaojun" title="$:/config/Toolbar/ButtonClass">
+<pre>tc-btn-invisible</pre>
+</div>
+<div created="20190312042554461" creator="xiaojun" modified="20190312042559333" modifier="xiaojun" title="$:/config/Toolbar/Text">
 <pre>no</pre>
 </div>
 <div created="20180409035917410" creator="xiaojun" modified="20180409035918569" modifier="xiaojun" title="$:/config/WikiParserRules/Inline/wikilink">
@@ -13220,19 +13259,37 @@ Error message and password prompt
 <div created="20190220072408354" creator="xiaojun" modified="20190220072411426" modifier="xiaojun" title="$:/state/edit/references-560591651">
 <pre>hide</pre>
 </div>
-<div created="20181228020250896" creator="xiaojun" modified="20181228020250896" modifier="xiaojun" title="$:/state/showeditpreview">
+<div created="20181228020250896" creator="xiaojun" modified="20190312042834328" modifier="xiaojun" title="$:/state/showeditpreview">
 <pre>yes</pre>
+</div>
+<div created="20190312042257583" creator="xiaojun" modified="20190312042814223" modifier="xiaojun" title="$:/state/sidebar">
+<pre>yes</pre>
+</div>
+<div created="20190312041817641" creator="xiaojun" modified="20190312061144793" modifier="xiaojun" title="$:/state/tab--1963855381">
+<pre>$:/core/ui/ControlPanel/Palette</pre>
+</div>
+<div created="20190312042610481" creator="xiaojun" modified="20190312061158677" modifier="xiaojun" title="$:/state/tab--2112689675">
+<pre>$:/core/ui/ControlPanel/Basics</pre>
 </div>
 <div title="$:/state/tab--278313153">
 <pre>密码学</pre>
 </div>
-<div created="20181228020159100" creator="xiaojun" modified="20190220072111488" modifier="xiaojun" title="$:/state/tab/sidebar--595412856">
+<div created="20190312061150250" creator="xiaojun" modified="20190312061156258" modifier="xiaojun" title="$:/state/tab--959111941">
+<pre>$:/core/ui/ControlPanel/EditorTypes</pre>
+</div>
+<div created="20190312041812635" creator="xiaojun" modified="20190312061146436" modifier="xiaojun" title="$:/state/tab-1749438307">
+<pre>$:/core/ui/ControlPanel/Info</pre>
+</div>
+<div created="20181228020159100" creator="xiaojun" modified="20190312043047881" modifier="xiaojun" title="$:/state/tab/sidebar--595412856">
 <pre>$:/core/ui/SideBar/Recent</pre>
+</div>
+<div created="20190312041821635" creator="xiaojun" modified="20190312061124914" modifier="xiaojun" title="$:/state/tabs/controlpanel/toolbars-1345989671">
+<pre>$:/core/ui/ControlPanel/Toolbars/EditorToolbar</pre>
 </div>
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="hash_table尺寸选择 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div created="20190312041752453" creator="xiaojun" list="假阳性假阴性判断" modified="20190312061313707" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13289,8 +13346,8 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20180404062403081" creator="xiaojun" modified="20180615021422583" modifier="xiaojun" title="$:/theme">
-<pre>$:/themes/tiddlywiki/vanilla</pre>
+<div created="20180404062403081" creator="xiaojun" modified="20190312042333550" modifier="xiaojun" title="$:/theme">
+<pre>$:/themes/tiddlywiki/centralised</pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/snowwhite" description="Centralises the story river" name="Centralised" plugin-type="theme" title="$:/themes/tiddlywiki/centralised" type="application/json" version="5.1.19">
 <pre>{
@@ -13423,35 +13480,50 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20180404062436441" modified="20180404062504351" title="$:/themes/tiddlywiki/vanilla/metrics/sidebarwidth">
-<pre>350px</pre>
+<div created="20190312060930003" creator="xiaojun" modified="20190312060948116" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/metrics/bodyfontsize">
+<pre>14px</pre>
 </div>
-<div created="20180404062545821" modified="20180404063411200" title="$:/themes/tiddlywiki/vanilla/metrics/storyleft">
+<div created="20190312060911868" creator="xiaojun" modified="20190312061005025" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/metrics/bodylineheight">
+<pre>20px</pre>
+</div>
+<div created="20190312061034332" creator="xiaojun" modified="20190312061041410" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/metrics/fontsize">
+<pre>13px</pre>
+</div>
+<div created="20190312061046393" creator="xiaojun" modified="20190312061048542" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/metrics/lineheight">
+<pre>19px</pre>
+</div>
+<div created="20190312042236275" creator="xiaojun" modified="20190312042453506" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/metrics/sidebarbreakpoint">
+<pre>1160px</pre>
+</div>
+<div created="20180404062436441" creator="xiaojun" modified="20190312042457647" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/metrics/sidebarwidth">
+<pre>600px</pre>
+</div>
+<div created="20180404062545821" creator="xiaojun" modified="20190312042135444" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/metrics/storyleft">
+<pre>10px</pre>
+</div>
+<div created="20180404062417518" creator="xiaojun" modified="20190312042447419" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/metrics/storyright">
+<pre>1180px</pre>
+</div>
+<div created="20180404063008073" creator="xiaojun" modified="20190312042143196" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/metrics/storytop">
 <pre>0px</pre>
 </div>
-<div created="20180404062417518" modified="20180404062417518" title="$:/themes/tiddlywiki/vanilla/metrics/storyright">
-<pre>970px</pre>
+<div created="20180404062418788" creator="xiaojun" modified="20190312042449782" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/metrics/storywidth">
+<pre>1180px</pre>
 </div>
-<div created="20180404063008073" modified="20180404063011942" title="$:/themes/tiddlywiki/vanilla/metrics/storytop">
-<pre>0px</pre>
-</div>
-<div created="20180404062418788" modified="20180404062418788" title="$:/themes/tiddlywiki/vanilla/metrics/storywidth">
-<pre>970px</pre>
-</div>
-<div created="20180404062420881" modified="20180404062420881" title="$:/themes/tiddlywiki/vanilla/metrics/tiddlerwidth">
-<pre>886px</pre>
+<div created="20180404062420881" creator="xiaojun" modified="20190312042451504" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/metrics/tiddlerwidth">
+<pre>1180px</pre>
 </div>
 <div created="20180404062526378" modified="20180404062526378" title="$:/themes/tiddlywiki/vanilla/options/codewrapping">
 <pre>pre</pre>
 </div>
-<div created="20180403072521711" modified="20180404063405663" title="$:/themes/tiddlywiki/vanilla/options/sidebarlayout">
+<div created="20180403072521711" creator="xiaojun" modified="20190312042344983" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/options/sidebarlayout">
 <pre>fluid-fixed</pre>
 </div>
 <div created="20180404062524780" modified="20180404062524780" title="$:/themes/tiddlywiki/vanilla/options/stickytitles">
 <pre>yes</pre>
 </div>
-<div created="20180404062516173" modified="20180404062516173" title="$:/themes/tiddlywiki/vanilla/settings/backgroundimageattachment">
-<pre>scroll</pre>
+<div created="20180404062516173" creator="xiaojun" modified="20190312042440265" modifier="xiaojun" title="$:/themes/tiddlywiki/vanilla/settings/backgroundimageattachment">
+<pre>fixed</pre>
 </div>
 <div created="20180518080519542" creator="xiaojun" modified="20180525024824361" modifier="xiaojun" title="$:/view">
 <pre>classic</pre>
@@ -13538,6 +13610,29 @@ March 2018, is ranked number one in the TOP500 list as the fastest supercomputer
 | disk | 20PB |
 
 1 PB = 1000000000000000B $$\approx$$ 2^^50^^ B</pre>
+</div>
+<div created="20190312040907998" creator="xiaojun" modified="20190312062531277" modifier="xiaojun" tags="分类" title="假阳性假阴性判断">
+<pre>! 背景
+当使用一个阈值来进行分类时，如果两种类型分布有重叠，那就会导致假阳性或者假阴性现象。比如两种类型，正常人和病人的体温分布分别是蓝色和红色曲线。正常人也有小部分体温偏高，病人也有小部分体温偏低，并且界限不明确。如果以某个温度为阈值，将体温高的认为是病人，体温低的为正常人，这样肯定会有误判。
+
+[img[https://www.derangedphysiology.com/main/sites/default/files/sites/default/files/CICM%20Primary%20Exam/A-%20Research%20methods/positive%20and%20negative%20test%20curves%20to%20explain%20the%20ROC.JPG]]
+
+一共有四种情况
+
+# 真阳性(True positive)
+# 真阴性(True negative)
+# 假阳性(False positive)
+# 假阴性(False negative)
+
+;敏感性Sensitivity,Recall,True Positive Rate
+: $$TPR=\frac{TP}{TP+FN}=1-FNR$$
+: 能被检出的阳性占总阳性的比例
+;特异性Specificity,Selectivity,True Negative Rate
+: $$TNR=\frac{TN}{TN+FP}=1-FPR$$
+:能被检出的阴性占总阴性的比例
+
+* 如果将判断阈值定的很低，所有阳性都可以被检测出，那么敏感性高
+* 如果判断阈值很高，所有阴性可以被检出，那么特异性高</pre>
 </div>
 <div created="20180521070305311" creator="xiaojun" modified="20180521071325810" modifier="xiaojun" tags="概率" title="假阴性" type="j">
 <pre>大牛说他浑身发痒。有一个检测可以知道她是不是对猫过敏，但这个检测不一定是对的：
