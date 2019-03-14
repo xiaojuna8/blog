@@ -494,8 +494,8 @@ Error message and password prompt
 <div created="20180428095744136" creator="xiaojun" modified="20180428095744136" modifier="xiaojun" title="$:/config/RelinkOnRename">
 <pre>yes</pre>
 </div>
-<div created="20180403085107240" creator="xiaojun" modified="20190215073948343" modifier="xiaojun" title="$:/config/TimestampDisable">
-<pre>no</pre>
+<div created="20180403085107240" creator="xiaojun" modified="20190313091954674" modifier="xiaojun" title="$:/config/TimestampDisable">
+<pre>yes</pre>
 </div>
 <div created="20190312042523964" creator="xiaojun" modified="20190312042604114" modifier="xiaojun" title="$:/config/Toolbar/ButtonClass">
 <pre>tc-btn-invisible</pre>
@@ -13279,8 +13279,8 @@ Error message and password prompt
 <div created="20190312042610481" creator="xiaojun" modified="20190313031528806" modifier="xiaojun" title="$:/state/tab--2112689675">
 <pre>$:/core/ui/ControlPanel/Advanced</pre>
 </div>
-<div title="$:/state/tab--278313153">
-<pre>密码学</pre>
+<div created="20190313091941872" creator="xiaojun" modified="20190313091941872" modifier="xiaojun" title="$:/state/tab--278313153">
+<pre>linux</pre>
 </div>
 <div created="20190312061150250" creator="xiaojun" modified="20190313031551925" modifier="xiaojun" title="$:/state/tab--959111941">
 <pre>$:/core/ui/ControlPanel/Stylesheets</pre>
@@ -13294,7 +13294,7 @@ Error message and password prompt
 <div created="20190313031329935" creator="xiaojun" modified="20190313031329935" modifier="xiaojun" title="$:/state/tab/moresidebar-1850697562">
 <pre>$:/core/ui/MoreSideBar/Plugins</pre>
 </div>
-<div created="20181228020159100" creator="xiaojun" modified="20190313031403461" modifier="xiaojun" title="$:/state/tab/sidebar--595412856">
+<div created="20181228020159100" creator="xiaojun" modified="20190313091939250" modifier="xiaojun" title="$:/state/tab/sidebar--595412856">
 <pre>$:/core/ui/SideBar/Recent</pre>
 </div>
 <div created="20190312041821635" creator="xiaojun" modified="20190312061124914" modifier="xiaojun" title="$:/state/tabs/controlpanel/toolbars-1345989671">
@@ -13303,7 +13303,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="Q值 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div created="20190313091945663" creator="xiaojun" list="[[My Index]] [[New Index]] [[linux time]]" modified="20190313091945663" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -15459,7 +15459,12 @@ sys	0m1.490s
 
 *real &lt; user: The process is CPU bound and takes advantage of parallel execution on multiple cores/CPUs.
 *real ≈ user: The process is CPU bound and takes no advantage of parallel exeuction.
-*real &gt; user: The process is I/O bound. Execution on multiple cores would be of little to no advantage.</pre>
+*real &gt; user: The process is I/O bound. Execution on multiple cores would be of little to no advantage.
+
+如果要将time的输出重定向到文件里，需要注意
+
+* time的输出是到stderr
+* time有参数可直接输出到文件，`-o`输出到文件,`-a`以追加方式</pre>
 </div>
 <div created="20180713075556896" creator="xiaojun" modified="20180713075848851" modifier="xiaojun" tags="linux" title="linux top">
 <pre>linux top 列含义
