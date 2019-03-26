@@ -269,6 +269,8 @@ Error message and password prompt
 
 <li>超算内存/磁盘</li>
 
+<li>非密码学Hash函数</li>
+
 <li>假阳性假阴性判断</li>
 
 <li>假阴性</li>
@@ -374,6 +376,8 @@ Error message and password prompt
 <li>git tag</li>
 
 <li>Git撤销更改</li>
+
+<li>grep匹配并显示前后几个字</li>
 
 <li>grep使用</li>
 
@@ -13305,7 +13309,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="将TSV按顺序漂亮显示 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="非密码学Hash函数 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13652,6 +13656,22 @@ March 2018, is ranked number one in the TOP500 list as the fastest supercomputer
 | disk | 20PB |
 
 1 PB = 1000000000000000B $$\approx$$ 2^^50^^ B</pre>
+</div>
+<div created="20190325072844848" creator="xiaojun" modified="20190325074115196" modifier="xiaojun" tags="HASH" title="非密码学Hash函数">
+<pre>对于普通应用(''不是安全方面应用'')的hash函数
+
+* 查找
+* 均匀分布
+
+可以使用如下
+
+|name|bit|year|h
+|FNV|32/64/128/256/512/1024|1991|
+|Murmur Hash|32/64/128|2008|
+|City Hash|64/128|2011|
+|非密码学Hash函数|c
+
+这类Hash函数计算速度较密码学安全的Hash算法要快几十上百倍，而且具有很好的分布，可将数据均匀分布。</pre>
 </div>
 <div created="20190312040907998" creator="xiaojun" modified="20190313032131550" modifier="xiaojun" tags="分类" title="假阳性假阴性判断">
 <pre>! 背景
@@ -15003,6 +15023,11 @@ git checkout -- .
  
 在用上述 git clean 前，墙裂建议加上 -n 参数来先看看会删掉哪些文件，防止重要文件被误删
 `git clean -nxfd`,确认后`git clean -xfd`</pre>
+</div>
+<div created="20190321072918112" creator="xiaojun" modified="20190321073518626" modifier="xiaojun" tags="regex 工具" title="grep匹配并显示前后几个字">
+<pre>有时候需要显示匹配上的字符串以及前后几个字符，可用grep工具
+
+`grep -o -E '.{500}CGACCTGGAGGCGCTGGAACCGGTGCTGAGTAGCGAGGGGC.{500}'`</pre>
 </div>
 <div created="20190222063040732" creator="xiaojun" modified="20190222063319619" modifier="xiaojun" tags="regex linux" title="grep使用">
 <pre>正则匹配工具
