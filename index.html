@@ -409,6 +409,8 @@ Error message and password prompt
 
 <li>kmer统计</li>
 
+<li>Kolmogorov–Smirnov test</li>
+
 <li>Kraken2 report analysis</li>
 
 <li>Kraken2报告格式分析</li>
@@ -13311,7 +13313,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="参考基因组大小 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="[[Kolmogorov–Smirnov test]] [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -15412,6 +15414,37 @@ GTGTGGCTGGGTCCCCTCCTTCAC
 ;minimizer
 :序列中编码最小的子序列
 ''单序列中若有N则自然分成多序列统计''</pre>
+</div>
+<div created="20190329013456445" creator="xiaojun" modified="20190329021700000" modifier="xiaojun" tags="概率 统计" title="Kolmogorov–Smirnov test">
+<pre>如果已经有了一系列的随机变量的值，如何判断判断随机变量是否服从某种分布 ，可以用 `Kolmogorov–Smirnov test`
+
+
+```python
+#生成一个服从均匀分布的矩阵
+&gt;&gt;&gt; s = np.random.uniform(0,1,1000)
+&gt;&gt;&gt; kstest(s,'uniform') #是否服从均匀分布
+(0.023379321536209724, 0.64516789427380505)
+&gt;&gt;&gt; kstest(s,'norm') #是否服从正态分布
+(0.50011232873186096, 0.0)
+```
+
+如果有两组随机变量的观测值，如何确认这两组数据同属一种分布,`two-sample K–S test`
+
+
+```python
+&gt;&gt;&gt; from scipy.stats import norm, ks_2samp
+&gt;&gt;&gt; np.random.seed(12345678)
+&gt;&gt;&gt; x = np.random.normal(0, 1, 1000)
+&gt;&gt;&gt; y = np.random.normal(0, 1, 1000)
+&gt;&gt;&gt; z = np.random.normal(1.1, 0.9, 1000)
+&gt;&gt;&gt; ks_2samp(x, y)
+(0.022999999999999909, 0.95189016804849647)
+&gt;&gt;&gt; ks_2samp(x, z)
+(0.41800000000000004, 3.7081494119242173e-77)
+```
+
+返回值第一个是统计距离，第二个是p-value。统计距离指的是比较双方的CDF之间的最大距离。
+[img[https://upload.wikimedia.org/wikipedia/commons/c/cf/KS_Example.png]]</pre>
 </div>
 <div created="20181221015641567" creator="xiaojun" modified="20181221031610637" modifier="xiaojun" tags="生信" title="Kraken2 report analysis">
 <pre>Kraken2报告中包含了检测出的每个等级的浓度。
