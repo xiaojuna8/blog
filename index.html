@@ -465,6 +465,8 @@ Error message and password prompt
 
 <li>RAR vint</li>
 
+<li>RefSeq和genbank的数据有什么区别</li>
+
 <li>rsync使用</li>
 
 <li>SHA</li>
@@ -13313,7 +13315,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[Kolmogorov–Smirnov test]] [[My Index]] [[New Index]]" title="$:/StoryList">
+<div created="20190412072511048" creator="xiaojun" list="RefSeq和genbank的数据有什么区别 [[My Index]] [[New Index]]" modified="20190412072511048" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -15997,6 +15999,12 @@ Variable length integer. Can include one or more bytes, where lower 7 bits of ev
 !! 优点
 # 表示较小数字时有很高的效率
 # 可以表示任意长度数字</pre>
+</div>
+<div created="20190412072231636" creator="xiaojun" modified="20190412072546362" modifier="xiaojun" tags="生信" title="RefSeq和genbank的数据有什么区别">
+<pre>genbank是一个开放的数据库，对每个基因都含有许多序列。很多研究者或者公司都可以自己提交序列。
+RefSeq数据库被设计成每个人类位点挑出一个代表序列来减少重复，refseq序列是NCBI筛选过的非冗余数据库，一般可信度比较高。
+
+''RefSeq'' 是经过仔细挑选的可信度高的。''genbank''是公共的，任何人都可以上传，可信度不如RefSeq</pre>
 </div>
 <div created="20190228065135712" creator="xiaojun" modified="20190228070327023" modifier="xiaojun" tags="linux 工具" title="rsync使用">
 <pre>rsync是一个用来同步文件的工具。可以用来同步两个文件夹里的内容，采用增量更新，可以减少磁盘占用。
