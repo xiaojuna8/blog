@@ -355,6 +355,8 @@ Error message and password prompt
 
 <li>Create a RAM disk in Linux</li>
 
+<li>DNA复制速度</li>
+
 <li>docker learn 1</li>
 
 <li>docker learn 2</li>
@@ -13315,7 +13317,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190412072511048" creator="xiaojun" list="RefSeq和genbank的数据有什么区别 [[My Index]] [[New Index]]" modified="20190412072511048" modifier="xiaojun" title="$:/StoryList">
+<div list="DNA复制速度 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -14767,6 +14769,14 @@ You can add the mount entry into /etc/fstab to make the RAM disk persist over re
 
 ! 实测
 在8GB内存的笔记本上，创建1GB虚拟磁盘，速度约3-4GB／s</pre>
+</div>
+<div created="20190423062556317" creator="xiaojun" modified="20190423064539448" modifier="xiaojun" tags="生信" title="DNA复制速度">
+<pre>在三代测序里，降低了DNA复制的速度。由这篇PPT可以看出细胞里750bp/s，减速到2bp/s。估计降低速度是为了方便相机曝光拍照，他每个cell里有1M纳米孔(零模波导)，肯定需要高分辨率的相机，再加上复制时光信号微弱，需要更长的曝光时间。如果以750bp/s(1.3ms/bp)，那么至少要以高一倍的频率拍照，也就要1500fps。
+http://dors.weizmann.ac.il/course/course2018/Hadas%20Keren%20Shaul_PacBio_2018.pdf
+
+[img[https://i.loli.net/2019/04/23/5cbeafdc48ce9.png]]
+
+还有大肠杆菌参考基因组约4Mbp，每20分钟繁殖一代，那么DNA复制速度应该不低于3kb/s.</pre>
 </div>
 <div created="20180419010139376" creator="xiaojun" modified="20180419020300527" modifier="xiaojun" tags="learn docker" title="docker learn 1">
 <pre>[img [https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Docker_%28container_engine%29_logo.svg/440px-Docker_%28container_engine%29_logo.svg.png]]
