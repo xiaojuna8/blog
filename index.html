@@ -471,6 +471,8 @@ Error message and password prompt
 
 <li>rsync使用</li>
 
+<li>SAM格式</li>
+
 <li>SHA</li>
 
 <li>shared_ptr管理数组</li>
@@ -13281,8 +13283,8 @@ Error message and password prompt
 <div created="20190220072408354" creator="xiaojun" modified="20190220072411426" modifier="xiaojun" title="$:/state/edit/references-560591651">
 <pre>hide</pre>
 </div>
-<div created="20181228020250896" creator="xiaojun" modified="20190312042834328" modifier="xiaojun" title="$:/state/showeditpreview">
-<pre>yes</pre>
+<div created="20181228020250896" creator="xiaojun" modified="20190425094000516" modifier="xiaojun" title="$:/state/showeditpreview">
+<pre>no</pre>
 </div>
 <div created="20190312042257583" creator="xiaojun" modified="20190312042814223" modifier="xiaojun" title="$:/state/sidebar">
 <pre>yes</pre>
@@ -13317,7 +13319,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="DNA复制速度 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="SAM格式 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -16032,6 +16034,57 @@ RefSeq数据库被设计成每个人类位点挑出一个代表序列来减少�
 rsync -ahv root@10.0.0.38:/home ./
 ```
 效果：将远程的home目录完整拷贝到当前文件夹中。</pre>
+</div>
+<div created="20190425092227913" creator="xiaojun" modified="20190425100032082" modifier="xiaojun" tags="format 生信" title="SAM格式">
+<pre>! 简介
+SAM是一种序列比对格式。
+
+! 结构
+总体上分成两个部分
+
+# 头部
+# 身体
+
+!! 头部
+头部记录了例如meta data，比如参考序列的名称以及长度，比对软件的名称和版本以及执行指令。格式上头部的每行都以@开头。
+
+!! 身体
+身体部分记录了每个Read的匹配信息，每个占一行。每一列代表一种信息。
+
+| 列序 | Filed | Description | 中文 |h
+| 1 | QNAME | Query (pair) NAME | Read名称 |
+| 2 | FLAG | bitwise FLAG | 标准位 |
+| 3 | RNAME | Reference sequence NAME | 参考序列名称 |
+| 4 | POS | 1-based leftmost POSition/coordinate of clipped sequence | Read在参考序列中的位置，从1开始 |
+
+
+!!! FLAG各bit含义
+
+| Chr | Value | Description | 中文 |h
+|  p | 0x0001 | the read is paired in sequencing | 双端测序 |
+|  P | 0x0002 | the read is mapped in a proper pair | Read被合适的比对到一对上 |
+|  u | 0x0004 | the query sequence itself is unmapped | 序列本身比对成功 |
+|  U | 0x0008 | the mate is unmapped | 这对Read没有比对成功 |
+|  r | 0x0010 | strand of the query (1 for reverse) | Read来自反向互补序列 |
+
+! 某个SAM文件
+
+```
+@SQ     SN:chrM LN:16569
+@PG     ID:bwa  PN:bwa  VN:0.7.17-r1188 CL:bwa mem chrM.fa chrM_sim.fq
+chrM:0:1        16      chrM    6776    60      120M    *       0       0       TATATTTACAGTAGGAATAGACGTAGACACACGAGCATATTTCACCTCCGCTACCATAATCATCGCTATCCCCACCGGCGTCAAAGTATTTAGCTGACTCGCCACACTCCACGGAAGCAA        eaeccffeeeQecaae]d^eef_eFee]deeeee^eceTaeYedbaeeeeefe]eaZdUdeee_eebeeeeeeeeeef`ddddfdedZbeeeeeddeZdeeedb\de[e`cdeede_dde        NM:i:0  MD:Z:120        AS:i:120        XS:i:0
+chrM:0:2        0       chrM    12034   60      120M    *       0       0       CATAAAACCCTCATTCACACGAGAAAACACCCTCATGTTCATACACCTATCCCCCATTCTCCTCCTATCCCTCAACCCCGACATCATTACCGGGTTTTCCTCTTGTAAATATAGTTTAAC        eeeecdXReeb`eedbeee^edceeeeecdeMefacZeddcec\eed`\\ce_ecee_ee^eeeeWeeeee^dbeecedddddefeG[eeedce^ceaeeefeeed]efeeefcfedee]        NM:i:0  MD:Z:120        AS:i:120        XS:i:0
+...
+chrM:0:38       16      chrM    352     60      10S110M *       0       0       GCCAAAGGGTACCCCAAAAACAAAGAACCCTAACACCAGCCTAACCAGATTTCAAATTTTATCTTTTGGCGGTATGCACTTTTAACAGTCACCCCCCAACTAACACATTATTTTCCCCTC        edde`eeeb`b\efTee^cbedZeUfefcZe`decebefeeeeeeeeedefe`Xceeee\d[eeebea`cfbeeeeddeebdaec_ede]dceedba[dfacdeeeadceae^Peeede`        NM:i:0  MD:Z:110        AS:i:110        XS:i:0
+...
+chrM:0:66       0       chrM    11014   60      64M3I53M        *       0       0       CAGTGAACCACTATCACGAAAAAAACTCTACCTCTCTATACTAATCTCCCTACAAATCTCCTTAATTATTATAACATTCACAGCCACAGAACTAATCATATTTTATATCTTCTTCGAAAC        eeeeeeUeWe`^^deeXf_[eaee\e`eeee`deefddReeYefefeedceeeee`e`Uec\eeceeeceef^feeeeeeee\eeeUaeedeceebdeeeeefcee\e[aW_eeeedX`e        NM:i:3  MD:Z:117        AS:i:108        XS:i:0
+...
+chrM:0:149      0       chrM    15305   60      20M2D100M       *       0       0       TTCATTATTGCAGCCCTAGCCACTCCACCTCCTATTCTTGCACGAAACGGGATCAAACAACCCCCTAGGAATCACCTCCCATTCCGATAAAATCACCTTCCACCCTTACTACACAATCAA        ee`eedee^deeeedaefd_deeef]aYdeeeeeeeY\dedeaceecf^ceeacededfccdeebfe_d]eUedfWeebdedeeeedfeeeeXfcdebeec\`eeeeafaeeddeTf_eS        NM:i:2  MD:Z:20^AA100   AS:i:112        XS:i:0
+...
+```
+! 参考手册
+参考bwa手册中提到的`SAM ALIGNMENT FORMAT`章节
+&lt;iframe src=&quot;http://bio-bwa.sourceforge.net/bwa.shtml&quot;  width=&quot;900&quot; height=&quot;500&quot;&gt;&lt;/iframe&gt;</pre>
 </div>
 <div created="20180511031039814" creator="xiaojun" modified="20180511032518822" modifier="xiaojun" tags="密码学 HASH SHA" title="SHA">
 <pre>! 背景
