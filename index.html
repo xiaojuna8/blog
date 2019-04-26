@@ -13319,7 +13319,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="SAM格式 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div created="20190426004803353" creator="xiaojun" list="SAM格式 [[My Index]] [[New Index]]" modified="20190426004803353" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -16035,9 +16035,13 @@ rsync -ahv root@10.0.0.38:/home ./
 ```
 效果：将远程的home目录完整拷贝到当前文件夹中。</pre>
 </div>
-<div created="20190425092227913" creator="xiaojun" modified="20190425100032082" modifier="xiaojun" tags="format 生信" title="SAM格式">
+<div created="20190425092227913" creator="xiaojun" modified="20190426012457359" modifier="xiaojun" tags="format 生信" title="SAM格式">
 <pre>! 简介
-SAM是一种序列比对格式。
+SAM是一种序列比对格式。用来记录比对结果，目的是满足如下需求
+
+# 有很多条Read，单端的或者双端的
+# 有很多条参考序列，比如人类基因组里有很多条参考序列
+# 记录下哪个Read匹配到哪条参考序列的哪个位置，以及多少个匹配字符，多少不匹配字符等等信息
 
 ! 结构
 总体上分成两个部分
@@ -16056,6 +16060,9 @@ SAM是一种序列比对格式。
 | 2 | FLAG | bitwise FLAG | 标准位 |
 | 3 | RNAME | Reference sequence NAME | 参考序列名称 |
 | 4 | POS | 1-based leftmost POSition/coordinate of clipped sequence | Read在参考序列中的位置，从1开始 |
+| 5 | MAPQ | MAPping Quality (Phred-scaled) | 比对的质量，或者说相似度 |
+| 6 | CIAGR | extended CIGAR string | 详细匹配信息，比如哪些字符匹配，哪些字符不匹配，多了还是少了哪些字符 |
+| 7 | MRNM | Mate Reference sequence NaMe | x |
 
 
 !!! FLAG各bit含义
@@ -16064,8 +16071,27 @@ SAM是一种序列比对格式。
 |  p | 0x0001 | the read is paired in sequencing | 双端测序 |
 |  P | 0x0002 | the read is mapped in a proper pair | Read被合适的比对到一对上 |
 |  u | 0x0004 | the query sequence itself is unmapped | 序列本身比对成功 |
-|  U | 0x0008 | the mate is unmapped | 这对Read没有比对成功 |
+|  U | 0x0008 | the mate is unmapped | 与之配对的Read没有比对成功 |
 |  r | 0x0010 | strand of the query (1 for reverse) | Read来自反向互补序列 |
+| R | 0x0020 | strand of the mate | x |
+| 1 | 0x0040 | the read is the first read in a pair | x |
+| 2 | 0x0080 | the read is the second read in a pair | x |
+| s | 0x0100 | the alignment is not primary | x |
+
+!!! CIAGR含义
+该字段记录匹配信息，记录了哪些字符是匹配的哪些不匹配。
+
+| Op | Descripition | 中文 |h
+| M |  alignment match (can be a sequence match or mismatch) | 匹配 |
+| I | insertion to the reference | 相对参考序列增加了 |
+| D |  deletion from the reference | 相对参考序列减少了 |
+| N |  skipped region from the reference | x |
+| S |  soft clipping (clipped sequences present in SEQ) | x |
+| H |  hard clipping (clipped sequences NOT present in SEQ) | x |
+| P | padding (silent deletion from padded reference) | x |
+| = |  sequence match | x |
+| X |  sequence mismatch | x |
+
 
 ! 某个SAM文件
 
@@ -16082,9 +16108,15 @@ chrM:0:66       0       chrM    11014   60      64M3I53M        *       0       
 chrM:0:149      0       chrM    15305   60      20M2D100M       *       0       0       TTCATTATTGCAGCCCTAGCCACTCCACCTCCTATTCTTGCACGAAACGGGATCAAACAACCCCCTAGGAATCACCTCCCATTCCGATAAAATCACCTTCCACCCTTACTACACAATCAA        ee`eedee^deeeedaefd_deeef]aYdeeeeeeeY\dedeaceecf^ceeacededfccdeebfe_d]eUedfWeebdedeeeedfeeeeXfcdebeec\`eeeeafaeeddeTf_eS        NM:i:2  MD:Z:20^AA100   AS:i:112        XS:i:0
 ...
 ```
+
+* 序列chrM:0:1匹配了120字符，从chrM的第6776字符开始，反向匹配(Read是参考序列的反向互补序列)
+* 序列chrM:0:38，有10个软切断，剩下110个字符匹配
+* 序列chrM:0:66，有64个匹配，3个插入，再53个匹配，总共120bp
+* 序列chrM:0:149 ，有20个匹配，2个缺失，然后100个匹配，Read长120，对应参考序列上122
+
 ! 参考手册
 参考bwa手册中提到的`SAM ALIGNMENT FORMAT`章节
-&lt;iframe src=&quot;http://bio-bwa.sourceforge.net/bwa.shtml&quot;  width=&quot;900&quot; height=&quot;500&quot;&gt;&lt;/iframe&gt;</pre>
+//&lt;iframe src=&quot;http://bio-bwa.sourceforge.net/bwa.shtml&quot;  width=&quot;900&quot; height=&quot;500&quot;&gt;&lt;/iframe&gt;</pre>
 </div>
 <div created="20180511031039814" creator="xiaojun" modified="20180511032518822" modifier="xiaojun" tags="密码学 HASH SHA" title="SHA">
 <pre>! 背景
