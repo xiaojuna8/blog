@@ -291,6 +291,8 @@ Error message and password prompt
 
 <li>嵌入网页</li>
 
+<li>如何比对两条短序列</li>
+
 <li>设置文件读写缓冲</li>
 
 <li>生物划分</li>
@@ -13319,7 +13321,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190426004803353" creator="xiaojun" list="SAM格式 [[My Index]] [[New Index]]" modified="20190426004803353" modifier="xiaojun" title="$:/StoryList">
+<div list="如何比对两条短序列 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13921,6 +13923,29 @@ int main ()
 &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.draw.io/?lightbox=1&amp;highlight=0000ff&amp;edit=_blank&amp;layers=1&amp;nav=1&amp;title=Untitled%20Diagram.xml#R7ZtNc9o6FIZ%2FDcsw1pc%2FliFJezd3pjPpTNcqVoymBlEhgrm%2F%2Fsq2jG2kBKcVhNRlAz6SJfl9dKxzZDNBd8vis6Trxb8iZfkEBmkxQfcTCG%2BiONBfpWVfWyCqjzPJ09oCWsMj%2F48Zozkt2%2FKUbXoVlRC54uu%2BcS5WKzZXPRuVUuz61Z5E3u91TTNmGR7nNLet33iqFsYKwqQt%2BIfxbGG6jmFUF3yn8x%2BZFNuV6W8C0VP1qYuXtGnLXOhmQVOx65jQwwTdSSFU%2FWtZ3LG8lLaRrT7v0wulh3FLtlJDTogaMM8037JmzNXI1L5RY7fgij2u6bw83mngEzR74nl%2BJ3IhqyoIwNvbGdH2TNKU686bspVYsY75nkvNi4uVLmJ0o8c42ygpfrCj%2Bgu1zPURKHsSbWu6J4gwJnr0M%2FtSzdU%2FM6lY0TGZS%2F%2FMxJIpuddVTCnESTQl9VlmogIc4ikJ2o%2BRY9eZBg28RWcGAGSM1Ey97NBbK7%2F%2BYQi8RAOPmUZo0yAYN6ZTBEgwDbrckA8eZMw8Yod3JIN5gMCLR4QjJoACBwE4nEDkhUB0mgBL9fJpDk8qVPvnQdlmgUWW1t26L6pZdv2qll2VgtfmqWQ5Vfy5HwK4pDN9fBFcj6WzmCD79tW6S9PQRmzlnJlzuyvzgOYAsJpTVGZMWc1VVA8iDAQde3G1T0EcBR%2FO1VyhAELvGQokXmg8xCTE8E%2BgAYM%2BjaE3QS80mkbG6RuOwAzFeIqT9hMPpEGSadI9zUeUhoAXOB%2FUVVxwyOAYwY93wDF7hyNMrlaOgR4ReiHgJ43%2FoC7gIACGuwCIvRAYkLr%2FDZO9h8kIkSHNeQyTkb0n8IVKqptgshrXMXU9iysH0Z7HV9lXof3u%2FobY7M02KIibY9NEcHJuHHmdB5dCKLRljaHDpWLHXIFeHMrO%2FAswXFya86y8Pc21CBoMmpUXz%2Bc0vzUFS56mZSuW1iewXBKDKw4mSXjZxd3O%2Fwv71vaHc3BtTV6ag52eF2hsHBwr%2FcU5%2BEnMP%2BiOJLSW28S5JYxIbzceAOzC0d%2Bxb3YafwsPHnOmXuHppuVHqEg%2FaU%2BuCNuYc3iXVwFPXnWo83t47Az%2F637NtOUNIdmAXKe7wBBf4lprRgKS3lYisIQ%2BW1SL7UTdCPmGmOp6hCTvJ6Sdbxsh3xAUXY%2BQyfsJ%2BXo%2Bu%2F9lNX8ln%2FWgLkR2jBjE5JKpK7ZT1%2F21pq4%2BFMcBOVb89Gs0yLXJBPuPByIvoYWdwO6vNYE9Ew33fvTlCNip6%2F5aU9czEaieXr4jAVfSGubKCNEDEf7ciqbgZlNJdlsuq8G6qPRpyvWvrPy%2B51SH1UtdRXGl2zDt6jHVTde1zoa7ZoqCI%2Fxg2PLuBbe1ox07nz7EwIEbEw94yaiTXsdbUih6w3uDPgCMOn11AIDh8OdvwAsBO0Mt8JWuMWd7auMAcd7tUX3YvqxeP01r%2FxCAHv4H&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
 
 效果图</pre>
+</div>
+<div created="20190426030417825" creator="xiaojun" modified="20190426033902473" modifier="xiaojun" tags="生信" title="如何比对两条短序列">
+<pre>! 为什么需要这么做
+想要知道两条序列之间的关联，知道哪些部分是对应的，可以通过Smith–Waterman algorithm，通过打分的方法获取两条序列之间的关联。得到如
+
+```
+TACGGGCCCGCTA
+||   |||  |||
+TA---GCC--CTA
+```
+这个算法复杂度为O(mn)，其中mn是两条序列的长度。
+
+! 某一种打分方法
+假设有两条序列$$A=a_1a_2a_3...a_n$$和$$B=b_1b_2b_3...b_m$$，打分矩阵是形如$$(m+1)(n+1)$$的矩阵$$H$$，其中第一行和第一列被赋值为0.
+
+$$H_{ij} = max \{ H_{i-1,j-1}+s(a_i,b_j), H_{i-1,j}-W_1, H_{i,j-1}-W_1, 0\}$$ 其中$$s(a_i,b_j)= a_i  == b_j ? 3 : -3$$, $$W_1 = 2$$,这里面的分值都可以设定. 就是一个匹配加3分，不匹配罚3分。每个插入和删除罚2分。
+
+| 对于某序列打分结果 | 比对结果 |h
+| [img[https://i.loli.net/2019/04/26/5cc279dc7f59d.png]] | [img[https://i.loli.net/2019/04/26/5cc27a22ab70c.png]] |
+
+从最高分开始查找，只能向左向上查找，直到0
+
+</pre>
 </div>
 <div created="20180706032724591" creator="xiaojun" modified="20180706033054802" modifier="xiaojun" tags="c" title="设置文件读写缓冲">
 <pre>`int setvbuf ( FILE * stream, char * buffer, int mode, size_t size );`
@@ -16035,7 +16060,7 @@ rsync -ahv root@10.0.0.38:/home ./
 ```
 效果：将远程的home目录完整拷贝到当前文件夹中。</pre>
 </div>
-<div created="20190425092227913" creator="xiaojun" modified="20190426012457359" modifier="xiaojun" tags="format 生信" title="SAM格式">
+<div created="20190425092227913" creator="xiaojun" modified="20190426014944867" modifier="xiaojun" tags="format 生信" title="SAM格式">
 <pre>! 简介
 SAM是一种序列比对格式。用来记录比对结果，目的是满足如下需求
 
@@ -16091,7 +16116,8 @@ SAM是一种序列比对格式。用来记录比对结果，目的是满足如�
 | P | padding (silent deletion from padded reference) | x |
 | = |  sequence match | x |
 | X |  sequence mismatch | x |
-
+网上的某个图，前面两条好理解，后面三个不知为什么可以这样表示。
+[img[https://i.loli.net/2019/04/26/5cc2632060f84.png]]
 
 ! 某个SAM文件
 
