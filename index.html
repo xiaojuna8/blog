@@ -457,6 +457,8 @@ Error message and password prompt
 
 <li>openssl加密文件</li>
 
+<li>PacBio测序fastq</li>
+
 <li>Process PID</li>
 
 <li>python获取当前工作路径</li>
@@ -13321,7 +13323,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="如何比对两条短序列 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="PacBio测序fastq [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -15922,6 +15924,38 @@ To decrypt:
 
 ! 完整性校验
 需要将文件解密完成后再判断完整性。</pre>
+</div>
+<div created="20190428022507695" creator="xiaojun" modified="20190428030015065" modifier="xiaojun" tags="生信" title="PacBio测序fastq">
+<pre>可以从 http://datasets.pacb.com/2014/Human54x/fasta.html 下载到PacBio的测序结果。
+格式为Fastq，与之前格式相同。里面的Read长短不齐，但是都很长，超过1kbp达到几kbp。质量行看起来就像乱码，里面只包含了符号，ASCII里的33-47，分别是`!&quot;#$%&amp;'()*+,-./`质量从80%到4%
+
+其中某个Read长度3057bp，各种质量如下
+
+| ASCII | int | count | qual(%) |h
+| `&quot;` | 34 | 86 | 80 |
+| `#` | 35 | 121 | 64 |
+| `$` | 36 | 104 | 51 |
+| `%` | 37 | 117 | 40 |
+| `&amp;` | 38 | 133 | 32 |
+| `'` | 39 | 131 | 26 |
+| `(` | 40 | 142 | 20 |
+| `)` | 41 | 188 | 16 |
+| `*` | 42 | 219 | 13 |
+| `+` | 43 | 287 | 10 |
+| `,` | 44 | 403 | 8 |
+| `-` | 45 | 458 | 7 |
+| `.` | 46 | 476 | 6 |
+| `/` | 47 | 168 | 4 |
+
+众数是476质量为6%。期望质量值约42.4，期望错误是11.5%。所以PacBio号称的15%一下的错误率可能是这么计算的，并不是说错误率都在15%以内，也有很离谱的错误率比如80%错误也有发生。这条Read里有66%的bp错误保证在13%内。剩下1/3质量挺差。质量值与位置关系没有分析，但据说错误率与位置没有关系，是独立随机的。
+
+```
+@m130929_024849_42213_c100518541910000001823079209281311_s1_p0/12/0_980 RQ=0.831
+TTCCCAAAAGAGAGAGATTCAACGCCTCTGCAGCCTCTCCGCTCCTCTCTTCTCTCTGTCTCTCCTTCTACCTCCTCTTGCATCTCTTCCACCTCTGTTCCTCTGTCTCATCCTTCTTACTCCCTCCTCCCAATCCATTCCTCTACTTCCCTATCTTTCTCGCTCCTACTTTTTCTTCTCCCTACGTATATCTGATTTAATTTCAGCTAACACACTCCCAGCTGCCGTCTGGTCAATACAAAAACACTGAGCAAGATTCATGATGCCACAAGCAGAAAAAAATTCTATCACGAAACTCACATGACCACAAAATAATTCTTTTTTAGGCATAGAATTAAAAAAAGGTCAACAATAAAATGATGTTTATTCTACATATGAATTATGGGGCAAGCATAAGCATGTTTTGTCCCTAAAATTCTTAAAATCTTGGGGGGGGATAAGGCATGATAAAACAAACCAAAGTTCTCTCTTAAAAAAAACTTTTTAAAAATATCGAGGATAGCCTTGAGGCCATGCTCTAATCTAGCCTGTTGGGAAGCGAGGCAGGAACACTTATGCTAGAATTTTAGACAAGCCTGGCAACATAGGAGACCTCTCTACAAAAAATAAAAAACAGCTGGTTGGTGCACATCGCACTCATCTAGTATTGGAGGCATGGGGGAAATCAATTGACCCAGAGAGGAGTGCAGTGAGATAGATGCAGCACGCATTCCACGTGGCAACGACAAAAGCGAGACTACCGTCTCAAAAAAAAAAAAAAAAAAAAAAGTATTATGAATTACAAAAAACTGAAAGACTGAACAAACTCTAAACCCATCAAACTATACTTAAAAGGTTTCCAGATTACCAGCCACAAAGACCTAATTATCACAACTTCTCAGATAGCAAAGGACACAAGAACTTCAATCTCAGGGAGAAACGTGTGAGAGTACCCAACTCGAAATCTGCATATTTTGTCTTCATCAAAACGTTCAGGCAGG
++
+&quot;&quot;!&quot;%#&amp;&amp;,#-..,.*-%(-&amp;,*#**,-'+.,*,*.--*&amp;'.+*-/-*-.(,*(-.+$)%*+*)--,+-,+,-*,.*,$,-..+--)++)-,-.+-+,)-#+.#+++(*&quot;-(*,*.',--''*(+)*+$*'$-,+,,)&quot;'(&amp;&amp;*+&amp;&quot;&quot;%%-,+&amp;+)+(+-'&quot;&amp;#'(-).,+,+*.,,-+()#%#-&amp;%&amp;...&amp;%-#&amp;*,,*,#&amp;&quot;$*%$+&amp;%!-,,)((&amp;-+(*(-..-,&amp;+*-''',.--*,##--+*+.+.+-+.,)..)(.,*#&amp;..+.%.,%+-,*''/-*,,'&quot;+,.%-+/-*%--,-/.%,.(-+%-+,/+%-.,-,).+,(,.+))%-,..),,,+'++)++.',/*.++/,*.-,)'(.)++,..(-.)-)/'$.,-&amp;)(+*-&amp;+..%.,%.&amp;(,()#,))*()+&amp;-#,-.*,--).(-','$##$#%*'*--.*/,),-+-,%.,-*.$,-,',-')&amp;)&amp;--+-+,**+'(,-+++'+,-+/(-'*#.+#.,.,+%-&quot;-.,),.#-+-,*+&amp;***(.+$,,&quot;,#&amp;(,#-'$%--',--++,.-&amp;+*$,),,.-,.-*(,%&quot;++&quot;,-).#*&quot;.).,#-.&amp;(---()-,.,%-/*-.-,,(.*--,/).,'-.$/.'.&amp;*-,--&amp;/,)#**'.),(,$..(+,,(')/&quot;,'$*%#&amp;$$*,-&quot;(,&amp;.+,(.&quot;&amp;+-+,/-*('..---+')*(/,)/.&quot;.-$*'.-+,..(,*++/$..-,.-,&quot;-,,*.&amp;.*-'&amp;'-.,./--,++&amp;)(**')++,,,,+-+-,./$,.+.,,(*..*+)++,/-&amp;.,..&amp;+,)(,-++.)+,)((&quot;*+..,+-,/'-/*../-/.,+),#&amp;%)$-+)$!#&amp;.-(---..,($.,.)#.+%&quot;,,*+,.,&amp;*-$-.)+(.*..,-(%./+',.%().'+.,-(-*.-*'&amp;.&amp;.,.+)))(,/'.)#.**'&amp;%$)-(-,.&amp;,,(.,./,&amp;)')$+*'..&amp;$--,.-,(---&amp;&amp;-,)%
+```
+</pre>
 </div>
 <div created="20180518065826316" creator="xiaojun" modified="20180518070627890" modifier="xiaojun" tags="shell" title="Process PID">
 <pre>执行指令并且显示PID
