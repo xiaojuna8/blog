@@ -455,6 +455,8 @@ Error message and password prompt
 
 <li>New Index</li>
 
+<li>ONT测序</li>
+
 <li>openssl加密文件</li>
 
 <li>PacBio测序fastq</li>
@@ -13323,7 +13325,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="PacBio测序fastq [[My Index]] [[New Index]]" title="$:/StoryList">
+<div created="20190428070333753" creator="xiaojun" list="DNA复制速度 ONT测序 PacBio测序fastq [[My Index]] [[New Index]]" modified="20190428072416790" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -15911,6 +15913,22 @@ GCF_001767355.1	PRJNA224116	SAMN05356867		na	674	674	Vibrio mimicus	strain=SCCF0
 <div created="20180420014619228" creator="xiaojun" modified="20180509071902838" modifier="xiaojun" tags="" title="New Index">
 <pre>&lt;&lt;tabs &quot;linux 密码学 &quot; &quot;linux&quot;&gt;&gt;</pre>
 </div>
+<div created="20190428071505598" creator="xiaojun" modified="20190428073731255" modifier="xiaojun" tags="生信" title="ONT测序">
+<pre>ONT是纳米孔电信号测序
+
+[img[https://nanoporetech.com/sites/default/files/s3/sequencing-animated.gif]]
+
+&lt;iframe title=&quot;vimeo-player&quot; src=&quot;https://player.vimeo.com/video/297106338&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+
+他将双链DNA中的一条拉进纳米孔中，在纳米孔周围施加电压，并测量电流的变化曲线。根据不同的碱基穿过孔中产生的反应来推测序列。其原始数据的错误率也很高，可能要20%以上错误率。
+
+! 提高准确度
+同PacBio类似，通过多测量来换取正确率。不同的是，他采用测量正向和反向互补序列方式，但并不能多次重复测序。
+
+[img[https://i.loli.net/2019/04/28/5cc55771ee4d5.png]]
+
+先将双链DNA的一半拉进去测序，然后再将反向互补的另一半拉进去测序。两者互相比对校准，得到较高质量的测序结果。如果可以在纳米孔的两侧增加蛋白，可以将单链拉进去在推出来，这样就能重复测量，或许可提高准确率。</pre>
+</div>
 <div created="20180531102409122" creator="xiaojun" modified="20180601012444756" modifier="xiaojun" tags="密码学 openssl" title="openssl加密文件">
 <pre>! Symmetic encryption
 To encrypt:
@@ -15925,7 +15943,7 @@ To decrypt:
 ! 完整性校验
 需要将文件解密完成后再判断完整性。</pre>
 </div>
-<div created="20190428022507695" creator="xiaojun" modified="20190428030015065" modifier="xiaojun" tags="生信" title="PacBio测序fastq">
+<div created="20190428022507695" creator="xiaojun" modified="20190428071404923" modifier="xiaojun" tags="生信" title="PacBio测序fastq">
 <pre>可以从 http://datasets.pacb.com/2014/Human54x/fasta.html 下载到PacBio的测序结果。
 格式为Fastq，与之前格式相同。里面的Read长短不齐，但是都很长，超过1kbp达到几kbp。质量行看起来就像乱码，里面只包含了符号，ASCII里的33-47，分别是`!&quot;#$%&amp;'()*+,-./`质量从80%到4%
 
@@ -15955,7 +15973,17 @@ TTCCCAAAAGAGAGAGATTCAACGCCTCTGCAGCCTCTCCGCTCCTCTCTTCTCTCTGTCTCTCCTTCTACCTCCTCTTG
 +
 &quot;&quot;!&quot;%#&amp;&amp;,#-..,.*-%(-&amp;,*#**,-'+.,*,*.--*&amp;'.+*-/-*-.(,*(-.+$)%*+*)--,+-,+,-*,.*,$,-..+--)++)-,-.+-+,)-#+.#+++(*&quot;-(*,*.',--''*(+)*+$*'$-,+,,)&quot;'(&amp;&amp;*+&amp;&quot;&quot;%%-,+&amp;+)+(+-'&quot;&amp;#'(-).,+,+*.,,-+()#%#-&amp;%&amp;...&amp;%-#&amp;*,,*,#&amp;&quot;$*%$+&amp;%!-,,)((&amp;-+(*(-..-,&amp;+*-''',.--*,##--+*+.+.+-+.,)..)(.,*#&amp;..+.%.,%+-,*''/-*,,'&quot;+,.%-+/-*%--,-/.%,.(-+%-+,/+%-.,-,).+,(,.+))%-,..),,,+'++)++.',/*.++/,*.-,)'(.)++,..(-.)-)/'$.,-&amp;)(+*-&amp;+..%.,%.&amp;(,()#,))*()+&amp;-#,-.*,--).(-','$##$#%*'*--.*/,),-+-,%.,-*.$,-,',-')&amp;)&amp;--+-+,**+'(,-+++'+,-+/(-'*#.+#.,.,+%-&quot;-.,),.#-+-,*+&amp;***(.+$,,&quot;,#&amp;(,#-'$%--',--++,.-&amp;+*$,),,.-,.-*(,%&quot;++&quot;,-).#*&quot;.).,#-.&amp;(---()-,.,%-/*-.-,,(.*--,/).,'-.$/.'.&amp;*-,--&amp;/,)#**'.),(,$..(+,,(')/&quot;,'$*%#&amp;$$*,-&quot;(,&amp;.+,(.&quot;&amp;+-+,/-*('..---+')*(/,)/.&quot;.-$*'.-+,..(,*++/$..-,.-,&quot;-,,*.&amp;.*-'&amp;'-.,./--,++&amp;)(**')++,,,,+-+-,./$,.+.,,(*..*+)++,/-&amp;.,..&amp;+,)(,-++.)+,)((&quot;*+..,+-,/'-/*../-/.,+),#&amp;%)$-+)$!#&amp;.-(---..,($.,.)#.+%&quot;,,*+,.,&amp;*-$-.)+(.*..,-(%./+',.%().'+.,-(-*.-*'&amp;.&amp;.,.+)))(,/'.)#.**'&amp;%$)-(-,.&amp;,,(.,./,&amp;)')$+*'..&amp;$--,.-,(---&amp;&amp;-,)%
 ```
-</pre>
+
+! 提升测序准确性
+PacBio提供了CCS模式，产生“HiFi Long Read”高保真长Read。
+
+[img[https://i.loli.net/2019/04/28/5cc550c1288a3.png]]
+
+把双链DNA序列通过接头连城一个环状结构，再进行环状测序，这样每个片段都可以对正向序列和反向互补序列进行多次重复测序，校准随机错误。经过4轮测序，可将正确率提高到99%
+
+https://www.pacb.com/blog/one-for-all-hifi-long-reads-for-de-novo-assembly-and-comprehensive-variant-detection/
+
+与此同时，由于对同一片段进行了多次测序，导致原始读长中只有1/N的有效校准数据。提高了准确率但降低了数据通量。随着8M基因芯片增加了单颗芯片上零模波导的数量，可以弥补这部分数据量的损失。</pre>
 </div>
 <div created="20180518065826316" creator="xiaojun" modified="20180518070627890" modifier="xiaojun" tags="shell" title="Process PID">
 <pre>执行指令并且显示PID
