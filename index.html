@@ -489,6 +489,8 @@ Error message and password prompt
 
 <li>Terminal命令行快捷键</li>
 
+<li>Windows避免宏min与std::min冲突</li>
+
 </ul>
 </p>
 
@@ -13332,7 +13334,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190508012948478" creator="xiaojun" list="PacBio测序fastq 比较各测序平台 [[My Index]] [[New Index]]" modified="20190508012948478" modifier="xiaojun" title="$:/StoryList">
+<div list="Windows避免宏min与std::min冲突 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -16283,6 +16285,9 @@ Option相关的快捷键没有效果。
 | Esc + T | 将光标前的两个单词进行互换 |
 | Tab | 自动补全文件或文件夹的名称 |
 </pre>
+</div>
+<div created="20190515095403737" creator="xiaojun" modified="20190515095712864" modifier="xiaojun" tags="C++" title="Windows避免宏min与std::min冲突">
+<pre>在使用`windows.h`文件时，经常会遇到`std::min`出错的问题，原因时`windows.h`中定义了宏`min`产生冲突。解决的方法是将`std::min`加上括号，比如写成`(std::min)(x,y)`，这样可以避免由于宏定义冲突的错误。</pre>
 </div>
 
 </div>
