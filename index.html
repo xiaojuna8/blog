@@ -191,6 +191,8 @@ Error message and password prompt
 
 <li>$:/state/sidebar</li>
 
+<li>$:/state/tab--1047713539</li>
+
 <li>$:/state/tab--1963855381</li>
 
 <li>$:/state/tab--2112689675</li>
@@ -273,6 +275,8 @@ Error message and password prompt
 
 <li>常用库</li>
 
+<li>常用正则表达式</li>
+
 <li>超算内存/磁盘</li>
 
 <li>非密码学Hash函数</li>
@@ -314,6 +318,8 @@ Error message and password prompt
 <li>统计各文件夹内文件大小</li>
 
 <li>文件头MagicWord</li>
+
+<li>正则表达式</li>
 
 <li>组装水平</li>
 
@@ -522,7 +528,7 @@ Error message and password prompt
 <div created="20180428095744136" creator="xiaojun" modified="20180428095744136" modifier="xiaojun" title="$:/config/RelinkOnRename">
 <pre>yes</pre>
 </div>
-<div created="20180403085107240" creator="xiaojun" modified="20190506015651173" modifier="xiaojun" title="$:/config/TimestampDisable">
+<div created="20180403085107240" creator="xiaojun" modified="20190527013704873" modifier="xiaojun" title="$:/config/TimestampDisable">
 <pre>no</pre>
 </div>
 <div created="20190312042523964" creator="xiaojun" modified="20190312042604114" modifier="xiaojun" title="$:/config/Toolbar/ButtonClass">
@@ -13301,6 +13307,9 @@ Error message and password prompt
 <div created="20190312042257583" creator="xiaojun" modified="20190312042814223" modifier="xiaojun" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
+<div title="$:/state/tab--1047713539">
+<pre>regex</pre>
+</div>
 <div created="20190312041817641" creator="xiaojun" modified="20190506023359311" modifier="xiaojun" title="$:/state/tab--1963855381">
 <pre>$:/core/ui/ControlPanel/Theme</pre>
 </div>
@@ -13334,7 +13343,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="Windows避免宏min与std::min冲突 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div created="20190527013655738" creator="xiaojun" list="常见操作的CPU耗时 [[My Index]] [[New Index]]" modified="20190527013655738" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13681,7 +13690,21 @@ The genes range in size from 994 to 41.8 kb for mouse (average length = 7902 bp,
 
 * 原子操作相比于非原子操作慢一个数量级，比如原子的自增VS寄存器自增
 * 分支预测成功与失败差一个数量级
-* 多插槽CPU原子操作相对于单颗CPU耗时高一个数量级</pre>
+* 多插槽CPU原子操作相对于单颗CPU耗时高一个数量级
+
+! 时间缩放
+
+| System Event | Actual Latency | Scaled Latency |h
+| One CPU cycle | 0.4ns | 1s |
+| Level 1 cache access | 0.9ns | 2s |
+| Level 2 cache access | 2.8ns | 7s |
+| Level 3 cache access | 28ns | 1min |
+| Main memory access (DDR DIMM) | ~100 ns | 4min |
+| NVMe SSD I/O | ~25 μs | 17h |
+| SSD I/O | 50–150 μs | 1.5-4d |
+| Rotational disk I/O | 1-10ms | 1-9mounths |
+
+</pre>
 </div>
 <div created="20180502064704562" creator="xiaojun" modified="20180503025002125" modifier="xiaojun" tags="C++" title="常用库">
 <pre>|lib|description|h
@@ -13689,6 +13712,14 @@ The genes range in size from 994 to 41.8 kb for mouse (average length = 7902 bp,
 |winhttp|http库|
 |NLOHMANN_JSON|JSON for Modern C++|
 </pre>
+</div>
+<div created="20190517022850071" creator="xiaojun" modified="20190517023536533" modifier="xiaojun" tags="regex" title="常用正则表达式">
+<pre>;匹配若干数字
+:`[0-9]{1,2}`匹配1-2个数字
+;匹配行首`^`
+:`^[0-9]`匹配行首的数字
+;匹配行尾`$`
+:`[0-9]$`匹配行尾的数字</pre>
 </div>
 <div created="20180620034114338" creator="xiaojun" modified="20180620035055325" modifier="xiaojun" tags="磁盘 内存" title="超算内存/磁盘">
 <pre>神威·太湖之光
@@ -14149,6 +14180,9 @@ du -sh *
 
 * 一般都不长，一般是4Byte，不超过8Byte
 * 一般第一个字节是不可见字符</pre>
+</div>
+<div created="20190517022535531" creator="xiaojun" modified="20190517022554913" modifier="xiaojun" tags="regex" title="正则表达式">
+<pre>&lt;&lt;toc-selective-expandable 'regex'&gt;&gt;</pre>
 </div>
 <div created="20190108031637871" creator="xiaojun" modified="20190108033102902" modifier="xiaojun" tags="生信" title="组装水平">
 <pre>NCBI上的参考序列组装水平有几种，
