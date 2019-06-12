@@ -267,6 +267,8 @@ Error message and password prompt
 
 <li>比较各测序平台</li>
 
+<li>布隆过滤器</li>
+
 <li>参考基因组</li>
 
 <li>参考基因组大小</li>
@@ -364,6 +366,8 @@ Error message and password prompt
 <li>CMake链接不同类型库</li>
 
 <li>CPU缓存</li>
+
+<li>CPU指令的延时和吞吐量</li>
 
 <li>Create a RAM disk in Linux</li>
 
@@ -496,6 +500,8 @@ Error message and password prompt
 <li>Terminal命令行快捷键</li>
 
 <li>Windows避免宏min与std::min冲突</li>
+
+<li>x86汇编</li>
 
 </ul>
 </p>
@@ -13343,7 +13349,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190527013655738" creator="xiaojun" list="常见操作的CPU耗时 [[My Index]] [[New Index]]" modified="20190527013655738" modifier="xiaojun" title="$:/StoryList">
+<div created="20190612082549893" creator="xiaojun" list="布隆过滤器 x86汇编 CPU指令的延时和吞吐量 [[My Index]] [[New Index]]" modified="20190612082551782" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13653,6 +13659,38 @@ Secret Key保存在用户的客户端程序中，同时也有一份打印出来�
 其中三代测序PacBio的数据比较老，已经发生了变化。其测序长度已经达到几十kb，高精度HiFi Reads长度也有几kb。通量也提升了很多。HiFi Reads完全的优于一代测序。
 
 [[PacBio测序fastq]]</pre>
+</div>
+<div created="20190612082635358" creator="xiaojun" modified="20190612084754788" modifier="xiaojun" tags="" title="布隆过滤器">
+<pre>可用来快速判断元素是否存在，没有假阴性但是有一定的假阳性。
+[img[https://i.loli.net/2019/05/06/5ccfb51f3820a.png]]
+
+''建立索引''：集合里有三个元素x,y,z,过滤器包含一个bit array和三个hash函数，对集合中每个元素分别计算hash值并标记bit array的相应位置。
+
+''数据检索''：如果待查数据来自于已知集合，那么通过三个hash函数和bit array可以得到3个1。如果待查数据来自已知集合以外，就有可能出现0.如果出现0表示该元素一定不在已知集合里。但是得到的都是1也有一定概率不在已知集合里，此时为假阳性。通过调整bit array的大小以及hash函数的种类和数量，可以将假阳性降低到可接受的程度。
+
+布隆过滤器需要的bit array通常要比集合要大几倍，这是因为集合中每个元素都要经过几次hash，然后标记出来，示意图中也是这样画的。
+
+! 参数选择
+记号约定，`k`hash函数的个数，`m`bit array大小，`n`存在的元素个数。
+
+!! 假阳性(错误概率)
+[img[https://wikimedia.org/api/rest_v1/media/math/render/svg/f2e6672519704bf66f07548db4ec356bbf43fdcc]]
+
+!! 最佳hash个数
+[img[https://wikimedia.org/api/rest_v1/media/math/render/svg/fabc2770225ac59fe42a78f75ea89de650f0130c]]
+
+!! 例子
+
+| n/m | k = 1 | k = 2 | k = 3 | k = 4 | k = 5 |h
+| 1/4 | 0.221199 | 0.154818 | 0.146892 | 0.159661 | 0.184908|
+| 1/6 | 0.153518 | 0.080355 | 0.060916 | 0.056057 | 0.057781|
+
+可到wolfram alpha执行代码
+
+```
+Table[N(1-Exp[-k/g])^k,{k,1,6},{g,4,8}]
+```
+hash函数从1到2变化最大，实践中可选择2个hash函数。</pre>
 </div>
 <div created="20190212060315180" creator="xiaojun" modified="20190212063906484" modifier="xiaojun" tags="生信" title="参考基因组">
 <pre>DNA序列上有基因和非编码区域
@@ -14826,6 +14864,38 @@ target_link_libraries(MyEXE debug Foo_d optimized Foo debug Bar_d optimized Bar 
 # L2缓存256KB，延时12个时钟周期
 # L3缓存12MB，延时50个时钟周期
 # 内存延时193个时钟周期</pre>
+</div>
+<div created="20190612020858501" creator="xiaojun" modified="20190612025316923" modifier="xiaojun" tags="CPU" title="CPU指令的延时和吞吐量">
+<pre>CPU执行的指令有两个角度描述该指令在CPU上的执行性能指标。
+
+; Latency
+:延时，是指该指令需要多少时钟可以获取到结果。比如执行32bit整数加法指令延时是1时钟，说明从发出指令到算出结果只要1时钟。32bit整数乘法延时5，说明该指令需要5个时钟来计算。
+; Throughput(CPI)
+: 吞吐量，指令执行多少时钟后可以再次执行该指令。CPI=C/I，每个指令需要的等待周期，如果Throughput=1，说明该指令完整占据1个时钟，如果需要再使用该指令，就要等到下个时钟。如果CPI=0.5，说明该指令只占据0.5个时钟，也就是1个时钟内可执行两次该指令。如果CPI=2，说明该指令需要等2个时钟后才能再次执行。
+关于吞吐量也许可这样理解，对于较为复杂的指令比如乘法和除法，在CPU里也不是一步就能完成，而是被分解成了若干个步骤，每个步骤都要使用CPU里特定类型的逻辑单元来执行。如果某种类型逻辑单元数量多，那就可以做到吞吐量大，但需要占据更大的核心面积。如果某个指令的第一步就占用了很多的逻辑单元，那么在这一步执行完成之前，显然无法再执行相同的指令。必须等这一步完成后，这些逻辑单元空闲后才能再一次执行该指令，造成这个指令必须间隔一定时间才能再次执行。
+
+! Intel指令延时和吞吐量
+| Instruction | Architecture | Latency | Throughput (CPI) | meaning |h
+| _mm_div_ss | Skylake | 11 | 3 | float div |
+| _mm_div_sd | Skylake | 14 | 4 | double div |
+| _mm_add_ss | Skylake | 4 | 0.5 | float add |
+| _mm_mul_ss | Skylake | 4 | 0.5 | float mul |
+| _mm_add_epi32 | Skylake | 1 | 0.33 | int32 add |
+| _mm_mul_epu32 | Skylake | 5 | 0.5 | uint32 mul |
+
+* 整数的操作普遍比浮点数操作更快
+* float比double操作更快
+* 乘法比除法快
+* 加法乘法的吞吐量高，除法吞吐量低
+
+
+| Architecture | Latency | Throughput (CPI) |h
+| _mm_sqrt_ss   |&lt;|&lt;|
+| Skylake | 13 | 3 |
+| Broadwell | 13 | 4 |
+| Haswell | 13 | 7 |
+| Ivy Bridge | 14 | 7 |
+从Ivy Bridge到Skylake各代微架构更新可以看出，_mm_sqrt_ss浮点开方指令的改进，最先延时减少，然后吞吐量逐渐增大。</pre>
 </div>
 <div created="20180627084359545" creator="xiaojun" modified="20180628074447359" modifier="xiaojun" tags="磁盘 linux" title="Create a RAM disk in Linux">
 <pre>[ext[ref link | http://www.jamescoyle.net/how-to/943-create-a-ram-disk-in-linux]]
@@ -16322,6 +16392,15 @@ Option相关的快捷键没有效果。
 </div>
 <div created="20190515095403737" creator="xiaojun" modified="20190515095712864" modifier="xiaojun" tags="C++" title="Windows避免宏min与std::min冲突">
 <pre>在使用`windows.h`文件时，经常会遇到`std::min`出错的问题，原因时`windows.h`中定义了宏`min`产生冲突。解决的方法是将`std::min`加上括号，比如写成`(std::min)(x,y)`，这样可以避免由于宏定义冲突的错误。</pre>
+</div>
+<div created="20190612015914890" creator="xiaojun" modified="20190612020144797" modifier="xiaojun" tags="汇编" title="x86汇编">
+<pre>! x86汇编风格
+有两种风格的汇编，AT&amp;T和Intel。主要区别是
+
+# 顺序
+# 是否有%
+# 括号写法
+[img[https://i.loli.net/2019/06/12/5d005c63e410610317.png]]</pre>
 </div>
 
 </div>
