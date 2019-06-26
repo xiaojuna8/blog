@@ -291,6 +291,8 @@ Error message and password prompt
 
 <li>将TSV按顺序漂亮显示</li>
 
+<li>可逆hash函数</li>
+
 <li>密码学</li>
 
 <li>密码学安全随机数</li>
@@ -13349,7 +13351,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190612082549893" creator="xiaojun" list="布隆过滤器 x86汇编 CPU指令的延时和吞吐量 [[My Index]] [[New Index]]" modified="20190612082551782" modifier="xiaojun" title="$:/StoryList">
+<div list="可逆hash函数 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13898,6 +13900,65 @@ less abc.txt | tr -d '\n'
 135487  1898413   0.000302  -1.000000  0.000000  860219   5812204  0.148002
 1314    1767330   0.000282  1.000000   0.000000  41370    2071343  0.019973
 1313    653490    0.000104  1.000000   0.000000  8979     2291155  0.003919
+```
+
+</pre>
+</div>
+<div created="20190626082416098" creator="xiaojun" modified="20190626082835798" modifier="xiaojun" tags="HASH" title="可逆hash函数">
+<pre>参考 https://naml.us/post/inverse-of-a-hash-function/
+
+该类函数存在反函数，可以一一映射。如果可保证输入值不同，那么hash值肯定不同，不存在hash冲突。
+
+```cpp
+uint64_t hash(uint64_t key) {
+  key = (~key) + (key &lt;&lt; 21); // key = (key &lt;&lt; 21) - key - 1;
+  key = key ^ (key &gt;&gt; 24);
+  key = (key + (key &lt;&lt; 3)) + (key &lt;&lt; 8); // key * 265
+  key = key ^ (key &gt;&gt; 14);
+  key = (key + (key &lt;&lt; 2)) + (key &lt;&lt; 4); // key * 21
+  key = key ^ (key &gt;&gt; 28);
+  key = key + (key &lt;&lt; 31);
+  return key;
+}
+```
+
+
+```cpp
+uint64_t inverse_hash(uint64_t key) {
+  uint64_t tmp;
+
+  // Invert key = key + (key &lt;&lt; 31)
+  tmp = key-(key&lt;&lt;31);
+  key = key-(tmp&lt;&lt;31);
+
+  // Invert key = key ^ (key &gt;&gt; 28)
+  tmp = key^key&gt;&gt;28;
+  key = key^tmp&gt;&gt;28;
+
+  // Invert key *= 21
+  key *= 14933078535860113213u;
+
+  // Invert key = key ^ (key &gt;&gt; 14)
+  tmp = key^key&gt;&gt;14;
+  tmp = key^tmp&gt;&gt;14;
+  tmp = key^tmp&gt;&gt;14;
+  key = key^tmp&gt;&gt;14;
+
+  // Invert key *= 265
+  key *= 15244667743933553977u;
+
+  // Invert key = key ^ (key &gt;&gt; 24)
+  tmp = key^key&gt;&gt;24;
+  key = key^tmp&gt;&gt;24;
+
+  // Invert key = (~key) + (key &lt;&lt; 21)
+  tmp = ~key;
+  tmp = ~(key-(tmp&lt;&lt;21));
+  tmp = ~(key-(tmp&lt;&lt;21));
+  key = ~(key-(tmp&lt;&lt;21));
+
+  return key;
+}
 ```
 
 </pre>
