@@ -265,6 +265,8 @@ Error message and password prompt
 
 <li>1password原理</li>
 
+<li>32bit vs 64bit CPU</li>
+
 <li>比较各测序平台</li>
 
 <li>布隆过滤器</li>
@@ -536,7 +538,7 @@ Error message and password prompt
 <div created="20180428095744136" creator="xiaojun" modified="20180428095744136" modifier="xiaojun" title="$:/config/RelinkOnRename">
 <pre>yes</pre>
 </div>
-<div created="20180403085107240" creator="xiaojun" modified="20190527013704873" modifier="xiaojun" title="$:/config/TimestampDisable">
+<div created="20180403085107240" creator="xiaojun" modified="20190701033958905" modifier="xiaojun" title="$:/config/TimestampDisable">
 <pre>no</pre>
 </div>
 <div created="20190312042523964" creator="xiaojun" modified="20190312042604114" modifier="xiaojun" title="$:/config/Toolbar/ButtonClass">
@@ -13351,7 +13353,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="可逆hash函数 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="[[32bit vs 64bit CPU]] [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13650,6 +13652,32 @@ Secret Key保存在用户的客户端程序中，同时也有一份打印出来�
 对比其他，同等条件下1password每秒尝试密码数量最少。但是也达到了每秒可尝试几千个密码。
 
 [img width=512 [https://blog.elcomsoft.com/wp-content/uploads/2017/08/1p_new-1024x460.png]]</pre>
+</div>
+<div created="20190708024226596" creator="xiaojun" modified="20190708024509862" modifier="xiaojun" tags="CPU" title="32bit vs 64bit CPU">
+<pre>64位CPU可一次性处理长度64bit的数据，而32位CPU一次只能处理32bit，如果需要处理64bit的话，需要调用多条指令。
+
+```cpp
+uint64_t f( uint64_t x,uint64_t y) {
+    return x&amp;y;
+}
+```
+
+```
+//32bit
+f(unsigned long long, unsigned long long):
+        mov     eax, DWORD PTR [esp+12]
+        and     eax, DWORD PTR [esp+4]
+        mov     edx, DWORD PTR [esp+16]
+        and     edx, DWORD PTR [esp+8]
+        ret
+//64bit
+f(unsigned long, unsigned long):
+        mov     rax, rdi
+        and     rax, rsi
+        ret
+```
+比如64bit整数按位与运算，64bitCPU只有一次加载，一次与指令，而32bitCPU需要分两次加载两次与才能完成。
+但可以看到，32bitCPU是可以处理64bit数据的，同样的8bitCPU也是可以处理64bit数据，只不过看起来更像是一种模拟，并不能一条指令完成，而需要多次一步步处理。现在32bit，64bit数据很常用，比如int32和int64，64bitCPU处理起来更加高效。</pre>
 </div>
 <div created="20190508012751671" creator="xiaojun" modified="20190508013555626" modifier="xiaojun" tags="生信" title="比较各测序平台">
 <pre>参考链接 https://www.ele.uri.edu/courses/bme362/handouts/SangerMethod.pdf
@@ -13960,6 +13988,38 @@ uint64_t inverse_hash(uint64_t key) {
   return key;
 }
 ```
+
+32bit整数版
+
+```cpp
+uint32_t hash32(uint32_t key)
+{
+    key += ~(key &lt;&lt; 15);
+    key ^= (key &gt;&gt; 10);
+    key += (key &lt;&lt; 3);
+    key ^= (key &gt;&gt; 6);
+    key += ~(key &lt;&lt; 11);
+    key ^= (key &gt;&gt; 16);
+    return key;
+}
+```
+
+
+```cpp
+uint32_t unhash(uint32_t hashval)
+{
+    uint32_t k6 = hashval;
+    uint32_t k5 = k6 ^ (k6 &gt;&gt; 16);
+    uint32_t k4 = 4290770943 * ~k5;
+    uint32_t k3 = k4 ^ (k4 &gt;&gt; 6) ^ (k4 &gt;&gt; 12) ^ (k4 &gt;&gt; 18) ^ (k4 &gt;&gt; 24) ^ (k4 &gt;&gt; 30);
+    uint32_t k2 = 954437177 * k3;
+    uint32_t k1 = k2 ^ (k2 &gt;&gt; 10) ^ (k2 &gt;&gt; 20) ^ (k2 &gt;&gt; 30);
+    uint32_t k0 = 3221192703 * ~k1;
+    return k0;
+}
+```
+
+
 
 </pre>
 </div>
