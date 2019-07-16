@@ -151,6 +151,10 @@ Error message and password prompt
 
 <li>$:/config/RelinkOnRename</li>
 
+<li>$:/config/TextEditor/EditorHeight/Height</li>
+
+<li>$:/config/TextEditor/EditorHeight/Mode</li>
+
 <li>$:/config/TimestampDisable</li>
 
 <li>$:/config/Toolbar/ButtonClass</li>
@@ -377,6 +381,8 @@ Error message and password prompt
 
 <li>DNA复制速度</li>
 
+<li>do-while(0)</li>
+
 <li>docker learn 1</li>
 
 <li>docker learn 2</li>
@@ -537,6 +543,12 @@ Error message and password prompt
 </div>
 <div created="20180428095744136" creator="xiaojun" modified="20180428095744136" modifier="xiaojun" title="$:/config/RelinkOnRename">
 <pre>yes</pre>
+</div>
+<div created="20190716015008836" creator="xiaojun" modified="20190716015012301" modifier="xiaojun" title="$:/config/TextEditor/EditorHeight/Height">
+<pre>600px</pre>
+</div>
+<div created="20190716014958518" creator="xiaojun" modified="20190716014958518" modifier="xiaojun" title="$:/config/TextEditor/EditorHeight/Mode">
+<pre>fixed</pre>
 </div>
 <div created="20180403085107240" creator="xiaojun" modified="20190701033958905" modifier="xiaojun" title="$:/config/TimestampDisable">
 <pre>no</pre>
@@ -13353,7 +13365,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[32bit vs 64bit CPU]] [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="do-while(0) [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -15053,6 +15065,61 @@ http://dors.weizmann.ac.il/course/course2018/Hadas%20Keren%20Shaul_PacBio_2018.p
 [img[https://i.loli.net/2019/04/23/5cbeafdc48ce9.png]]
 
 还有大肠杆菌参考基因组约4Mbp，每20分钟繁殖一代，那么DNA复制速度应该不低于3kb/s.</pre>
+</div>
+<div created="20190716013139980" creator="xiaojun" modified="20190716015103197" modifier="xiaojun" tags="编译 C++ c" title="do-while(0)">
+<pre>在有些时候可以看到定义宏的时候，采用do...while(0)的形式，其实这样写不是为了能提高性能，这对性能并没有帮助，而是为了能适应更多的书写习惯。
+
+比如有时候if...else...可以不加括号写成这样的形式
+
+```cpp
+if (s == true)
+    x++;
+else
+    y++;
+```
+目的是当满足条件时执行`x++`否则执行`y++`.如果更复杂一些的情况。
+
+```cpp
+#define FOO(x)  x++; y++
+if (s== true)
+    FOO(x); //&lt;-这里会有编译错误
+else
+    y++;
+```
+如果将宏写成另外一种格式
+
+```cpp
+#define FOO(x)  {x++; y++;}
+if (s== true)
+    FOO(x); //&lt;-这里会有编译错误
+else
+    y++;
+```
+都会把if...else...分隔开，导致语法错误。
+当把宏定义成do...while(0)的时候可避免此类语法错误
+
+```cpp
+#define FOO(x)  do{x++; y++;}while(0)
+if (s== true)
+    FOO(x); //&lt;-这里会有编译错误
+else
+    y++;
+```
+
+如果if...else...写成 if {} else {}这样的形式，上述三种宏都正确，所以第三种宏do...while(0)形式适用范围最广。
+
+---
+在[[Botan|https://github.com/randombit/botan/blob/master/src/lib/block/sm4/sm4.cpp]]的SM4加密算法的实现中，就有这样的宏，采用了do...while(0)的样式。
+
+```cpp
+#define SM4_E_RNDS(B, R, F) do {                           \
+   B##0 ^= F(B##1 ^ B##2 ^ B##3 ^ m_RK[4*R+0]);            \
+   B##1 ^= F(B##0 ^ B##2 ^ B##3 ^ m_RK[4*R+1]);            \
+   B##2 ^= F(B##0 ^ B##1 ^ B##3 ^ m_RK[4*R+2]);            \
+   B##3 ^= F(B##0 ^ B##1 ^ B##2 ^ m_RK[4*R+3]);            \
+   } while(0)
+```
+</pre>
 </div>
 <div created="20180419010139376" creator="xiaojun" modified="20180419020300527" modifier="xiaojun" tags="learn docker" title="docker learn 1">
 <pre>[img [https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Docker_%28container_engine%29_logo.svg/440px-Docker_%28container_engine%29_logo.svg.png]]
