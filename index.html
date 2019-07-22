@@ -413,6 +413,8 @@ Error message and password prompt
 
 <li>gzip文件格式</li>
 
+<li>gzip压缩</li>
+
 <li>Half-precision floating-point format</li>
 
 <li>hash_table尺寸选择</li>
@@ -13323,8 +13325,8 @@ Error message and password prompt
 <div created="20190220072408354" creator="xiaojun" modified="20190220072411426" modifier="xiaojun" title="$:/state/edit/references-560591651">
 <pre>hide</pre>
 </div>
-<div created="20181228020250896" creator="xiaojun" modified="20190508013023489" modifier="xiaojun" title="$:/state/showeditpreview">
-<pre>yes</pre>
+<div created="20181228020250896" creator="xiaojun" modified="20190722091918020" modifier="xiaojun" title="$:/state/showeditpreview">
+<pre>no</pre>
 </div>
 <div created="20190312042257583" creator="xiaojun" modified="20190312042814223" modifier="xiaojun" title="$:/state/sidebar">
 <pre>yes</pre>
@@ -13365,7 +13367,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="do-while(0) [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="gzip压缩 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -15415,6 +15417,63 @@ git checkout -- .
 |body|若干字节数据压缩区域|&lt;|
 |尾|4字节，原文CRC32|&lt;|
 |~|4字节，原文长度(mod 2^^32^^)|&lt;|</pre>
+</div>
+<div created="20190722085747248" creator="xiaojun" modified="20190722100009211" modifier="xiaojun" tags="压缩" title="gzip压缩">
+<pre>`gzip`是广泛的一个压缩工具，扩展名为`gz`,并行压缩工具`pigz`，但`pigz`能并行压缩，解压几乎还是单线程。在多核CPU上，压缩速度可观，但解压速度大幅受限。要提高解压速度有
+
+# 利用专有硬件，比如有加速卡，Intel QuickAccess
+# 使用深度优化的库，libdeflate
+
+专有硬件需要特定平台或硬件，深度优化库速度较`gzip`和`pigz`快，但依然不够理想。
+
+[[pugz|https://github.com/Piezoid/pugz]] 试验性的实现了通用CPU上的并行解压。
+
+---
+
+`gz`格式基本上是对`DEFLATE`压缩算法的封装。
+
+| gz header |
+| DEFLATE DATA |
+| gz tail |
+
+而`DEFLATE`几乎是对`LZ77`和`Huffman coding`的结合(先做LZ77再用Huffman)。`gz`文件中的DEFLATE DATA在处理时可以看作若干个块`blcok`的组合，块与块之间存在一定联系，~~但这个关系比较微弱，~~每个块只与前一个块原文的最后32KB有关系，这与使用`LZ77`有关。因此压缩时候容易做并行，只要每个块的数据，再加上上个块最后的32KB，这样就可以多个线程独立处理，最后按顺序输出到文件即可。
+
+困难的是解压时候的并行
+
+# 难以在压缩文件中定位块与块的界限
+# 在不知道上一块最后32KB情况下，不能解压出这一块的原数据
+
+`pugz`在解决这两个问题上采用了启发式算法
+
+''定位边界''
+
+采用逐个bit尝试的方法，这是由`DEFLATE`算法规定的格式决定，尝试从某bit进行解读，如果可以完整的获取到`DEFLATE`所需要的信息，那么它''应该''是块与块的边界。据作者描述通常这一步只要100-300ms。
+
+''解压块''
+
+在没有上一块原文的最后32KB(作者称之为context)的情况下无法解压得到这一块的原文。但不意味着什么都做不了，由于`LZ77`的特性，可以获得一部分的原文(这部分原文之所以能被解压是因为，它与它之前的32KB前文中不重复，也就是说能解压出来的都是新的内容)，并且随着解压进行，后续块中可解压原文比例可以越来越高。
+
+---
+
+这里可以这么理解，`LZ77`本身进行压缩就是利用了与前文之间的重复，彼此靠近的内容就有更大的重复性，''相反的距离越远的内容重复性越低''，也就是说解压相距较远的块几乎没有关联。人们过于关注相邻的块之间存在联系，认为不解压上一块就无法解压后面的块。而事实上，可以先忽略块里的部分内容，先解压几块，后面的块就完整了。
+
+[img[https://i.loli.net/2019/07/22/5d3586cd71f9783360.png]]
+
+作者尝试使用未知context的前提下解压各个块，可以看到后边的块渐渐的完整了。
+
+[img[https://i.loli.net/2019/07/22/5d35879f4f7dd50358.png]]
+
+文件解压分为两个阶段
+
+# 在未知context前提下，尽量解压
+# 从头到尾，解决未知字符
+
+| Method | gzip | libdeflate | pugz(32 threads) |h
+| Speed(MB/s) | 37 | 118 | 611 |
+
+---
+
+即使无法得到完整内容，也尽最大努力，然后等信息足够了，再进行完善。</pre>
 </div>
 <div created="20180620093214781" creator="xiaojun" modified="20180620103118729" modifier="xiaojun" tags="IEEE754" title="Half-precision floating-point format">
 <pre>In the IEEE 754-2008 standard, the 16-bit base 2 format is referred to as binary16. 
