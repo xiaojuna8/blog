@@ -289,6 +289,8 @@ Error message and password prompt
 
 <li>非密码学Hash函数</li>
 
+<li>基数估计</li>
+
 <li>假阳性假阴性判断</li>
 
 <li>假阴性</li>
@@ -13325,8 +13327,8 @@ Error message and password prompt
 <div created="20190220072408354" creator="xiaojun" modified="20190220072411426" modifier="xiaojun" title="$:/state/edit/references-560591651">
 <pre>hide</pre>
 </div>
-<div created="20181228020250896" creator="xiaojun" modified="20190722091918020" modifier="xiaojun" title="$:/state/showeditpreview">
-<pre>no</pre>
+<div created="20181228020250896" creator="xiaojun" modified="20190724063514859" modifier="xiaojun" title="$:/state/showeditpreview">
+<pre>yes</pre>
 </div>
 <div created="20190312042257583" creator="xiaojun" modified="20190312042814223" modifier="xiaojun" title="$:/state/sidebar">
 <pre>yes</pre>
@@ -13367,7 +13369,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="gzip压缩 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="基数估计 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13827,6 +13829,29 @@ March 2018, is ranked number one in the TOP500 list as the fastest supercomputer
 |非密码学Hash函数|c
 
 这类Hash函数计算速度较密码学安全的Hash算法要快几十上百倍，而且具有很好的分布，可将数据均匀分布。</pre>
+</div>
+<div created="20190724063211282" creator="xiaojun" modified="20190724070107993" modifier="xiaojun" tags="概率" title="基数估计">
+<pre>在很多应用中都有这样的需求，统计集合的基数，就是集合中元素的个数。如果精确统计需要消耗大量的时间和空间，如果可以接受一定误差，可通过估算方法猜出集合的基数。''HyperLogLog''就是为了满足这种需求的方法。
+
+---
+
+算法的实现步骤比较容易，将所有元素(可能有重复)都计算哈希值，每个值看其中比特1出现最低位，再统计这些位置的最大值M，那么不重复元素个数$$n=\alpha \cdot 2^M$$，其中$$\alpha$$是修正系数。
+
+但这样估计可能因为某个元素的哈希值太特殊导致估计偏差较大。为了解决这个问题，可将所有元素按照哈希值分布到m个桶中，对每个桶中的元素进行估计$$2^{M_i}$$，然后再求调和平均数。最后计算可以得到估计值。
+
+$$
+n =\alpha_m \cdot m \cdot \frac{m}{\sum_{i=1}^{m}2^{-M_i}}
+$$
+
+其中$$\alpha_m$$有近似公式，当$$m &gt; 128$$时，$$
+\alpha_m = \frac{0.7213}{1+\frac{1.079}{1+m}}
+$$
+
+在实验中使用和redis相同的$$m=2^{14} = 16384$$，估计误差在1%左右，速度比精确统计要快。
+
+---
+
+在编程中，求最低位的1的位置叫做`find first set`简称`ffs`，很多CPU中有这样的指令，编译器中也提供了这样的内置函数，比如GCC中`__builtin_ffs`，MSVC中`_BitScanReverse`</pre>
 </div>
 <div created="20190312040907998" creator="xiaojun" modified="20190313032131550" modifier="xiaojun" tags="分类" title="假阳性假阴性判断">
 <pre>! 背景
