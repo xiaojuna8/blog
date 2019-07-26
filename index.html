@@ -483,6 +483,8 @@ Error message and password prompt
 
 <li>New Index</li>
 
+<li>NUMA</li>
+
 <li>ONT测序</li>
 
 <li>openssl加密文件</li>
@@ -13327,8 +13329,8 @@ Error message and password prompt
 <div created="20190220072408354" creator="xiaojun" modified="20190220072411426" modifier="xiaojun" title="$:/state/edit/references-560591651">
 <pre>hide</pre>
 </div>
-<div created="20181228020250896" creator="xiaojun" modified="20190724063514859" modifier="xiaojun" title="$:/state/showeditpreview">
-<pre>yes</pre>
+<div created="20181228020250896" creator="xiaojun" modified="20190726082122909" modifier="xiaojun" title="$:/state/showeditpreview">
+<pre>no</pre>
 </div>
 <div created="20190312042257583" creator="xiaojun" modified="20190312042814223" modifier="xiaojun" title="$:/state/sidebar">
 <pre>yes</pre>
@@ -13369,7 +13371,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[My Index]] [[New Index]]" title="$:/StoryList">
+<div created="20190726061512856" creator="xiaojun" list="NUMA 常见操作的CPU耗时 [[My Index]] [[New Index]]" modified="20190726061512856" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -16316,6 +16318,73 @@ GCF_001767355.1	PRJNA224116	SAMN05356867		na	674	674	Vibrio mimicus	strain=SCCF0
 </div>
 <div created="20180420014619228" creator="xiaojun" modified="20180509071902838" modifier="xiaojun" tags="" title="New Index">
 <pre>&lt;&lt;tabs &quot;linux 密码学 &quot; &quot;linux&quot;&gt;&gt;</pre>
+</div>
+<div created="20190726074414253" creator="xiaojun" modified="20190726082704757" modifier="xiaojun" tags="CPU C++" title="NUMA">
+<pre>最近调试程序，运行有时候快有时候慢，而且会跟待处理数据存放位置有关。起初考虑是CPU动态频率调整导致，但只要数据存放位置不变，运行时间几乎不变。看起来非常的诡异。
+
+后来意识到是否和CPU数量有关。也就是因为有两颗CPU导致。
+
+
+```
+$lscpu
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                48
+On-line CPU(s) list:   0-47
+Thread(s) per core:    2
+Core(s) per socket:    12
+Socket(s):             2
+NUMA node(s):          2
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 79
+Model name:            Intel(R) Xeon(R) CPU E5-2650 v4 @ 2.20GHz
+...
+NUMA node0 CPU(s):     0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46
+NUMA node1 CPU(s):     1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47
+```
+
+主板上插了两颗CPU，每个有12核心24线程，总共48线程。还提到了`NUMA`，中文是`非均匀访存模型`，解释挺复杂。
+
+[img[https://www.boost.org/doc/libs/master/libs/fiber/doc/NUMA.png]]
+
+其实是主板上装了几颗CPU，比如说两颗，那么所有的内存就分别分配给这两颗CPU，每颗管自己的内存，但是两颗都能互相操作，看起来就像自己独占一样。其实还是有差别的，自己管的内存读写快，比人管的内存读写慢，很多地方都说，速度相差一倍。之前的记录[[常见操作的CPU耗时]]就有这样的数据
+
+| Item | Local | Remote |h
+| L3 | 30-70 | 100-300 |
+| Main RAM Read | 100-150 | 300-500 |
+
+差别还是明显的倍数。 
+
+---
+
+那么问题来了，保证程序就运行在固定的CPU上，而不发生跨CPU的调用呢？
+
+这就涉及到`Processor affinity`即所谓的`处理器亲和`的问题，也就是把线程安排到指定的CPU核芯上，有些系统中是强制的，有些只是对编译器的提示。总之是尽可能的安排到你希望运行的位置。
+
+linux系统上是`pthread_setaffinity_np`函数，Windows是`SetThreadAffinityMask`函数。在网上看了文章[[C++11 threads, affinity and hyperthreading | https://eli.thegreenplace.net/2016/c11-threads-affinity-and-hyperthreading/]]后
+
+
+```cpp
+    cpu_set_t cpuset;
+    CPU_ZERO(&amp;cpuset);
+    CPU_SET(i, &amp;cpuset);
+    int rc = pthread_setaffinity_np(threads[i].native_handle(),
+                                    sizeof(cpu_set_t), &amp;cpuset);
+```
+
+这样从std::thread中获取原始具柄，再设置CPU亲和性就可以设置线程所运行的CPU核心。Linux上编译后果然如此，读取线程和处理线程都在同一颗CPU上执行。速度也达到了之前的最佳状态，而不再出现之前的诡异问题。
+
+值得注意的是，两颗CPU，那么线程要么跑在奇数核心上，要么跑在偶数核心上，否则那就是跑在了不同的CPU上。还有Windows系统是否也这样分配核心编号没有研究。
+
+问题找到了，但代码依然不好改。
+
+# 不同操作系统的设置方式不同，比如Windows和Linux的差异
+# 线程数量和到底几颗CPU，CPU是不是超线程都要考虑
+# 如果是超线程，哪两个线程是同一个核心
+
+这些问题考虑清楚再进行修改。</pre>
 </div>
 <div created="20190428071505598" creator="xiaojun" modified="20190428073731255" modifier="xiaojun" tags="生信" title="ONT测序">
 <pre>ONT是纳米孔电信号测序
