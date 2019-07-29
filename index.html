@@ -333,6 +333,8 @@ Error message and password prompt
 
 <li>正则表达式</li>
 
+<li>指定程序运行的CPU</li>
+
 <li>组装水平</li>
 
 <li>AWS EC2计费</li>
@@ -13371,7 +13373,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190726061512856" creator="xiaojun" list="NUMA 常见操作的CPU耗时 [[My Index]] [[New Index]]" modified="20190726061512856" modifier="xiaojun" title="$:/StoryList">
+<div created="20190729041527925" creator="xiaojun" list="指定程序运行的CPU NUMA [[My Index]] [[New Index]]" modified="20190729041527925" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -14383,6 +14385,18 @@ du -sh *
 </div>
 <div created="20190517022535531" creator="xiaojun" modified="20190517022554913" modifier="xiaojun" tags="regex" title="正则表达式">
 <pre>&lt;&lt;toc-selective-expandable 'regex'&gt;&gt;</pre>
+</div>
+<div created="20190729041106526" creator="xiaojun" modified="20190729041851782" modifier="xiaojun" tags="CPU linux" title="指定程序运行的CPU">
+<pre>[[NUMA]]中提到了在编程中如何限制线程到指定的核心上，那么对应已经写好的程序，如何限定其运行的核心？
+
+在Linux系统中有工具`taskset`，可以设定程序在指定的核心上运行。
+
+
+```
+taskset -c 0,1 mycommand --option //启动程序，且只在0&amp;1核心上运行
+```
+
+这样在多颗CPU的机器上，可指定进程只在某一颗CPU上运行，提高缓存命中率。也可以用来模拟单核CPU，将`-c`参数设置为0，只允许在0号核心上运行。</pre>
 </div>
 <div created="20190108031637871" creator="xiaojun" modified="20190108033102902" modifier="xiaojun" tags="生信" title="组装水平">
 <pre>NCBI上的参考序列组装水平有几种，
