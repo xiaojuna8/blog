@@ -379,6 +379,8 @@ Error message and password prompt
 
 <li>CPU缓存</li>
 
+<li>CPU微操作</li>
+
 <li>CPU指令的延时和吞吐量</li>
 
 <li>Create a RAM disk in Linux</li>
@@ -13331,8 +13333,8 @@ Error message and password prompt
 <div created="20190220072408354" creator="xiaojun" modified="20190220072411426" modifier="xiaojun" title="$:/state/edit/references-560591651">
 <pre>hide</pre>
 </div>
-<div created="20181228020250896" creator="xiaojun" modified="20190726082122909" modifier="xiaojun" title="$:/state/showeditpreview">
-<pre>no</pre>
+<div created="20181228020250896" creator="xiaojun" modified="20190815083449869" modifier="xiaojun" title="$:/state/showeditpreview">
+<pre>yes</pre>
 </div>
 <div created="20190312042257583" creator="xiaojun" modified="20190312042814223" modifier="xiaojun" title="$:/state/sidebar">
 <pre>yes</pre>
@@ -13373,7 +13375,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190729041527925" creator="xiaojun" list="指定程序运行的CPU NUMA [[My Index]] [[New Index]]" modified="20190729041527925" modifier="xiaojun" title="$:/StoryList">
+<div created="20190815081755602" creator="xiaojun" list="CPU微操作 指定程序运行的CPU [[My Index]] [[New Index]]" modified="20190815081755602" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -15040,6 +15042,46 @@ target_link_libraries(MyEXE debug Foo_d optimized Foo debug Bar_d optimized Bar 
 # L2缓存256KB，延时12个时钟周期
 # L3缓存12MB，延时50个时钟周期
 # 内存延时193个时钟周期</pre>
+</div>
+<div created="20190815083337172" creator="xiaojun" modified="20190815092259126" modifier="xiaojun" tags="CPU" title="CPU微操作">
+<pre>通用的X86CPU结构如图
+
+[img[https://uops.info/pipeline.png]]
+
+包括三个部分，内存系统，执行引擎，前端。前端从L2中获取指令到L1I中，进行解码操作。一个复杂指令被分解成几个微操作，解码后的微操作进入后端也就是执行引擎中。在执行引擎中有个指令重排区。调度器从指令重排区取出微操作，发射到相应的执行单元(port)中。
+
+指令重排区里对所有微操作重排，可能和指令的进入顺序不完全一致，但保证结果一致。当某个微操作的所有依赖都已经准备好时，微操作才能被发射到对应的port中。
+
+每个port都有各自的功能，例如
+
+
+```
+Port 0: Integer, f.p. and vector ALU, mul, div, branch
+Port 1: Integer, f.p. and vector ALU
+Port 2: Load
+Port 3: Load
+Port 4: Store
+Port 5: Integer and vector ALU
+Port 6: Integer ALU, branch
+Port 7: Store address
+```
+
+也就是不同的微操作需要发射到不同的port里，比如整数计算就可以发射到0或者1或者5或者6中，选择其一就行。也因此可以实现指令级别的并行。在一个周期里可以有4个位置能做整数运算，还可以同时从缓存里加载写入数据。
+
+通常每个端口每个时钟周期都可以进行一个微操作。即使一个复杂指令被分成几个微操作，在整个指令没有完成前，只要完成了一个微操作，其他指令就可以进入这个port，形成流水线。
+
+''延时和吞吐量''
+
+;延时
+:经过多少时钟可以完成这条指令的所有微操作
+;吞吐量
+:经过多少时钟，可以下一次执行相同的指令
+比如某整数操作有4个port可选，因此吞吐量0.25。如果某个指令的第一个微操作只能在某个port执行，而且第一个微操作需要几个时钟完成，那么这个指令的吞吐量就是几。吞吐量数值越小表示两个相同指令的执行就越紧凑。
+
+为了能够是IPC(单周期的执行的指令数)更大，可以根据这个原理图调整。
+# 尽可能将数据放到寄存器中，或者L1L2中，使指令尽快得到执行
+# 降低指令直接的关联性，微操作可以发射到不同port，指令级别并行
+</pre>
 </div>
 <div created="20190612020858501" creator="xiaojun" modified="20190612025316923" modifier="xiaojun" tags="CPU" title="CPU指令的延时和吞吐量">
 <pre>CPU执行的指令有两个角度描述该指令在CPU上的执行性能指标。
