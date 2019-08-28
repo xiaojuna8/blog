@@ -291,6 +291,8 @@ Error message and password prompt
 
 <li>基数估计</li>
 
+<li>基数排序</li>
+
 <li>假阳性假阴性判断</li>
 
 <li>假阴性</li>
@@ -13375,7 +13377,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190815081755602" creator="xiaojun" list="CPU微操作 指定程序运行的CPU [[My Index]] [[New Index]]" modified="20190815081755602" modifier="xiaojun" title="$:/StoryList">
+<div list="基数排序 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -13858,6 +13860,40 @@ $$
 ---
 
 在编程中，求最低位的1的位置叫做`find first set`简称`ffs`，很多CPU中有这样的指令，编译器中也提供了这样的内置函数，比如GCC中`__builtin_ffs`，MSVC中`_BitScanReverse`</pre>
+</div>
+<div created="20190828071236859" creator="xiaojun" modified="20190828072630056" modifier="xiaojun" tags="排序" title="基数排序">
+<pre>`基数排序`是一种非比较型的排序算法，对于基本类型(int32,int64等)排序，拥有比`std::sort`更好的速度。
+
+```
+-------------std::sort
+           uint32      uint64      uint128
+10         1313        195         176
+100        3885        1700        1928
+1000       79033       34651       34763
+10000      1217753     499233      527599
+100000     11921580    6185702     6488558
+1000000    76460320    74543357    78622605
+10000000   853541831   869059289   921876903
+100000000  9789252060  9943817895  10649681859
+-------------radix sort
+           uint32      uint64      uint128
+10         299         97          96
+100        4193        1831        1843
+1000       28635       11918       11749
+10000      534426      221804      230208
+100000     4807047     2351811     2947814
+1000000    30538114    26016055    31674791
+10000000   295515500   373446632   590421951
+100000000  3357493792  4078261085  6117253935
+```
+
+以上测试是使用基数排序和`std::sort`在不同基本数据类型，不同数据量上的排序时间(ns)，使用相同随机数排序。
+
+基数排序用的[[Klib|https://github.com/attractivechaos/klib]]中的实现，很多情况下速度是`std::sort`的两倍多。
+
+在[[Investigating Radix Sort|https://probablydance.com/2016/12/02/investigating-radix-sort/]]中也有类似比较。当数据量比较大时，`radix sort`比`std::sort`快两倍多。作者比较了数据量从2到512M
+
+[img[https://probablydance.files.wordpress.com/2016/11/sort_int64.png]]</pre>
 </div>
 <div created="20190312040907998" creator="xiaojun" modified="20190313032131550" modifier="xiaojun" tags="分类" title="假阳性假阴性判断">
 <pre>! 背景
