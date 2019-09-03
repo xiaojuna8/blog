@@ -333,6 +333,8 @@ Error message and password prompt
 
 <li>文件头MagicWord</li>
 
+<li>线程安全队列</li>
+
 <li>正则表达式</li>
 
 <li>指定程序运行的CPU</li>
@@ -13377,7 +13379,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="基数排序 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="线程安全队列 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -14420,6 +14422,87 @@ du -sh *
 
 * 一般都不长，一般是4Byte，不超过8Byte
 * 一般第一个字节是不可见字符</pre>
+</div>
+<div created="20190903072753302" creator="xiaojun" modified="20190903074550615" modifier="xiaojun" tags="多线程" title="线程安全队列">
+<pre>多读多写队列，写入总会成功，但可能达到最大容量后会阻塞。从队列中获取可能会失败，因为恰好队列已空而且写入完毕。
+
+*在Push时候，如果已经达到最大容量，那么就进行等待
+** 等待有数据Pop出去
+*在Pop时候，如果容量为0并且还未完成，那么进行等待
+** 等待有数据Push进来
+*在Pop时候，如果发现已经Push完毕同时Pop也完毕，那么通知其他所有的Pop线程
+```cpp
+/**
+ * thread safe queue with max capacity
+ */
+template &lt;class T&gt;
+class TQueue {
+    const int capacity_ = 0;
+    int size_{0};
+    int complete_{0};
+    std::queue&lt;T&gt; q_;
+    
+    std::mutex mtx_;
+    std::condition_variable cv_;
+    
+public:
+    /**
+     constructs
+
+     @param reserve capacity
+     */
+    TQueue(int reserve) : capacity_(reserve) {
+    }
+    
+    /**
+     push T to queue
+
+     @param x item
+     @param last is last item
+     @return true
+     */
+    bool Push(const T&amp; x, bool last = false) {
+        std::unique_lock&lt;std::mutex&gt; lock(mtx_);
+        while (size_ &gt;= capacity_) {
+            cv_.wait(lock);
+        }
+        q_.push(x);
+        size_++;
+        if (last) {
+            complete_++;
+        }
+        lock.unlock();
+        cv_.notify_one();
+        return true;
+    }
+    
+    /**
+     pop first item
+
+     @param x item
+     @return true if queue not empty
+             false otherwise
+     */
+    bool Pop(T&amp; x) {
+        std::unique_lock&lt;std::mutex&gt; lock(mtx_);
+        while (size_ == 0 &amp;&amp; complete_ == 0) {
+            cv_.wait(lock);
+        }
+        if (complete_ != 0 &amp;&amp; size_ == 0) {
+            cv_.notify_all();
+            return false;
+        }
+        x = q_.front();
+        q_.pop();
+        size_--;
+        lock.unlock();
+        cv_.notify_one();
+        return true;
+    }
+};
+
+```
+</pre>
 </div>
 <div created="20190517022535531" creator="xiaojun" modified="20190517022554913" modifier="xiaojun" tags="regex" title="正则表达式">
 <pre>&lt;&lt;toc-selective-expandable 'regex'&gt;&gt;</pre>
