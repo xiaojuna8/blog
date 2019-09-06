@@ -277,6 +277,8 @@ Error message and password prompt
 
 <li>非密码学Hash函数</li>
 
+<li>各指令的诞生时间</li>
+
 <li>基数估计</li>
 
 <li>基数排序</li>
@@ -559,7 +561,7 @@ Error message and password prompt
 <pre>fixed</pre>
 </div>
 <div created="20180403085107240" creator="xiaojun" modified="20190906014804378" modifier="xiaojun" title="$:/config/TimestampDisable">
-<pre>yes</pre>
+<pre>no</pre>
 </div>
 <div created="20190312042523964" creator="xiaojun" modified="20190312042604114" modifier="xiaojun" title="$:/config/Toolbar/ButtonClass">
 <pre>tc-btn-invisible</pre>
@@ -13910,7 +13912,7 @@ Error message and password prompt
 <pre>工作笔记</pre>
 </div>
 <div title="$:/state/showeditpreview">
-<pre>no</pre>
+<pre>yes</pre>
 </div>
 <div created="20190906014702952" creator="xiaojun" modified="20190906014702952" modifier="xiaojun" title="$:/state/tab--1963855381">
 <pre>$:/themes/tiddlywiki/vanilla/themetweaks</pre>
@@ -13927,7 +13929,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20190906014640992" creator="xiaojun" list="$:/ControlPanel 基数排序 线程安全队列 条件变量 [[My Index]] [[New Index]]" modified="20190906014747817" modifier="xiaojun" title="$:/StoryList">
+<div list="各指令的诞生时间 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -14391,6 +14393,20 @@ March 2018, is ranked number one in the TOP500 list as the fastest supercomputer
 |非密码学Hash函数|c
 
 这类Hash函数计算速度较密码学安全的Hash算法要快几十上百倍，而且具有很好的分布，可将数据均匀分布。</pre>
+</div>
+<div created="20190906024454098" creator="xiaojun" modified="20190906024454098" modifier="xiaojun" tags="CPU" title="各指令的诞生时间">
+<pre>单指令多数据指令在x86架构已经出现多年，但各个指令集的先后顺序依然不同。如果要使用这些指令集同时考虑照顾到各种年代CPU，可以参考这种表，来源是维基百科。
+
+| 指令集 | 年份 | 初代架构 |h
+| SSE | 1999 | Pentium III |
+| SSE2 | 2000 |  Pentium 4 |
+| SSE3 | 2004 | new Pentium 4 |
+| SSSE3 | 2006 | Woodcrest |
+| SSE4 | 2007 | Penryn |
+| AVX | 2011 |  Sandy Bridge |
+| AVX2 | 2013 | Haswell |
+
+使用SSE2可以在近20年的CPU运行。使用完整的SSE～SSE4指令可在近10年CPU运行。使用完整AVX～AVX2指令仅能在近5年CPU运行。至于AVX512那只能考虑最近两年的服务器CPU和即将出现的第十代Ice Lake CPU</pre>
 </div>
 <div created="20190724063211282" creator="xiaojun" modified="20190724070107993" modifier="xiaojun" tags="概率" title="基数估计">
 <pre>在很多应用中都有这样的需求，统计集合的基数，就是集合中元素的个数。如果精确统计需要消耗大量的时间和空间，如果可以接受一定误差，可通过估算方法猜出集合的基数。''HyperLogLog''就是为了满足这种需求的方法。
