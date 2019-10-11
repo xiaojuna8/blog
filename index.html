@@ -329,6 +329,8 @@ Error message and password prompt
 
 <li>线程安全队列</li>
 
+<li>在C++项目构建时加入参数</li>
+
 <li>正则表达式</li>
 
 <li>指定程序运行的CPU</li>
@@ -13929,7 +13931,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="各指令的诞生时间 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div list="在C++项目构建时加入参数 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -15086,6 +15088,41 @@ public:
 };
 
 ```
+</pre>
+</div>
+<div created="20191011091702682" creator="xiaojun" modified="20191011092812513" modifier="xiaojun" tags="cmake C++ 编译" title="在C++项目构建时加入参数">
+<pre>在构建项目时，通常使用CMake或者makefile。但是由于跨平台方面的原因，在不同系统中可能需要包括不同的目录或者库文件。这时候可以用某些宏自动判断要编译的操作系统。但是这样自动处理不方便进行编写，也不够灵活。可以用参数进行控制。
+
+---
+
+比如这样的需求，某个项目需要静态库依赖，并且在Windows/Linux/Mac系统进行项目构建。静态库存放在不同的目录下，需要在构建时指定这些目录。
+
+!! make
+
+
+```shell
+# makefile
+$(CC) $(CCFLAGS) -o program main.cpp -L$(LIBDIR) $(Lib) 
+# make shell cmd
+make LIBDIR=/Users/admin/Documents/lib/lib-mac
+```
+
+其中`LIBDIR`就是构建参数，在进行make时需要进行指定值
+
+!! cmake
+
+
+```cmake
+SET(LIBDIR &quot;.&quot; CACHE STRING &quot;static library dir&quot;)
+```
+
+这样写可以在cmake-gui中生成一条LIBDIR的输入框。在命令行中可以像下面这些写
+
+```shell
+cmake -DLIBDIR:STRING=/Users/admin/Documents/lib/lib-mac
+```
+
+
 </pre>
 </div>
 <div created="20190517022535531" creator="xiaojun" modified="20190517022554913" modifier="xiaojun" tags="regex" title="正则表达式">
