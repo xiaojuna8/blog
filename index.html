@@ -275,6 +275,8 @@ Error message and password prompt
 
 <li>超算内存/磁盘</li>
 
+<li>多项目依赖管理</li>
+
 <li>非密码学Hash函数</li>
 
 <li>各指令的诞生时间</li>
@@ -13931,7 +13933,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="在C++项目构建时加入参数 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div created="20191012070452932" creator="xiaojun" list="在C++项目构建时加入参数 多项目依赖管理 [[My Index]] [[New Index]]" modified="20191012070452932" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -14379,6 +14381,38 @@ March 2018, is ranked number one in the TOP500 list as the fastest supercomputer
 | disk | 20PB |
 
 1 PB = 1000000000000000B $$\approx$$ 2^^50^^ B</pre>
+</div>
+<div created="20191012065915538" creator="xiaojun" modified="20191012084954851" modifier="xiaojun" tags="" title="多项目依赖管理">
+<pre>如果多个项目之间存在静态库依赖关系，并且有项目在所有其他项目中被使用，那么最好将各个项目的生成结果放到某一个目录中，方便进行更新。类似于VS中工程的概念，将多个项目当作一个整体处理。
+
+---
+* 项目A是底层静态库，其他项目都依赖于A。
+* 项目B是底层静态库，除A以外都依赖与B。
+* 其他项目都分成静态库和应用程序，比如静态库c和程序C，静态库d和程序D，静态库e和程序E。这些程序除依赖底层库AB外还依赖其他项目的静态库。
+
+---
+如果整个项目是一个VS工程，那么互相依赖，在代码更新的时候只要修改一个，其他依赖于这段代码的静态库和程序都要重新编译。但是如果这些项目并不属于一个工程，如果某处进行修改后，那么依赖于此的项目都要去重新编译。
+
+---
+在每个项目中，如果依赖的静态库都放在该项目的文件夹中，这样makefile容易编写，但静态库更新后需要手动将新的静态库替换旧版本，再编译。这样操作较为繁琐，容易出错。
+
+解决方法是，将所有项目的输出固定到某个特定的文件夹。类似于VS的Release文件夹。底层静态库编译后，放入Release文件夹，然后其他项目编译时，搜索该路径内的静态库，生成的静态库在放到Release文件夹。实现方法可以用 [[在C++项目构建时加入参数]]
+
+
+```
+目录结构
+    TargetA
+    TargetB
+    TargetC
+    TargetD
+    TargetE
+    Release
+```
+
+---
+使用静态库链接也暴露出问题，如果一个底层静态库修改，那么所有依赖于此的程序都要重新进行编译，影响很大。
+
+如果是动态库，更新只要替换库文件即可。</pre>
 </div>
 <div created="20190325072844848" creator="xiaojun" modified="20190325074115196" modifier="xiaojun" tags="HASH" title="非密码学Hash函数">
 <pre>对于普通应用(''不是安全方面应用'')的hash函数
