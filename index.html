@@ -383,6 +383,8 @@ Error message and password prompt
 
 <li>C++函数模板特化导致的多重定义链接错误</li>
 
+<li>C++逐行读取文件</li>
+
 <li>C更改输出文件权限</li>
 
 <li>C基本类型读写</li>
@@ -13891,7 +13893,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20191023013551077" creator="xiaojun" list="素数筛选法 常量指针和指针常量 [[My Index]] [[New Index]]" modified="20191023013616199" modifier="xiaojun" title="$:/StoryList">
+<div created="20191023032141723" creator="xiaojun" list="C++逐行读取文件" modified="20191023032141723" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20191015065802630" creator="xiaojun" modified="20191015065802630" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -15607,6 +15609,70 @@ shall hold for all values of n such that 0 &lt;= n &lt; s.size().
 `/FORCE:MULTIPLE`忽略重定义.
 
 &gt; Use /FORCE:MULTIPLE to create an output file whether or not LINK finds more than one definition for a symbol.  </pre>
+</div>
+<div created="20191023032200547" creator="xiaojun" modified="20191023041449350" modifier="xiaojun" tags="C++" title="C++逐行读取文件">
+<pre>经常遇到按行读取配置文件的需求，因此写下来供以后查阅。
+
+首先所读取文件必须是可读的，不能是二进制文件，否则没有按行读取的概念。另外，经常还需要将读取的字符串转换为数字，那就需要用到`std::stoi`函数。
+
+```cpp
+//假设文件中每一行都是一个整数
+#include &lt;fstream&gt; //读取文件流
+#include &lt;string&gt; //std::string, std::stoi
+    std::ifstream ifile(argv[1]);
+    std::string line;
+    if (ifile.is_open()) {
+        while (std::getline(ifile, line)) {
+            std::cout &lt;&lt; line &lt;&lt; std::endl;
+            int x = std::stoi(line);
+            std::cout &lt;&lt; &quot;-&gt;&quot; &lt;&lt; x &lt;&lt; std::endl;
+        }
+    }
+```
+
+经常遇到的另外几个关于字符串的需求
+
+# 字符串分割
+# 字符串转换
+
+
+```cpp
+//字符串分割
+#include &lt;utility&gt; //std::move
+#include &lt;vector&gt; //std::vector
+#include &lt;string&gt; //std::string
+//str=abc-d-ef-abc
+//dim=-
+std::vector&lt;std::string&gt; stringSplit(const std::string&amp; str, char dim) {
+    std::vector&lt;std::string&gt; v;
+    std::string s;
+    for (auto it = str.begin(); it != str.end(); it++) {
+        if (*it != dim) {
+            auto c = *it;
+            s += c;
+        } else {
+            v.emplace_back(std::move(s));
+        }
+    }
+    if (!s.empty()) {
+        v.emplace_back(std::move(s));
+    }
+    return v;
+}
+```
+
+
+```cpp
+//字符串反转顺序
+#include &lt;algorithm&gt; //std::reverse
+std::string reverse(const std::string&amp; str) {
+    std::string s = str;
+    std::reverse(s.begin(), s.end());
+    return s;
+}
+```
+
+</pre>
 </div>
 <div created="20180725070238968" creator="xiaojun" modified="20180725071031065" modifier="xiaojun" tags="linux c" title="C更改输出文件权限">
 <pre>linux C/C++ 更改输出文件的访问权限
