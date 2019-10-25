@@ -409,6 +409,8 @@ Error message and password prompt
 
 <li>Create a RAM disk in Linux</li>
 
+<li>cumsum实现与循环展开</li>
+
 <li>DNA复制速度</li>
 
 <li>do-while(0)</li>
@@ -13893,7 +13895,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20191023032141723" creator="xiaojun" list="C++逐行读取文件" modified="20191023032141723" modifier="xiaojun" title="$:/StoryList">
+<div list="cumsum实现与循环展开" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20191015065802630" creator="xiaojun" modified="20191015065802630" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -16143,6 +16145,65 @@ You can add the mount entry into /etc/fstab to make the RAM disk persist over re
 
 ! 实测
 在8GB内存的笔记本上，创建1GB虚拟磁盘，速度约3-4GB／s</pre>
+</div>
+<div created="20191025034719766" creator="xiaojun" modified="20191025040321430" modifier="xiaojun" tags="C++" title="cumsum实现与循环展开">
+<pre>`cumsum`函数是Matlab中常用的函数，其作用是求累加和。比如数组x0,x1,x2,x3...那么累加和为x0,x0+x1,x0+x1+x2,x0+x1+x2+x3...
+
+在C++的`numeric`头文件中有函数`std::partial_sum`就是这个功能。但是不同的编译期会做不同的优化。比如GCC和Clang中就有差别，Clang会做循环展开。
+
+
+```cpp
+#include &lt;numeric&gt;      // std::partial_sum
+void psum(const int* p, int* r) {
+    std::partial_sum(p, p+256,r);
+}
+// -O3 -g3   -std=c++11 -march=haswell -m64 -mavx2
+```
+
+GCC 9.2编译输出
+
+```asm
+//gcc 9.2
+psum(int const*, int*):
+  movl (%rdi), %edx
+  movl $4, %eax
+  movl %edx, (%rsi)
+.L2:
+  addl (%rdi,%rax), %edx
+  movl %edx, (%rsi,%rax)
+  addq $4, %rax
+  cmpq $1024, %rax
+  jne .L2
+  ret
+```
+
+Clang 9.0.0编译输出
+
+```
+//clang 9.0.0
+psum(int const*, int*): # @psum(int const*, int*)
+  movl (%rdi), %eax
+  movl %eax, (%rsi)
+  xorl %ecx, %ecx
+.LBB0_1: # =&gt;This Inner Loop Header: Depth=1
+  addl 4(%rdi,%rcx,4), %eax
+  movl %eax, 4(%rsi,%rcx,4)
+  addl 8(%rdi,%rcx,4), %eax
+  movl %eax, 8(%rsi,%rcx,4)
+  addl 12(%rdi,%rcx,4), %eax
+  movl %eax, 12(%rsi,%rcx,4)
+  addl 16(%rdi,%rcx,4), %eax
+  movl %eax, 16(%rsi,%rcx,4)
+  addl 20(%rdi,%rcx,4), %eax
+  movl %eax, 20(%rsi,%rcx,4)
+  addq $5, %rcx
+  cmpq $255, %rcx
+  jne .LBB0_1
+  retq
+```
+
+''手工实现累加和的时候，参照Clang可以做循环展开，经过验证速度确实有明显提升。即使编译选项中有AVX2指令集，累加和也不会被编译出带AVX2的指令，说明还没有成熟可靠AVX2的累加和实现。''
+</pre>
 </div>
 <div created="20190423062556317" creator="xiaojun" modified="20190423064539448" modifier="xiaojun" tags="生信" title="DNA复制速度">
 <pre>在三代测序里，降低了DNA复制的速度。由这篇PPT可以看出细胞里750bp/s，减速到2bp/s。估计降低速度是为了方便相机曝光拍照，他每个cell里有1M纳米孔(零模波导)，肯定需要高分辨率的相机，再加上复制时光信号微弱，需要更长的曝光时间。如果以750bp/s(1.3ms/bp)，那么至少要以高一倍的频率拍照，也就要1500fps。
