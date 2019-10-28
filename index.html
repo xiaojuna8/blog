@@ -275,6 +275,8 @@ Error message and password prompt
 
 <li>比较各测序平台</li>
 
+<li>并行计算cumsum</li>
+
 <li>布隆过滤器</li>
 
 <li>参考基因组</li>
@@ -457,6 +459,8 @@ Error message and password prompt
 
 <li>https knowledge</li>
 
+<li>Intel CPU后端</li>
+
 <li>Katex</li>
 
 <li>KMC初级使用</li>
@@ -592,7 +596,7 @@ Error message and password prompt
 <pre>auto</pre>
 </div>
 <div created="20180403085107240" creator="xiaojun" modified="20191025070602119" modifier="xiaojun" title="$:/config/TimestampDisable">
-<pre>yes</pre>
+<pre>no</pre>
 </div>
 <div created="20190312042523964" creator="xiaojun" modified="20190312042604114" modifier="xiaojun" title="$:/config/Toolbar/ButtonClass">
 <pre>tc-btn-invisible</pre>
@@ -13895,7 +13899,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20191025070037075" creator="xiaojun" list="CPU指令的延时和吞吐量 常见操作的CPU耗时 [[My Index]] [[New Index]]" modified="20191025070107023" modifier="xiaojun" title="$:/StoryList">
+<div created="20191028071625551" creator="xiaojun" list="并行计算cumsum cumsum实现与循环展开 [[My Index]] [[New Index]]" modified="20191028071625551" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20191015065802630" creator="xiaojun" modified="20191015065802630" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14241,6 +14245,45 @@ f(unsigned long, unsigned long):
 其中三代测序PacBio的数据比较老，已经发生了变化。其测序长度已经达到几十kb，高精度HiFi Reads长度也有几kb。通量也提升了很多。HiFi Reads完全的优于一代测序。
 
 [[PacBio测序fastq]]</pre>
+</div>
+<div created="20191028072018455" creator="xiaojun" modified="20191028073627354" modifier="xiaojun" tags="CPU C++" title="并行计算cumsum">
+<pre>cumsum的功能在[[cumsum实现与循环展开]]中介绍，如何并行计算cumsum？
+
+```
+s0 = x0
+s1 = x0 + x1 = s0 + x1
+s2 = x0 + x1 + x2 = s1 + x2
+...
+s255 = x0 + x1 + ... + x255 = s254 + x255
+```
+
+经过简单的变换可得到
+
+```
+s0 = x0
+s1 = x0 + x1 = s0 + x1
+s2 = x0 + x1 + x2 = s1 + x2
+..
+s127 = x0 + x1 + ... + x127
+s128 = x0 + x1 + ... + x128 = s127 + x128
+s129 = x0 + x1 + ... + x129 = s127 + x128 + x129
+...
+s255 = x0 + x1 + ... + x255 = s127 + x128 + .. x255
+```
+把要计算的结果分成两个部分，虽然前一个数字没计算完成之前，下一个结果无法得到，但是也仅差一个数字而已。
+
+将256个数字分成两组，前半部分正常计算cumsum，后半部分也按照通常方式计算cumsum，这样做后半部分仅与最终结果相差一个常数，这个常数就是前半部分的最后值。
+
+两个部分完成后，再将这个常数并行加到后半部分中。
+
+这样做，虽然计算量增加了50%，但是由于两个任务可以同时并行(数据计算时并不存在前后依赖可独立完成)，总时间可节约25%
+
+任务的并行可以采用多线程/多进程方式。下面介绍的思路是指令级并行的方法。
+
+# 将数组分成前后两个指针，这两个指针是`__restrict`
+# 前后两个指针同时累加，可以进行多路展开
+# 将前半部分最后一个值加到后半边的数组上，这里可用SSE/AVX
+</pre>
 </div>
 <div created="20190612082635358" creator="xiaojun" modified="20190612084754788" modifier="xiaojun" tags="" title="布隆过滤器">
 <pre>可用来快速判断元素是否存在，没有假阴性但是有一定的假阳性。
@@ -16755,6 +16798,14 @@ There is no standard way to find this information. However, some implementations
 &lt;&lt;&lt;
 Everything in the HTTPS message is encrypted, including the headers, and the request/response load.
 &lt;&lt;&lt;
+</pre>
+</div>
+<div created="20191028040610853" creator="xiaojun" modified="20191028040812209" modifier="xiaojun" tags="CPU" title="Intel CPU后端">
+<pre>! Intel Sunny Cove
+
+为了帮助理解X86处理器[[CPU微操作]]，以Intel最新的Sunny Cove架构为例，后端9发射，结果图如下。
+
+[img[https://en.wikichip.org/w/images/thumb/2/2d/sunny_cove_block_diagram.svg/1900px-sunny_cove_block_diagram.svg.png]]
 </pre>
 </div>
 <div created="20180615023100833" creator="xiaojun" modified="20180710102934039" modifier="xiaojun" tags="Latex Katex" title="Katex">
