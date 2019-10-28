@@ -591,8 +591,8 @@ Error message and password prompt
 <div created="20190716014958518" creator="xiaojun" modified="20191016032850066" modifier="xiaojun" title="$:/config/TextEditor/EditorHeight/Mode">
 <pre>auto</pre>
 </div>
-<div created="20180403085107240" creator="xiaojun" modified="20190906014804378" modifier="xiaojun" title="$:/config/TimestampDisable">
-<pre>no</pre>
+<div created="20180403085107240" creator="xiaojun" modified="20191025070602119" modifier="xiaojun" title="$:/config/TimestampDisable">
+<pre>yes</pre>
 </div>
 <div created="20190312042523964" creator="xiaojun" modified="20190312042604114" modifier="xiaojun" title="$:/config/Toolbar/ButtonClass">
 <pre>tc-btn-invisible</pre>
@@ -13895,7 +13895,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="cumsum实现与循环展开" title="$:/StoryList">
+<div created="20191025070037075" creator="xiaojun" list="CPU指令的延时和吞吐量 常见操作的CPU耗时 [[My Index]] [[New Index]]" modified="20191025070107023" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20191015065802630" creator="xiaojun" modified="20191015065802630" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14324,7 +14324,29 @@ The genes range in size from 994 to 41.8 kb for mouse (average length = 7902 bp,
 | SSD I/O | 50–150 μs | 1.5-4d |
 | Rotational disk I/O | 1-10ms | 1-9mounths |
 
-</pre>
+! i7-9700 latency
+主频4.7GHz，周期约0.21ns。
+
+[img[http://teckknow.com/wp-content/uploads/2018/10/MSI-MPG-Z390-Gaming-Pro-Carbon-Core-i7-9700K-AIDA64-Memory.jpg]] 
+
+|type|latency|h
+|L1|4|
+|L2|11|
+|L3|53|
+|Memory|260|
+|int add|1|
+|int mul|4|
+|int div|26|
+|popcnt|3|
+|and or xor|1|
+|float add|4|
+|double add|4|
+|float mul|4|
+|double mul|3|
+|float div|11|
+|double div|14|
+
+多数CPU操作通常和L1速度匹配，除法速度与L2匹配，L3速度慢于绝大部分操作，Memory速度远低于CPU</pre>
 </div>
 <div created="20191015064616337" creator="xiaojun" modified="20191016042409911" modifier="xiaojun" tags="C++" title="常量指针和指针常量">
 <pre>;常量指针
