@@ -225,6 +225,8 @@ Error message and password prompt
 
 <li>$:/temp/password</li>
 
+<li>$:/temp/search</li>
+
 <li>$:/theme</li>
 
 <li>$:/themes/tiddlywiki/centralised</li>
@@ -536,6 +538,8 @@ Error message and password prompt
 <li>RAR format</li>
 
 <li>RAR vint</li>
+
+<li>RAR密码保护的安全性</li>
 
 <li>RefSeq和genbank的数据有什么区别</li>
 
@@ -13901,7 +13905,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="[[man page to html]] [[My Index]] [[New Index]]" title="$:/StoryList">
+<div created="20191115031840133" creator="xiaojun" list="RAR密码保护的安全性 [[My Index]] [[New Index]]" modified="20191115031840133" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20191015065802630" creator="xiaojun" modified="20191015065802630" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -13966,6 +13970,9 @@ Error message and password prompt
 }</pre>
 </div>
 <div created="20191015065834236" creator="xiaojun" modified="20191016032841560" modifier="xiaojun" title="$:/temp/password">
+<pre></pre>
+</div>
+<div created="20191115020136521" creator="xiaojun" modified="20191115031638045" modifier="xiaojun" title="$:/temp/search">
 <pre></pre>
 </div>
 <div created="20180404062403081" creator="xiaojun" modified="20190506023400559" modifier="xiaojun" title="$:/theme">
@@ -17760,6 +17767,56 @@ Variable length integer. Can include one or more bytes, where lower 7 bits of ev
 !! 优点
 # 表示较小数字时有很高的效率
 # 可以表示任意长度数字</pre>
+</div>
+<div created="20191115020054032" creator="xiaojun" modified="20191115032919098" modifier="xiaojun" tags="密码学" title="RAR密码保护的安全性">
+<pre>在[[RAR format]]中提到RAR格式使用PBKDF2+SHA256保护密码，在早先版本的RAR格式使用262144(2^^18^^)次SHA1进行密钥导出，而RAR5使用的PBKDF2轮数也不算很多(2^^16^^)轮。这在当今的机器上都不难进行。
+
+在[[RAR 5.0 密码破解|https://blog.xugr.me/post/rar-crack/]]文章中提到的KDF count就是16，也就是65536次。普通用户在使用RAR的软件并没有提供调整轮数的方法。这就导致了RAR在密码保护方面太弱，如果用户使用的密码比较简单(比如8位纯数字)
+
+使用`hashcat`工具就可以进行RAR密码破解
+
+
+```
+hashcat (v5.1.0) starting in benchmark mode...
+
+Benchmarking uses hand-optimized kernel code by default.
+You can use it in your cracking session by setting the -O option.
+Note: Using optimized kernel code limits the maximum supported password length.
+To disable the optimized kernel code in benchmark mode, use the -w option.
+
+OpenCL Platform #1: Apple
+=========================
+* Device #1: Intel(R) Core(TM) i5-7400 CPU @ 3.00GHz, skipped.
+* Device #2: AMD Radeon Pro 555 Compute Engine, 512/2048 MB allocatable, 12MCU
+
+Benchmark relevant options:
+===========================
+* --optimized-kernel-enable
+
+Hashmode: 13000 - RAR5 (Iterations: 32767)
+
+Speed.#2.........:     4098 H/s (84.49ms) @ Accel:128 Loops:32 Thr:256 Vec:1
+
+Started: Fri Nov 15 10:51:25 2019
+Stopped: Fri Nov 15 10:51:39 2019
+```
+
+在iMac2017上每秒可尝试4098个RAR密码，破解8位纯数字密码约60多小时，若使用当前最高级的GPU RTX2080，每秒可尝试66824密码，破解8位纯数字RAR密码只要4小时。
+
+作为对比，看bcrypt仅在参数为`$2a$05$`的最基础模式下，每秒尝试18485次，如果当参数上调到12，那么每秒尝试次数迅速下降到4-5次，即使使用多路GPU，尝试速度也不会超过100. 所以只要不是特别简单的密码，使用12轮BCrypt比RAR5安全性高上万倍(66824/5)
+
+另外，使用RTX2080每秒可尝试7zip密码16201次，Winzip密码1544次，安全性都不如12轮BCrypt。
+
+
+```
+MODE: 3200
+TYPE: bcrypt $2*$, Blowfish (Unix)
+HASH: $2a$05$MBCzKhG1KhezLh.0LRa0Kuw12nLJtpHy6DIaU.JAnqJUDYspHC.Ou
+PASS: hashcat
+```
+
+---
+所有的密码都不能防止被暴力破解，10位以上随机高强度密码最安全。即使只用MD5存储，那么破解也需要1年。如果密码很简单，那么破解也很容易。如果使用的密码恰好在字典中，使用合理的密钥导出算法就能较好的保护不被破解。</pre>
 </div>
 <div created="20190412072231636" creator="xiaojun" modified="20190412072546362" modifier="xiaojun" tags="生信" title="RefSeq和genbank的数据有什么区别">
 <pre>genbank是一个开放的数据库，对每个基因都含有许多序列。很多研究者或者公司都可以自己提交序列。
