@@ -273,6 +273,8 @@ Error message and password prompt
 
 <li>1password原理</li>
 
+<li>32位整数除法</li>
+
 <li>32bit vs 64bit CPU</li>
 
 <li>比较各测序平台</li>
@@ -13905,7 +13907,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20191115031840133" creator="xiaojun" list="RAR密码保护的安全性 [[My Index]] [[New Index]]" modified="20191115031840133" modifier="xiaojun" title="$:/StoryList">
+<div list="32位整数除法 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20191015065802630" creator="xiaojun" modified="20191015065802630" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14217,6 +14219,18 @@ Secret Key保存在用户的客户端程序中，同时也有一份打印出来�
 对比其他，同等条件下1password每秒尝试密码数量最少。但是也达到了每秒可尝试几千个密码。
 
 [img width=512 [https://blog.elcomsoft.com/wp-content/uploads/2017/08/1p_new-1024x460.png]]</pre>
+</div>
+<div created="20191121061514571" creator="xiaojun" modified="20191121063105516" modifier="xiaojun" tags="编译 C++" title="32位整数除法">
+<pre>在很多应用中需要进行整数的除法计算，但是CPU整数的除法指令通常需要几十个周期，比逻辑运算和加法乘法都慢。
+
+有几种情况的除法指令可以被优化。
+
+# 如果除数是编译期常数，那么编译期会进行优化，比如除以2就被优化成右移，`uint32`除以3可以优化为乘以`0xAAAAAAAB`再右移33位。
+
+# 如果除数是运行期常数，可以采用`libdivide`进行优化，将编译期优化的手段放到运行期。
+
+# 短整数的除法可以用浮点数替代，比如两个无符号32位整数除法可用两个double类型除法替代(在x86 CPU上整数除法相对于浮点除法慢太多，即使考虑到转换指令，也能更快计算)。参考[[Fast exact integer divisions using floating-point operations|https://lemire.me/blog/2017/11/16/fast-exact-integer-divisions-using-floating-point-operations/]]
+</pre>
 </div>
 <div created="20190708024226596" creator="xiaojun" modified="20190708024509862" modifier="xiaojun" tags="CPU" title="32bit vs 64bit CPU">
 <pre>64位CPU可一次性处理长度64bit的数据，而32位CPU一次只能处理32bit，如果需要处理64bit的话，需要调用多条指令。
