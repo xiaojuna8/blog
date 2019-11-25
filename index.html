@@ -13907,7 +13907,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div list="32位整数除法 [[My Index]] [[New Index]]" title="$:/StoryList">
+<div created="20191125033025068" creator="xiaojun" list="32位整数除法 [[My Index]] [[New Index]]" modified="20191125033025068" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20191015065802630" creator="xiaojun" modified="20191015065802630" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14220,7 +14220,7 @@ Secret Key保存在用户的客户端程序中，同时也有一份打印出来�
 
 [img width=512 [https://blog.elcomsoft.com/wp-content/uploads/2017/08/1p_new-1024x460.png]]</pre>
 </div>
-<div created="20191121061514571" creator="xiaojun" modified="20191121063105516" modifier="xiaojun" tags="编译 C++" title="32位整数除法">
+<div created="20191121061514571" creator="xiaojun" modified="20191125033628308" modifier="xiaojun" tags="编译 C++" title="32位整数除法">
 <pre>在很多应用中需要进行整数的除法计算，但是CPU整数的除法指令通常需要几十个周期，比逻辑运算和加法乘法都慢。
 
 有几种情况的除法指令可以被优化。
@@ -14230,6 +14230,18 @@ Secret Key保存在用户的客户端程序中，同时也有一份打印出来�
 # 如果除数是运行期常数，可以采用`libdivide`进行优化，将编译期优化的手段放到运行期。
 
 # 短整数的除法可以用浮点数替代，比如两个无符号32位整数除法可用两个double类型除法替代(在x86 CPU上整数除法相对于浮点除法慢太多，即使考虑到转换指令，也能更快计算)。参考[[Fast exact integer divisions using floating-point operations|https://lemire.me/blog/2017/11/16/fast-exact-integer-divisions-using-floating-point-operations/]]
+
+需要注意的一点，两个uint32相除，如果被除数是运行期常数，比如d/c，其中c是运行期常数，那么不能提前计算好c的倒数，然后让d乘以1/c。因为在浮点运算中`d/c != d * (1.0/c)`，存在舍入误差。
+
+举例说明
+
+```
+2482818240/196 = 12667440
+1.0/196 ～= 0.0051020408163265302
+2482818240 * 0.0051020408163265302 ～= 12667439.999999998976470848
+舍入后12667439，与正确值不同
+```
+
 </pre>
 </div>
 <div created="20190708024226596" creator="xiaojun" modified="20190708024509862" modifier="xiaojun" tags="CPU" title="32bit vs 64bit CPU">
