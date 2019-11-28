@@ -13911,7 +13911,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20191128073550853" creator="xiaojun" list="openssl密钥导出 openssl加密文件 [[My Index]] [[New Index]]" modified="20191128073550853" modifier="xiaojun" title="$:/StoryList">
+<div created="20191128082451711" creator="xiaojun" list="openssl密钥导出 [[My Index]] [[New Index]]" modified="20191128082451711" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20191015065802630" creator="xiaojun" modified="20191015065802630" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -17651,10 +17651,15 @@ To decrypt:
 ! 完整性校验
 需要将文件解密完成后再判断完整性。</pre>
 </div>
-<div created="20191128073624685" creator="xiaojun" modified="20191128075213221" modifier="xiaojun" tags="openssl 密码学" title="openssl密钥导出">
+<div created="20191128073624685" creator="xiaojun" modified="20191128082952917" modifier="xiaojun" tags="openssl 密码学" title="openssl密钥导出">
 <pre>在[[openssl加密文件]]中介绍了如何使用openssl对文件进行加密操作，通常都是交互输入密码，然后在进行加密。那么从密码得到密钥的KDF是什么算法呢？
 
 从[[What are KDF parameters in OpenSSL command-line utility for `enc`?|https://crypto.stackexchange.com/questions/36981/what-are-kdf-parameters-in-openssl-command-line-utility-for-enc]]中可知，openssl使用的是自己专有的导出函数，算法本身是安全的，问题是迭代次数设置为1，也就是说从密码到密钥仅仅计算了很少，估计跟MD5/SHA等计算量相似。这样导致每秒可以进行上百万次的尝试，弱密码会很快攻破。所以''使用openssl命令行工具的加密功能是不够安全的''。相当于在贵重物品外边包了一层木箱，能挡住好人，但防不住有暴力工具的坏人。
+
+---
+update:在openssl1.1.1版本中增加了-pbkdf2和-iter参数，可以使用更加安全的密钥导出方式。问题是解密的时候也需要有-pbkdf2参数，-iter可以省略。可以参考[[cryptr|https://github.com/nodesocket/cryptr/blob/master/cryptr.bash]]的调用方法。
+
+在[[OpenSSL 1.1.1b warning: Using -iter or -pbkdf2 would be better while decrypting a file encrypted using OpenSSL 1.1.0g|https://unix.stackexchange.com/questions/507131/openssl-1-1-1b-warning-using-iter-or-pbkdf2-would-be-better-while-decrypting]]中提到了从1.1.1版本开始有这个功能。
 
 ! openssl加密文件/数据流
 
