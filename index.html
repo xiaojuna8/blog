@@ -529,6 +529,8 @@ Error message and password prompt
 
 <li>openssl加密文件</li>
 
+<li>openssl密钥导出</li>
+
 <li>PacBio测序fastq</li>
 
 <li>Process PID</li>
@@ -13909,7 +13911,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20191128032433558" creator="xiaojun" list="基数估计原理 基数估计 [[My Index]] [[New Index]]" modified="20191128032433558" modifier="xiaojun" title="$:/StoryList">
+<div created="20191128073550853" creator="xiaojun" list="openssl密钥导出 openssl加密文件 [[My Index]] [[New Index]]" modified="20191128073550853" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20191015065802630" creator="xiaojun" modified="20191015065802630" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -13976,7 +13978,7 @@ Error message and password prompt
 <div created="20191015065834236" creator="xiaojun" modified="20191016032841560" modifier="xiaojun" title="$:/temp/password">
 <pre></pre>
 </div>
-<div created="20191115020136521" creator="xiaojun" modified="20191115031638045" modifier="xiaojun" title="$:/temp/search">
+<div created="20191115020136521" creator="xiaojun" modified="20191128073626584" modifier="xiaojun" title="$:/temp/search">
 <pre></pre>
 </div>
 <div created="20180404062403081" creator="xiaojun" modified="20190506023400559" modifier="xiaojun" title="$:/theme">
@@ -17648,6 +17650,15 @@ To decrypt:
 
 ! 完整性校验
 需要将文件解密完成后再判断完整性。</pre>
+</div>
+<div created="20191128073624685" creator="xiaojun" modified="20191128075213221" modifier="xiaojun" tags="openssl 密码学" title="openssl密钥导出">
+<pre>在[[openssl加密文件]]中介绍了如何使用openssl对文件进行加密操作，通常都是交互输入密码，然后在进行加密。那么从密码得到密钥的KDF是什么算法呢？
+
+从[[What are KDF parameters in OpenSSL command-line utility for `enc`?|https://crypto.stackexchange.com/questions/36981/what-are-kdf-parameters-in-openssl-command-line-utility-for-enc]]中可知，openssl使用的是自己专有的导出函数，算法本身是安全的，问题是迭代次数设置为1，也就是说从密码到密钥仅仅计算了很少，估计跟MD5/SHA等计算量相似。这样导致每秒可以进行上百万次的尝试，弱密码会很快攻破。所以''使用openssl命令行工具的加密功能是不够安全的''。相当于在贵重物品外边包了一层木箱，能挡住好人，但防不住有暴力工具的坏人。
+
+! openssl加密文件/数据流
+
+如果不想交互输入密码，在命令行中可使用`-k`来指定密码。如果没有`-in`参数则从stdin中读取数据，如果没有`-out`参数则从stdout输出数据。</pre>
 </div>
 <div created="20190428022507695" creator="xiaojun" modified="20190428071404923" modifier="xiaojun" tags="生信" title="PacBio测序fastq">
 <pre>可以从 http://datasets.pacb.com/2014/Human54x/fasta.html 下载到PacBio的测序结果。
