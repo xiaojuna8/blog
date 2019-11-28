@@ -307,6 +307,8 @@ Error message and password prompt
 
 <li>基数估计</li>
 
+<li>基数估计原理</li>
+
 <li>基数排序</li>
 
 <li>假阳性假阴性判断</li>
@@ -13907,7 +13909,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20191125033025068" creator="xiaojun" list="32位整数除法 [[My Index]] [[New Index]]" modified="20191125033025068" modifier="xiaojun" title="$:/StoryList">
+<div created="20191128032433558" creator="xiaojun" list="基数估计原理 基数估计 [[My Index]] [[New Index]]" modified="20191128032433558" modifier="xiaojun" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20191015065802630" creator="xiaojun" modified="20191015065802630" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -14660,6 +14662,15 @@ $$
 ---
 
 在编程中，求最低位的1的位置叫做`find first set`简称`ffs`，很多CPU中有这样的指令，编译器中也提供了这样的内置函数，比如GCC中`__builtin_ffs`，MSVC中`_BitScanReverse`</pre>
+</div>
+<div created="20191128032535200" creator="xiaojun" modified="20191128033657471" modifier="xiaojun" tags="概率 密码学" title="基数估计原理">
+<pre>在之前写过一篇关于使用HyperLogLog的记录文章，[[基数估计]]，写到了如何使用该方法，这里再补充一点理解。
+
+参考文章[[探索HyperLogLog算法（含Java实现）| https://www.jianshu.com/p/55defda6dcd2]]
+
+对每个元素计算哈希值，比如CityHash或者其他高速高质量哈希函数。得到的哈希值可看作随机的01比特序列，比如从低位往高位看。如果是`0001...`这样的那么3个0连续出现的概率就是$$(1/2)^3 = 1/8$$，也就是说观察到这种序列需要8次实验。这也就是当观察到M个0，那么估计元素基数为$$2^M$$。
+
+分桶这个思想比较容易理解，多次测量求平均。修正系数可能与概率论有关，没有深入学习。</pre>
 </div>
 <div created="20190828071236859" creator="xiaojun" modified="20190828072630056" modifier="xiaojun" tags="排序" title="基数排序">
 <pre>`基数排序`是一种非比较型的排序算法，对于基本类型(int32,int64等)排序，拥有比`std::sort`更好的速度。
