@@ -389,6 +389,8 @@ Error message and password prompt
 
 <li>C++11 auto</li>
 
+<li>C++多线程锁住多个互斥量</li>
+
 <li>C++函数模板特化导致的多重定义链接错误</li>
 
 <li>C++逐行读取文件</li>
@@ -13911,7 +13913,7 @@ Error message and password prompt
 <div created="20180409035803283" creator="x" modified="20180409035808728" modifier="xiaoju" title="$:/status/UserName">
 <pre>xiaojun</pre>
 </div>
-<div created="20191128082451711" creator="xiaojun" list="openssl密钥导出 [[My Index]] [[New Index]]" modified="20191128082451711" modifier="xiaojun" title="$:/StoryList">
+<div list="C++多线程锁住多个互斥量 [[My Index]] [[New Index]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20191015065802630" creator="xiaojun" modified="20191015065802630" modifier="xiaojun" title="$:/temp/HidePluginWarning">
@@ -15707,6 +15709,38 @@ shall hold for all values of n such that 0 &lt;= n &lt; s.size().
 </div>
 <div created="20180912090136773" creator="xiaojun" modified="20180912090318157" modifier="xiaojun" tags="C++" title="C++11 auto">
 <pre>`auto`关键字在有必要时使用，比如迭代器类型，或者其他很长的类型。否则不利于代码阅读。</pre>
+</div>
+<div created="20191203035013809" creator="xiaojun" modified="20191203040135682" modifier="xiaojun" tags="C++ 多线程" title="C++多线程锁住多个互斥量">
+<pre>如果有个银行系统，里面有多个账户，Alice和Bob同时互相进行转账。
+
+Alice尝试锁住自己的账户余额，并且尝试锁住Bob的账户余额。同样Bob尝试锁住自己的账户余额，并且尝试锁住对方余额。如果发生的巧合，可能双方都锁住了自己的余额，但都不能锁住对方的余额，导致死锁发生。
+
+如果能原子性的锁住两个互斥量，那么就能避免此类情况。C++11中可以用`&lt;mutex&gt; std::lock`实现，C++17中还可以用`&lt;mutex&gt; std::scoped_lock`更加方便的实现。
+
+
+```cpp
+
+#include&lt;mutex&gt;
+std::mutex mtx1, mtx2;
+
+// C++17
+void foo()
+{
+    std::scoped_lock lck{mtx1, mtx2};
+    // proceed
+}
+
+// C++11
+void bar()
+{
+    std::lock(mtx1, mtx2);
+    std::lock_guard&lt;std::mutex&gt; lk1(mtx1, std::adopt_lock);
+    std::lock_guard&lt;std::mutex&gt; lk2(mtx2, std::adopt_lock);
+    // proceed
+}
+```
+
+明显看出，使用C++17实现的更加方便。</pre>
 </div>
 <div created="20180409012154509" modified="20180409015545366" tags="链接 编译 C++" title="C++函数模板特化导致的多重定义链接错误">
 <pre>[ext[参考原文|http://www.voidcn.com/article/p-rgfbajez-ke.html]] | [ext[参考|http://www.doocr.com/articles/58a874ac8d4f1f3990989f36]] |
